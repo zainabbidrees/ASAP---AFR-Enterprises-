@@ -88,7 +88,7 @@ const EDGE = [
 ];
 
 // Leadership — real named people, shown one at a time by <LeadershipShowcase />.
-// TODO (client to confirm): Ryan Aggergaard's job title and both bios are
+// Titles are client-confirmed. TODO (client to confirm): both bios are still
 // placeholders written in AFR's voice — replace with copy the company approves
 // before this page goes live.
 const LEADERSHIP = [
@@ -102,9 +102,9 @@ const LEADERSHIP = [
   {
     slug: "ryan",
     name: "Ryan Aggergaard",
-    role: "President",
+    role: "Chief Legal Officer",
     photo: "/photos/leadership/ryan-aggergaard.jpg",
-    bio: "Runs day-to-day operations across sourcing, quality and fulfillment — and owns the answer until the part is on your dock.",
+    bio: "Owns contracts, export control and compliance — the reason an ITAR-controlled order moves without a surprise at the border.",
   },
 ];
 
