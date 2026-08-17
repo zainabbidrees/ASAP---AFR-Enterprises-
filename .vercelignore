@@ -1,0 +1,12 @@
+# Never upload the raw photo library (~1.1GB of full-resolution originals).
+# Only the optimised derivatives under /public are needed to serve the site.
+_photos-source/
+
+# Local build output and deps — Vercel installs and builds these itself.
+node_modules/
+.next/
+
+# Working references, not part of the deployed app.
+_static-reference/
+.extract-design-system/
+.claude/
