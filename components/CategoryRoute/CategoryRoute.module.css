@@ -1,0 +1,31 @@
+.layout { display: grid; grid-template-columns: 1fr 320px; gap: 40px; align-items: start; }
+.main { min-width: 0; }
+.intro { color: #444; }
+
+/* Letter-index category grid */
+.catGrid {
+  list-style: none; margin: 24px 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px 24px;
+}
+.catGrid li { border-top: 1px solid var(--line); }
+.catGrid a { display: block; padding: 10px 0; font-size: 13.5px; color: var(--navy); }
+.catGrid a:hover { color: var(--ink); }
+
+/* Letter pager along the bottom */
+.letterNav { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 32px; }
+.letterLink, .letterActive {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 38px; height: 34px; padding: 0 10px;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  font-size: 13px; font-weight: 700; color: var(--navy); text-transform: uppercase;
+}
+.letterLink:hover { background: var(--bg-alt); text-decoration: none; }
+.letterActive { background: var(--red); border-color: var(--red); color: #fff; }
+
+@media (max-width: 992px) {
+  .layout { grid-template-columns: 1fr; }
+  .catGrid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 620px) {
+  .catGrid { grid-template-columns: 1fr; }
+}

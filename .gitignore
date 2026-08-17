@@ -1,0 +1,31 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# env
+.env*.local
+
+# editor
+.vscode
+.idea
+
+# Raw photo library (~1.1GB of full-resolution originals from the facility shoot).
+# Deliberately not versioned: the optimised derivatives the site actually serves
+# live in /public/photos and /public/logos. Keep the originals in cloud storage,
+# or add them with Git LFS if they ever need to be tracked.
+/_photos-source/

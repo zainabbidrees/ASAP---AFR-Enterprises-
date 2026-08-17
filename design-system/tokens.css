@@ -1,0 +1,24 @@
+:root {
+  --font-heading: suisse;
+  --font-body: suisse;
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 6px;
+  --space-4: 8px;
+  --space-5: 10px;
+  --space-6: 12px;
+  --space-7: 14px;
+  --space-8: 16px;
+  --space-9: 20px;
+  --space-10: 24px;
+  --space-11: 28px;
+  --space-12: 32px;
+  --space-13: 40px;
+  --space-14: 48px;
+  --space-15: 56px;
+  --space-16: 64px;
+  --space-17: 80px;
+  --space-18: 96px;
+  --space-19: 112px;
+  --space-20: 128px;
+}

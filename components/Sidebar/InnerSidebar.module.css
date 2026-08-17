@@ -1,0 +1,26 @@
+.sidebar { display: flex; flex-direction: column; gap: 24px; }
+
+.boxHead { background: var(--red); color: #fff; font-size: 17px; font-weight: var(--heading-weight); margin: 0; padding: 12px 18px; }
+
+/* RFQ widget */
+.rfqBox { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.rfqForm { padding: 18px; display: flex; flex-direction: column; gap: 16px; }
+.rfqForm input { border: 0; border-bottom: 1px solid var(--line); padding: 10px 2px; font-size: 14px; outline: none; }
+.rfqForm input:focus { border-bottom-color: var(--red); }
+.rfqForm button { justify-content: center; margin-top: 4px; }
+
+/* Browse By Categories accordion */
+.browseBox { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.accordion { border-bottom: 1px solid var(--line); }
+.accordion:last-child { border-bottom: 0; }
+.accHead {
+  width: 100%; display: flex; justify-content: space-between; align-items: center;
+  background: #fff; border: 0; cursor: pointer; padding: 14px 18px;
+  font-size: 15px; font-weight: var(--heading-weight); color: var(--ink); text-align: left;
+}
+.accHead[aria-expanded="true"] { background: var(--bg-alt); }
+.accList { padding: 4px 18px 16px; display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.accList li { width: calc(50% - 7px); }
+.accList a { font-size: 13px; color: var(--navy); }
+
+/* Certifications block lives in <CertBadges /> (components/Certs). */

@@ -1,0 +1,139 @@
+/* Footer — editorial monochrome, dark. Refined columns, real payment/social
+   logos, and an oversized wordmark that fades in and clips at the base. */
+.footer {
+  position: relative;
+  background: var(--dark);
+  color: rgba(255, 255, 255, 0.66);
+  overflow: hidden;
+}
+
+/* ---- Columns ---- */
+.grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.2fr 1fr;
+  gap: clamp(28px, 4vw, 64px);
+  /* vertical-only longhands so the shared .container side gutters aren't reset to 0 */
+  padding-top: clamp(56px, 6vw, 88px);
+  padding-bottom: clamp(40px, 4vw, 56px);
+}
+.head {
+  font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0 0 18px;
+}
+.col h3.head:not(:first-child), .contact h3.head:not(:first-child) { margin-top: 30px; }
+
+.links { display: flex; flex-direction: column; gap: 11px; }
+.links a, .address a { color: rgba(255, 255, 255, 0.7); font-size: 14px; transition: color 0.2s var(--ease); }
+.links a { position: relative; width: fit-content; }
+.links a:hover, .address a:hover { color: #fff; text-decoration: none; }
+
+/* Contact */
+.address { font-style: normal; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 12px; }
+.address p { margin: 0; display: flex; gap: 11px; align-items: flex-start; }
+.ai { flex-shrink: 0; width: 18px; height: 18px; color: rgba(255, 255, 255, 0.5); margin-top: 1px; }
+.ai svg { width: 18px; height: 18px; }
+
+.survey {
+  margin-top: 28px; padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.03);
+}
+.surveyTitle { color: #fff; font-size: 15px; margin: 0 0 8px; font-weight: 500; }
+.survey p { font-size: 13px; line-height: 1.55; margin: 0 0 16px; color: rgba(255, 255, 255, 0.6); }
+.surveyBtn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; color: var(--ink);
+  padding: 10px 18px; border-radius: var(--radius-pill);
+  font-size: 13px; font-weight: 500;
+  transition: transform 0.2s var(--ease), background 0.2s var(--ease);
+}
+.surveyBtn span { transition: transform 0.2s var(--ease); }
+.surveyBtn:hover { text-decoration: none; transform: translateY(-1px); background: var(--surface); }
+.surveyBtn:hover span { transform: translateX(3px); }
+
+/* ---- Payment chips ---- */
+.pay { display: flex; flex-wrap: wrap; gap: 8px; }
+.payChip {
+  height: 34px; min-width: 52px; padding: 0 10px;
+  background: #fff; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+.visa { color: #1434cb; font-weight: 800; font-style: italic; font-size: 15px; letter-spacing: 0.5px; }
+.mc { width: 38px; height: 24px; display: block; }
+.amex { color: #006fcf; font-weight: 800; font-size: 13px; letter-spacing: 0.3px; }
+.disc { color: #111; font-weight: 800; font-size: 11px; letter-spacing: 0.2px; display: inline-flex; align-items: center; }
+.discBall { width: 7px; height: 7px; border-radius: 50%; background: #f27712; display: inline-block; margin: 0 1px; }
+
+/* ---- Social icon buttons ---- */
+.social { display: flex; gap: 10px; }
+.iconBtn {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center;
+  color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  transition: background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.iconBtn svg { width: 19px; height: 19px; }
+.iconBtn:hover { background: #fff; color: var(--ink); border-color: #fff; transform: translateY(-2px); text-decoration: none; }
+
+/* ---- Extension pills ---- */
+.ext { display: flex; flex-wrap: wrap; gap: 8px; }
+.extPill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 8px 14px; border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.8); font-size: 13px; font-weight: 500;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.extPill:hover { background: #fff; color: var(--ink); border-color: #fff; text-decoration: none; }
+
+/* ---- Legal ---- */
+.legal { border-top: 1px solid rgba(255, 255, 255, 0.1); padding: 24px 0 28px; }
+.legalInner { display: flex; flex-direction: column; gap: 10px; }
+.disclaimer { margin: 0; font-size: 11px; line-height: 1.6; color: rgba(255, 255, 255, 0.38); max-width: 92ch; }
+.copy { margin: 0; font-size: 12px; color: rgba(255, 255, 255, 0.55); }
+
+/* ---- Oversized wordmark ---- */
+.wordmarkWrap {
+  position: relative;
+  height: clamp(90px, 12vw, 200px);
+  display: flex; align-items: flex-end; justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+.wordmark {
+  display: block;
+  white-space: nowrap;
+  font-weight: 800;
+  /* Sized so the full "AFR ENTERPRISES" fits within the viewport at every width
+     (text width ≈ 8.4× font-size) — no ends clipped by the wrapper's overflow. */
+  font-size: clamp(28px, 11vw, 230px);
+  max-width: 100%;
+  line-height: 0.78;              /* pull the baseline down so glyphs clip at the base */
+  letter-spacing: -0.03em;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.015));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transform: translateY(16%);
+  opacity: 0;
+  animation: wordmarkIn 1.8s var(--ease) 0.2s forwards;
+}
+@keyframes wordmarkIn { to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .wordmark { animation: none; opacity: 1; }
+  .surveyBtn, .iconBtn, .extPill { transition: none; }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 992px) {
+  .grid { grid-template-columns: 1fr 1fr; gap: 36px 32px; }
+}
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,16 @@
+/* Homepage page-level styles.
+   The redesigned homepage composes one component per blueprint zone, and each
+   section owns its styling in its colocated module under components/home/. */
+
+/* Everything below the Hero is wrapped in one opaque layer.
+   The Hero is `position: sticky` (a positioned element), so any section that
+   overlaps its pinned area needs to paint ABOVE it — otherwise the hero bleeds
+   through. Rather than rely on all 11 sections each declaring position/z-index,
+   this single wrapper forms one solid layer above the pinned hero, which also
+   preserves the intended scroll-reveal (the wrapper slides up over the hero and
+   re-reveals it on scroll-up). */
+.content {
+  position: relative;
+  z-index: 1;
+  background: var(--bg);
+}

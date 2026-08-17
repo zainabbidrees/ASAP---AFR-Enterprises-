@@ -1,0 +1,54 @@
+/* Scroll-linked instrument route. All white; mix-blend-mode: difference lets the
+   one thread read correctly over both light and dark sections. */
+.spine {
+  position: fixed; left: clamp(18px, 2.4vw, 38px); top: 104px; bottom: 100px;
+  width: 40px; z-index: 20; pointer-events: none; mix-blend-mode: difference;
+}
+/* faint full-length route */
+.spine::before {
+  content: ""; position: absolute; left: 8px; top: 0; bottom: 0; width: 1px;
+  background: rgba(255, 255, 255, 0.20);
+}
+/* solid line that draws in behind the reticle */
+.fill {
+  position: absolute; left: 8px; top: 0; width: 1px; height: 100%;
+  background: #fff; transform: scaleY(0); transform-origin: top;
+}
+/* waypoint nodes — hollow until the reticle reaches them */
+.stop {
+  position: absolute; left: 8px; top: calc(var(--pct) * 100%);
+  width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.55); background: transparent;
+}
+/* reticle: dot + perpetual pulse ring + a measurement tick reading off the side */
+.head {
+  position: absolute; left: 8px; top: 0; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%; background: #fff;
+}
+.head::before {
+  content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 1px solid #fff;
+}
+.head::after {
+  content: ""; position: absolute; left: 13px; top: 50%; width: 16px; height: 1px;
+  background: rgba(255, 255, 255, 0.5); transform: translateY(-50%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .fill { animation: fillGrow linear both; animation-timeline: scroll(root block); }
+    .head { animation: headTravel linear both; animation-timeline: scroll(root block); }
+    .head::before { animation: reticlePulse 2.4s ease-out infinite; }
+    .stop {
+      animation: stopLight linear both; animation-timeline: scroll(root block);
+      animation-range: calc(var(--pct) * 100% - 7%) calc(var(--pct) * 100%);
+    }
+  }
+}
+/* No scroll-timeline support → don't leave a dead static instrument. */
+@supports not (animation-timeline: scroll()) { .spine { display: none; } }
+@media (max-width: 1024px) { .spine { display: none; } }
+
+@keyframes fillGrow { to { transform: scaleY(1); } }
+@keyframes headTravel { to { transform: translateY(calc(100vh - 204px - 9px)); } }
+@keyframes reticlePulse { 0% { transform: scale(0.7); opacity: 0.7; } 70% { opacity: 0; } 100% { transform: scale(2.1); opacity: 0; } }
+@keyframes stopLight { 40% { transform: scale(1.7); } to { background: #fff; border-color: #fff; transform: scale(1); } }

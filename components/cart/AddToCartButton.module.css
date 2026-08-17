@@ -1,0 +1,29 @@
+/* Per-row cart button. Sits beside the red RFQ button in the listing tables, so
+   it stays the quieter of the two: outlined rather than filled, same height. */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+  padding: 4px 11px;
+  background: var(--paper); color: var(--ink);
+  border: 1px solid var(--line-2); border-radius: var(--radius);
+  font-family: inherit; font-size: 12px; font-weight: 700; line-height: 1.5;
+  white-space: nowrap; cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+.btn:hover { border-color: var(--ink); background: var(--surface); }
+.btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.icon { display: inline-flex; }
+.icon svg { width: 13px; height: 13px; }
+
+/* Staged confirmation, then the resting "in cart" state. */
+.btn[data-state="added"] {
+  border-color: var(--ink); background: var(--ink); color: #fff;
+}
+.btn[data-state="in"] {
+  border-color: var(--line-2); background: var(--surface); color: var(--muted);
+}
+.btn[data-state="in"]:hover { border-color: var(--ink); color: var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}

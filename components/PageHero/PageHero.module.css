@@ -1,0 +1,71 @@
+/* PageHero — shared interior-page header. Dark band, no imagery, and kept
+   deliberately short so it reads as an inner page rather than a second homepage
+   hero. Same composition as <FinalCta />, so a page opens and closes alike. */
+.hero {
+  background: var(--dark);
+  color: var(--on-dark);
+  padding: clamp(56px, 6vw, 92px) 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.inner {
+  max-width: 820px;
+  animation: heroRise 0.6s var(--ease) both;
+}
+
+/* Outlined pill — the FinalCta badge shape. */
+.eyebrow {
+  display: inline-block;
+  font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--on-dark-muted); margin: 0 0 24px;
+  padding: 8px 16px; border: 1px solid var(--line-inv); border-radius: var(--radius-pill);
+}
+
+/* Sized to hold the two authored lines without a third wrap. */
+.title {
+  font-size: clamp(32px, 4vw, 58px);
+  line-height: 1.07; letter-spacing: -0.038em;
+  font-weight: 600; color: #fff; margin: 0;
+}
+.title em { font-style: normal; color: rgba(255, 255, 255, 0.5); }
+
+/* Lifted off --on-dark-muted (60% white) — at this size it read washed out on
+   the near-black band. */
+.lede {
+  font-size: 17px; color: rgba(255, 255, 255, 0.74); line-height: 1.62;
+  max-width: 60ch; margin: 20px auto 0;
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+  margin-top: 34px;
+}
+.primary, .ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 15px 28px; border-radius: var(--radius-pill);
+  font-size: 15px; font-weight: 500; line-height: 1;
+  border: 1px solid transparent;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease),
+              border-color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.primary { background: #fff; color: var(--ink); border-color: #fff; }
+.primary:hover { text-decoration: none; background: var(--surface); transform: translateY(-1px); }
+.ghost { background: transparent; color: #fff; border-color: var(--line-inv); }
+.ghost:hover { text-decoration: none; border-color: #fff; background: rgba(255, 255, 255, 0.06); }
+
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 520px) {
+  .actions { flex-direction: column; }
+  .primary, .ghost { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inner { animation: none; }
+  .primary, .ghost { transition: none; }
+}

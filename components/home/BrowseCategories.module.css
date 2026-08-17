@@ -1,0 +1,18 @@
+.inner { display: grid; grid-template-columns: 320px 1fr; gap: 30px; align-items: center; }
+.content { min-width: 0; }
+.tabs { display: flex; gap: 24px; border-bottom: 1px solid var(--line); margin-bottom: 22px; flex-wrap: wrap; }
+.tab { background: none; border: 0; padding: 10px 0; font-size: 15px; font-weight: 700; color: var(--muted); cursor: pointer; border-bottom: 3px solid transparent; }
+.tabActive { color: var(--red); border-bottom-color: var(--red); }
+
+.carousel { display: flex; align-items: center; gap: 10px; }
+.list { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; flex: 1; }
+.list li a { display: block; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; text-align: center; font-size: 13px; font-weight: 600; color: var(--ink); }
+.list li a:hover { border-color: var(--red); text-decoration: none; }
+
+@media (max-width: 992px) {
+  .inner { grid-template-columns: 1fr; }
+  .list { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 560px) {
+  .list { grid-template-columns: 1fr; }
+}

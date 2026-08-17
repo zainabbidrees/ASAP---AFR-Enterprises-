@@ -1,0 +1,47 @@
+.layout { display: grid; grid-template-columns: 1fr 320px; gap: 40px; align-items: start; }
+.main { min-width: 0; }
+
+.intro { color: #444; }
+.blockTitle { font-size: 18px; font-weight: var(--heading-weight); color: var(--navy); margin: 24px 0 10px; }
+.bullets { padding-left: 20px; list-style: disc; display: flex; flex-direction: column; gap: 8px; }
+.bullets li { color: #444; }
+.bullets strong { color: var(--ink); }
+
+/* Pagination */
+.pager { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin: 24px 0 16px; }
+.displaying { font-size: 13px; font-weight: 700; color: var(--muted); }
+.pages { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.page, .pageArrow {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 32px;
+  border: 1px solid var(--line); color: var(--navy); border-radius: var(--radius); font-size: 13px; font-weight: 700; padding: 0 8px;
+}
+.page:hover, .pageArrow:hover { background: var(--bg-alt); text-decoration: none; }
+.pageActive { background: var(--red); color: #fff; border-color: var(--red); }
+.pageArrow { color: var(--muted); }
+
+/* Parts table */
+.tableWrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); font-size: 13px; }
+.table thead th { background: var(--navy); color: #fff; text-align: left; padding: 11px 14px; font-size: 13px; white-space: nowrap; }
+.table tbody td { padding: 9px 14px; border-top: 1px solid #eef0f3; vertical-align: middle; }
+.table tbody tr:hover { background: var(--bg-alt); }
+.partLink { color: var(--navy); font-weight: 700; }
+.cap { text-transform: capitalize; color: #444; }
+
+/* Holds the RFQ button + the cart button. */
+.rfqCol { width: 168px; text-align: center; }
+.rowActions { display: flex; align-items: center; justify-content: center; gap: 6px; }
+.rfqBtn {
+  display: inline-block; background: var(--red); color: #fff; padding: 5px 14px;
+  border-radius: var(--radius); font-size: 12px; font-weight: 700; line-height: 1.5;
+}
+.rfqBtn:hover { background: var(--red-dark); text-decoration: none; }
+
+@media (max-width: 620px) {
+  .rfqCol { width: 96px; }
+  .rowActions { flex-direction: column; gap: 5px; }
+}
+
+@media (max-width: 992px) {
+  .layout { grid-template-columns: 1fr; }
+}

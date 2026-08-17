@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electronic Parts Distributor and Supplier | AFR Enterprises</title>
+  <meta name="description" content="AFR Enterprises — leading distributor of quality electronic components, aviation parts, and IT hardware. Instant RFQ with quotes back within 15 minutes, 24/7." />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <!-- =========================================================
+       SITE HEADER  (global chrome — reused across every page)
+       ========================================================= -->
+  <header class="site-header">
+
+    <!-- Top utility bar: certifications + contact -->
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <p class="topbar__certs">AS9120B, ISO 9001:2015, and FAA AC 0056B Accredited</p>
+        <ul class="topbar__contact">
+          <li><a href="tel:1-714-705-4780"><span class="ico ico--phone" aria-hidden="true"></span> 24/7 : 1-714-705-4780</a></li>
+          <li><a href="mailto:sales@afrenterprises.com"><span class="ico ico--mail" aria-hidden="true"></span> sales@afrenterprises.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main header: logo + global search -->
+    <div class="header-main">
+      <div class="container header-main__inner">
+        <a class="logo" href="/" aria-label="AFR Enterprises home">
+          <span class="logo__mark" aria-hidden="true"></span>
+          <span class="logo__text">
+            <strong class="logo__name">AFR <em>ENTERPRISES</em></strong>
+            <small class="logo__sub">AN <b>ASAP</b> SEMICONDUCTOR WEBSITE</small>
+          </span>
+        </a>
+
+        <!-- Global search with 6 search modes -->
+        <form class="search" action="/partno-search" method="get" role="search">
+          <input class="search__field" type="text" name="searchkey"
+                 placeholder="Enter Part Number, Manufacturer, Part Type ..."
+                 aria-label="Search parts" />
+          <label class="search__mode">
+            <span class="visually-hidden">Search by</span>
+            <select name="searchby" aria-label="Search mode">
+              <option value="PartNo" selected>Part Number</option>
+              <option value="Mfg">Manufacturer</option>
+              <option value="PartType">Part Type</option>
+              <option value="NSN">NSN</option>
+              <option value="NIIN">NIIN</option>
+              <option value="CageCode">CAGE Code</option>
+            </select>
+          </label>
+          <button class="search__btn" type="submit">
+            <span class="ico ico--search" aria-hidden="true"></span> Search
+          </button>
+        </form>
+
+        <!-- Mobile nav toggle -->
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Primary navigation (with dropdown mega-menus) -->
+    <nav class="main-nav" aria-label="Primary">
+      <div class="container">
+        <ul class="main-nav__list" id="primary-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/manufacturer/">Manufacturers</a></li>
+          <li><a href="/part-types/electronics/">Electronics Parts</a></li>
+          <li><a href="/part-types/aviation/">Aviation Parts</a></li>
+          <li><a href="/part-types/hardware/">Hardware Parts</a></li>
+
+          <li class="has-dropdown">
+            <a href="#" aria-haspopup="true" aria-expanded="false">NSN Parts <span class="caret" aria-hidden="true"></span></a>
+            <ul class="dropdown">
+              <li><a href="/nsn/niin-parts/">Parts By NIIN</a></li>
+              <li><a href="/nsn/fscs/">Parts By FSC</a></li>
+              <li><a href="/nsn/nsn-parts/">Parts By NSN</a></li>
+              <li><a href="/nsn/manufacturer/">Manufacturers</a></li>
+              <li><a href="/nsn/cage-codes/">CAGE Code</a></li>
+              <li><a href="/nsn/part-types/">Part Types</a></li>
+            </ul>
+          </li>
+
+          <li class="has-dropdown">
+            <a href="#" aria-haspopup="true" aria-expanded="false">Aircraft Tooling <span class="caret" aria-hidden="true"></span></a>
+            <ul class="dropdown">
+              <li><a href="/aircraft-engine-parts/">Aircraft Engine Parts</a></li>
+              <li><a href="/aircraft-maintenance-tooling/">Aircraft Maintenance Tooling</a></li>
+              <li><a href="/aircraft-engine-baffle/">Aircraft Engine Baffle</a></li>
+              <li><a href="/avionics-test-equipment/">Avionics Test Equipment</a></li>
+            </ul>
+          </li>
+
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/contact/">Contact Us</a></li>
+          <li><a href="/aboutus/">About Us</a></li>
+          <li><a href="/sitemap/">Sitemap</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main id="content">
+
+    <!-- =========================================================
+         HERO
+         ========================================================= -->
+    <section class="hero">
+      <button class="carousel-arrow carousel-arrow--prev" type="button" aria-label="Previous slide">&#8249;</button>
+      <div class="container hero__inner">
+        <p class="hero__eyebrow">Welcome To</p>
+        <h1 class="hero__title">AFR Enterprises</h1>
+        <p class="hero__subtitle">Leading Distributor of Quality Electronic Components, Aviation Parts, and IT Hardware</p>
+        <a class="btn btn--primary btn--lg" href="/manufacturer/">Explore Parts &#8594;</a>
+      </div>
+      <button class="carousel-arrow carousel-arrow--next" type="button" aria-label="Next slide">&#8250;</button>
+    </section>
+
+    <!-- =========================================================
+         INSTANT RFQ MINI-FORM  (overlapping card)
+         ========================================================= -->
+    <section class="rfq-band" aria-labelledby="rfq-band-title">
+      <div class="container">
+        <div class="rfq-card">
+          <h2 class="rfq-card__title" id="rfq-band-title">Submit a Quote and We'll Get Back to You Shortly</h2>
+          <form class="rfq-mini" action="/straightrfq/" method="post">
+            <input type="text" name="partNumber" placeholder="Part Number" aria-label="Part Number" required />
+            <input type="text" name="quantity" placeholder="Quantity" aria-label="Quantity" required />
+            <input type="email" name="email" placeholder="Email Address" aria-label="Email Address" required />
+            <div class="rfq-mini__submit">
+              <button class="btn btn--primary" type="submit">Instant RFQ</button>
+              <small>Guaranteed quotes back within 15 minutes, 24/7 x 365</small>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CLIENT INDUSTRY FOCUS
+         ========================================================= -->
+    <section class="industry-focus" aria-labelledby="industry-title">
+      <div class="container">
+        <h2 class="section-title" id="industry-title">Client <strong>Industry Focus</strong></h2>
+        <div class="cards-3">
+          <article class="industry-card">
+            <div class="industry-card__body">
+              <h3>Electronics</h3>
+              <p>Buy quality electronic components from various manufacturers</p>
+              <a class="btn btn--primary btn--sm" href="/part-types/electronics/">View More</a>
+            </div>
+            <div class="ph-img industry-card__img" data-label="Electronics"></div>
+          </article>
+          <article class="industry-card">
+            <div class="industry-card__body">
+              <h3>Aviation</h3>
+              <p>Get free quote for various aircraft spare parts and aviation hardware</p>
+              <a class="btn btn--primary btn--sm" href="/part-types/aviation/">View More</a>
+            </div>
+            <div class="ph-img industry-card__img" data-label="Aviation"></div>
+          </article>
+          <article class="industry-card">
+            <div class="industry-card__body">
+              <h3>IT Hardware</h3>
+              <p>Purchase your best IT hardware and networking device.</p>
+              <a class="btn btn--primary btn--sm" href="/part-types/hardware/">View More</a>
+            </div>
+            <div class="ph-img industry-card__img" data-label="IT Hardware"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         ABOUT / DISTRIBUTOR + BOM UPLOAD
+         ========================================================= -->
+    <section class="about-distributor" aria-labelledby="about-title">
+      <div class="container about-distributor__inner">
+        <div class="about-distributor__text">
+          <h2 class="section-title section-title--left" id="about-title">Aviation and Electronic <strong>Parts Distributor</strong></h2>
+          <p>AFR Enterprises is leading distributor of aviation parts, electronic parts, connector parts, and IT hardware parts. Owned and operated by ASAP Semiconductor, we specialize in active and passive components; high-performance processors; computer memory; avionic components; and hard-to-find electronic components with long lead-times.</p>
+          <p>Our team at AFR Enterprises is dedicated to providing the finest distribution service on the market. We make sure that our inventory of more than 2 billion parts is as easy to navigate as possible, that prices are competitive, and that shipping is always fast and convenient.</p>
+          <p>As an AS9120B, ISO 9001:2015, and FAA AC 0056B accredited company and member of the ASA (Aviation Suppliers Association), we are also dedicated to quality assurance. As such, we become one of the only independent electronic parts distributors in the US with a NO CHINA SOURCING pledge and we adopted several quality assurance guidelines and practices to ensure that we are always shipping customers the high-quality electronic parts possible.</p>
+          <p>When you buy with us at AFR Enterprises, you buy with confidence.</p>
+        </div>
+        <aside class="bom-upload">
+          <p>If You Have Multiple Parts Requirement, You Can Upload Your Parts List or BOM Here!</p>
+          <a class="btn btn--primary" href="/straightrfq/">Upload &#8593;</a>
+        </aside>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         BROWSE BY CATEGORIES  (tabbed carousel)
+         ========================================================= -->
+    <section class="browse-categories" aria-labelledby="browse-title">
+      <div class="container browse-categories__inner">
+        <div class="ph-img browse-categories__hero" data-label="Category image"></div>
+        <div class="browse-categories__content">
+          <h2 class="section-title section-title--left" id="browse-title">Browse By <strong>Categories</strong></h2>
+          <div class="tabs" role="tablist">
+            <button class="tab is-active" role="tab" aria-selected="true" data-tab="electronic">Electronic Components</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="aviation">Aviation Components</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="hardware">IT Hardware Parts</button>
+          </div>
+
+          <div class="tab-panel is-active" data-panel="electronic">
+            <div class="cat-carousel">
+              <button class="carousel-arrow carousel-arrow--prev" type="button" aria-label="Previous">&#8249;</button>
+              <ul class="cat-list">
+                <li><a href="/part-types/electronics/electromechanical-switches/"><span class="ph-img cat-list__img" data-label=""></span>Electromechanical Switches</a></li>
+                <li><a href="/part-types/electronics/zero-ohm-jumpers/"><span class="ph-img cat-list__img" data-label=""></span>Jumpers</a></li>
+                <li><a href="/part-types/electronics/motors-and-drives/"><span class="ph-img cat-list__img" data-label=""></span>Motors and Drives</a></li>
+                <li><a href="/part-types/aviation/oscillator/"><span class="ph-img cat-list__img" data-label=""></span>Oscillators</a></li>
+                <li><a href="/part-types/electronics/resistors/"><span class="ph-img cat-list__img" data-label=""></span>Resistors</a></li>
+              </ul>
+              <button class="carousel-arrow carousel-arrow--next" type="button" aria-label="Next">&#8250;</button>
+            </div>
+          </div>
+
+          <div class="tab-panel" data-panel="aviation" hidden>
+            <div class="cat-carousel">
+              <button class="carousel-arrow carousel-arrow--prev" type="button" aria-label="Previous">&#8249;</button>
+              <ul class="cat-list">
+                <li><a href="/part-types/aviation/circuit-breaker/"><span class="ph-img cat-list__img" data-label=""></span>Circuit Breaker</a></li>
+                <li><a href="/part-types/aviation/starter-generator/"><span class="ph-img cat-list__img" data-label=""></span>Starter Generator</a></li>
+                <li><a href="/part-types/aviation/reading-light/"><span class="ph-img cat-list__img" data-label=""></span>Reading Light</a></li>
+                <li><a href="/part-types/aviation/gasket/"><span class="ph-img cat-list__img" data-label=""></span>Gasket</a></li>
+                <li><a href="/part-types/aviation/kit-hose/"><span class="ph-img cat-list__img" data-label=""></span>Kit Hose</a></li>
+              </ul>
+              <button class="carousel-arrow carousel-arrow--next" type="button" aria-label="Next">&#8250;</button>
+            </div>
+          </div>
+
+          <div class="tab-panel" data-panel="hardware" hidden>
+            <div class="cat-carousel">
+              <button class="carousel-arrow carousel-arrow--prev" type="button" aria-label="Previous">&#8249;</button>
+              <ul class="cat-list">
+                <li><a href="/part-types/hardware/microprocessors/"><span class="ph-img cat-list__img" data-label=""></span>Microprocessors</a></li>
+                <li><a href="/part-types/hardware/navigation/"><span class="ph-img cat-list__img" data-label=""></span>Navigation Systems</a></li>
+                <li><a href="/part-types/hardware/wireless-devices/"><span class="ph-img cat-list__img" data-label=""></span>Wireless Devices</a></li>
+                <li><a href="/part-types/hardware/graphic-cards/"><span class="ph-img cat-list__img" data-label=""></span>Graphic Cards</a></li>
+                <li><a href="/part-types/hardware/memory-cards/"><span class="ph-img cat-list__img" data-label=""></span>Memory Cards</a></li>
+              </ul>
+              <button class="carousel-arrow carousel-arrow--next" type="button" aria-label="Next">&#8250;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         RECENTLY SEARCHED  (4 link columns)
+         ========================================================= -->
+    <section class="recently-searched" aria-labelledby="recent-title">
+      <div class="container">
+        <h2 class="section-title" id="recent-title">Recently Searched Aviation,<br /><strong>Electronic Industrial Parts and Components</strong></h2>
+        <div class="link-columns">
+          <div class="link-col">
+            <h3 class="link-col__head">Demanding Parts Manufacturers</h3>
+            <ul>
+              <li><a href="/manufacturer/travelpro/">Travelpro</a></li>
+              <li><a href="/manufacturer/qfx/">Qfx Parts</a></li>
+              <li><a href="/manufacturer/cosco/">Cosco Parts</a></li>
+              <li><a href="/manufacturer/cushcraft/">Cushcraft</a></li>
+              <li><a href="/manufacturer/timex-corp/">Timex Corp</a></li>
+              <li><a href="/manufacturer/x-acto/">X Acto Parts</a></li>
+              <li><a href="/manufacturer/wildgame-innovations/">Wildgame Innovations</a></li>
+              <li><a href="/manufacturer/lasko-products/">Lasko Products</a></li>
+              <li><a href="/manufacturer/radio-shack/">Radio Shack</a></li>
+              <li><a href="/manufacturer/bushnell/">Bushnell</a></li>
+            </ul>
+          </div>
+          <div class="link-col">
+            <h3 class="link-col__head">Frequently Searched Part Types</h3>
+            <ul>
+              <li><a href="/part-types/aviation/circuit-breaker/">Circuit Breaker</a></li>
+              <li><a href="/part-types/aviation/pressure-switch/">Pressure Switch</a></li>
+              <li><a href="/part-types/aviation/starter-generator/">Starter Generator</a></li>
+              <li><a href="/part-types/aviation/reading-light/">Reading Light</a></li>
+              <li><a href="/part-types/aviation/potentiometer/">Potentiometer</a></li>
+              <li><a href="/part-types/aviation/hoseduct/">Hoseduct</a></li>
+              <li><a href="/part-types/aviation/gasket/">Gasket</a></li>
+              <li><a href="/part-types/aviation/kit-hose/">Kit Hose</a></li>
+              <li><a href="/part-types/electronics/zero-ohm-jumpers/">Zero Ohm Jumpers</a></li>
+              <li><a href="/part-types/aviation/bulkhead-unit/">Bulkhead Unit</a></li>
+            </ul>
+          </div>
+          <div class="link-col">
+            <h3 class="link-col__head">Hot Stock Items</h3>
+            <ul>
+              <li><a href="/aircraft-maintenance-tooling/rfq/boeing/b747-all-series-tooling/ll-5-3/">LL-5-3</a></li>
+              <li><a href="/rfq/asus-computer-international/j3103/">J3103</a></li>
+              <li><a href="/rfq/renesas-electronics-america/m30876mj-xxxgp/">M30876MJ-XXXGP</a></li>
+              <li><a href="/rfq/other/00552495-1/">00552495-1</a></li>
+              <li><a href="/rfq/andrew/tmbxx-6517-a2m/">TMBXX-6517-A2M</a></li>
+              <li><a href="/rfq/bombardier-aerospace/tape-ot6-orcon/">TAPE OT6 ORCON</a></li>
+              <li><a href="/rfq/motorola/od3x3-xxxxdd/">OD3X3-XXXXDD</a></li>
+              <li><a href="/aircraft-engine-parts/rfq/1st-choice-aerospace/cfm56-5b/390-611-501-0/">390-611-501-0</a></li>
+              <li><a href="/avionics-test-equipment/rfq/thales/thales-7010/">Thales 7010</a></li>
+              <li><a href="/rfq/airbus-helicopter/din1367-stzn-0-3x0-3/">DIN1367-STZN-0 3X0 3</a></li>
+            </ul>
+          </div>
+          <div class="link-col">
+            <h3 class="link-col__head">Most Searched Inventory</h3>
+            <ul>
+              <li><a href="/avionics-test-equipment/rfq/druck-ge-gensing/adts-403/">ADTS-403</a></li>
+              <li><a href="/rfq/parker-hannifin-corp/cho-bond-1029/">CHO-BOND 1029</a></li>
+              <li><a href="/rfq/honeywell-aerospace/3291186-6/">3291186-6</a></li>
+              <li><a href="/avionics-test-equipment/rfq/bf-goodrich-jc-air/429ex/">429EX</a></li>
+              <li><a href="/aircraft-maintenance-tooling/rfq/boeing/b737-all-series-tooling/mit115a5002/">MIT115A5002</a></li>
+              <li><a href="/rfq/fujitsu-components-america/k1337-a110-z105/">K1337-A110-Z105</a></li>
+              <li><a href="/avionics-test-equipment/rfq/ifr-aeroflex/atc-1400/">ATC-1400</a></li>
+              <li><a href="/rfq/andrew/fb-l98b-034-100000/">FB-L98B-034-100000</a></li>
+              <li><a href="/aircraft-engine-parts/rfq/1st-choice-aerospace/cfm56-5b/390-611-501-0/">390-611-501-0</a></li>
+              <li><a href="/avionics-test-equipment/rfq/barfield/adts505-3124-54-m0/">ADTS505-3124-54-M0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         PROMO BANNERS
+         ========================================================= -->
+    <section class="promo-banners" aria-label="Featured procurement paths">
+      <div class="container promo-banners__inner">
+        <article class="promo promo--red">
+          <h3>Board Level Electronic Components</h3>
+          <p>From resistors to microcontrollers, we are your one-stop shop for board-level electronic components. Get an instant quote today and take the first step of procurement!</p>
+          <a class="btn btn--light" href="/straightrfq/">Instant RFQ</a>
+        </article>
+        <article class="promo promo--blue">
+          <h3>Aerospace and Aviation Parts</h3>
+          <p>Streamline your operations by sourcing quality-assured aviation parts from AFR Enterprises. Request a quote on required aircraft parts and receive a tailored response from our industry experts in a matter of 15 minutes or less.</p>
+          <a class="btn btn--light" href="/straightrfq/">Instant RFQ</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         FEATURED ELECTRONIC COMPONENTS  (carousel)
+         ========================================================= -->
+    <section class="featured-components" aria-labelledby="featured-title">
+      <div class="container">
+        <h2 class="section-title" id="featured-title">Featured <strong>Electronic Components</strong></h2>
+        <div class="cat-carousel">
+          <button class="carousel-arrow carousel-arrow--prev" type="button" aria-label="Previous">&#8249;</button>
+          <ul class="cat-list cat-list--wide">
+            <li><a href="/part-types/electronics/capacitors/"><span class="ph-img cat-list__img" data-label=""></span>Capacitors</a></li>
+            <li><a href="/part-types/electronics/thin-film-resistors-through-hole/"><span class="ph-img cat-list__img" data-label=""></span>Thin Film Resistors Through Hole</a></li>
+            <li><a href="/part-types/aviation/equipped-support/"><span class="ph-img cat-list__img" data-label=""></span>Equipped Support</a></li>
+            <li><a href="/part-types/electronics/relays/"><span class="ph-img cat-list__img" data-label=""></span>Relays</a></li>
+            <li><a href="/part-types/aviation/led/"><span class="ph-img cat-list__img" data-label=""></span>Led</a></li>
+          </ul>
+          <button class="carousel-arrow carousel-arrow--next" type="button" aria-label="Next">&#8250;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         POPULAR MANUFACTURERS
+         ========================================================= -->
+    <section class="popular-manufacturers" aria-labelledby="mfr-title">
+      <div class="container popular-manufacturers__inner">
+        <ul class="mfr-logos">
+          <li><a href="/manufacturer/abb/" class="ph-img mfr-logos__item" data-label="ABB"></a></li>
+          <li><a href="/manufacturer/cambion-uk/" class="ph-img mfr-logos__item" data-label="Cambion"></a></li>
+          <li><a href="/manufacturer/magnetek/" class="ph-img mfr-logos__item" data-label="Magnetek"></a></li>
+          <li><a href="/manufacturer/eaton-aerospace/" class="ph-img mfr-logos__item" data-label="Eaton Weatherhead"></a></li>
+          <li><a href="/manufacturer/fastenal-canada/" class="ph-img mfr-logos__item" data-label="Fastenal"></a></li>
+          <li><a href="/manufacturer/greenlee-communications/" class="ph-img mfr-logos__item" data-label="Greenlee"></a></li>
+          <li><a href="/manufacturer/heli-coil-emhart/" class="ph-img mfr-logos__item" data-label="HeliCoil"></a></li>
+          <li><a href="/manufacturer/wilson-electronics/" class="ph-img mfr-logos__item" data-label="Wilson"></a></li>
+          <li><a href="/manufacturer/yale-electric/" class="ph-img mfr-logos__item" data-label="Yale"></a></li>
+        </ul>
+        <div class="popular-manufacturers__text">
+          <h2 class="section-title section-title--left" id="mfr-title">Popular <strong>Aviation &amp; Electronic Parts Manufacturers</strong></h2>
+          <p>Here on AFR Enterprises, we feature an unrivaled product selection from leading aviation and electronic manufacturers, ensuring top-quality solutions for any operation. Explore our extensive offerings today to find what you require.</p>
+          <a class="btn btn--primary" href="/manufacturer/">Explore More</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         UNIQUE VALUE PROPOSITION
+         ========================================================= -->
+    <section class="value-prop" aria-labelledby="value-title">
+      <div class="container value-prop__inner">
+        <div class="value-prop__text">
+          <h2 class="section-title section-title--left" id="value-title">Our <strong>Unique Value Proposition</strong></h2>
+          <p>AFR Enterprises is the procurement platform of choice for aviation, electronic, and IT hardware parts of the highest caliber. Our user-friendly website simplifies the part procurement process, making it easy for customers to find cost-effective and quality-assured solutions for varying applications and requirements. All items on our website are ready to ship today with competitive pricing and rapid lead times, so be sure to kick off procurement through the submission of a Request for Quote (RFQ) form as provided online.</p>
+          <a class="btn btn--primary" href="/aboutus/">Explore More</a>
+        </div>
+        <ul class="value-grid">
+          <li>
+            <span class="ico ico--dollar" aria-hidden="true"></span>
+            <h3>Cost Effective</h3>
+            <p>Warrantied inventory at competitive prices</p>
+          </li>
+          <li>
+            <span class="ico ico--search-lg" aria-hidden="true"></span>
+            <h3>Quick Search</h3>
+            <p>Search the world's largest inventory of civil aviation components by manufacturer, category or part number</p>
+          </li>
+          <li>
+            <span class="ico ico--badge" aria-hidden="true"></span>
+            <h3>Quality Assured</h3>
+            <p>We sell only warrantied and traceable parts</p>
+          </li>
+          <li>
+            <span class="ico ico--ship" aria-hidden="true"></span>
+            <h3>Free Delivery</h3>
+            <p>All inventory ready to ship from our sellers</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CERTIFICATIONS & MEMBERSHIPS
+         ========================================================= -->
+    <section class="certifications" aria-labelledby="cert-title">
+      <div class="container">
+        <h2 class="section-title" id="cert-title"><b>ASAP</b> Semiconductor's Certifications and Memberships</h2>
+        <ul class="cert-badges">
+          <li class="ph-img" data-label="Inc 500"></li>
+          <li class="ph-img" data-label="ASA"></li>
+          <li class="ph-img" data-label="NBAA"></li>
+          <li class="ph-img" data-label="AS9120B / ISO 9001:2015"></li>
+          <li class="ph-img" data-label="CAGE 6RE77"></li>
+          <li class="ph-img" data-label="ITAR"></li>
+          <li class="ph-img" data-label="Visual Compliance"></li>
+          <li class="ph-img" data-label="AS6081:2012"></li>
+          <li class="ph-img" data-label="FAA AC 0056B"></li>
+          <li class="ph-img" data-label="ESD S20.20"></li>
+          <li class="ph-img" data-label="NIST 800-171"></li>
+          <li class="ph-img" data-label="2018 award"></li>
+          <li class="ph-img" data-label="2020 award"></li>
+          <li class="ph-img" data-label="2025 award"></li>
+          <li class="ph-img" data-label="2026 award"></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================
+       SITE FOOTER  (global chrome)
+       ========================================================= -->
+  <footer class="site-footer">
+
+    <!-- Pledge strip -->
+    <div class="footer-pledge">
+      <div class="container footer-pledge__inner">
+        <div class="pledge pledge--nochina">
+          <span class="ph-img pledge__icon" data-label="NO CHINA PARTS"></span>
+          <p>The only independent distributor with a <strong>NO CHINA SOURCING Pledge</strong></p>
+        </div>
+        <div class="pledge pledge--usa">
+          <span class="ph-img pledge__icon" data-label="USA"></span>
+          <ul>
+            <li>All Orders are Fulfilled in the U.S.A.</li>
+            <li>All shipments must comply with U.S.A export laws.</li>
+            <li>No exceptions.</li>
+          </ul>
+        </div>
+        <div class="pledge pledge--heroes">
+          <span class="ph-img pledge__icon" data-label="Intrepid"></span>
+          <p>"We Proudly Support Intrepid Fallen Heroes Fund that serves United States Military Personnel experiencing the Invisible Wounds of War: Traumatic Brain Injury (TBI) and Post Traumatic Stress (PTS). Please visit website (<a href="https://www.fallenheroesfund.org/" target="_blank" rel="noopener">www.fallenheroesfund.org</a>) and help in their valiant effort".</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main footer columns -->
+    <div class="footer-main">
+      <div class="container footer-main__inner">
+
+        <div class="footer-col footer-col--contact">
+          <h3>Get In Touch</h3>
+          <address>
+            <p><span class="ico ico--pin" aria-hidden="true"></span> 1341 South Sunkist Street,<br />Anaheim CA 92806</p>
+            <p><span class="ico ico--mail" aria-hidden="true"></span> <a href="mailto:sales@afrenterprises.com">sales@afrenterprises.com</a></p>
+            <p><span class="ico ico--phone" aria-hidden="true"></span> <a href="tel:+17147054780">+1 (714) 705-4780</a></p>
+          </address>
+          <div class="survey">
+            <h4>How are we Doing?</h4>
+            <p>Customer satisfaction is our priority. Please take a moment to let us know how we are doing by answering just a few questions so we can improve our service and your experience.</p>
+            <a class="btn btn--primary btn--sm" href="https://www.asapsemi.com/customersurvey.aspx" target="_blank" rel="noopener">Take A Survey Now!</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Company Information</h3>
+          <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/aboutus/">About Us</a></li>
+            <li><a href="https://www.asapsemi.com/quality/" target="_blank" rel="noopener">Quality</a></li>
+            <li><a href="/part-types/electronics/">Electronics Parts</a></li>
+            <li><a href="/part-types/hardware/">Hardware Parts</a></li>
+            <li><a href="/part-types/aviation/">Aviation Parts</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/sitemap/">Sitemap</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Policies</h3>
+          <ul class="footer-links">
+            <li><a href="https://www.asapsemi.com/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a></li>
+            <li><a href="/cookie-policy/">Cookie Policy</a></li>
+            <li><a href="https://www.asapsemi.com/asap-semiconductor-conflict-minerals-policy.pdf" target="_blank" rel="noopener">Conflict Minerals Policy</a></li>
+            <li><a href="https://www.asapsemi.com/pct/" target="_blank" rel="noopener">Combating Human Trafficking Policy</a></li>
+          </ul>
+          <h3>Terms &amp; Conditions</h3>
+          <ul class="footer-links">
+            <li><a href="https://www.asapsemi.com/customer-terms-and-conditions/" target="_blank" rel="noopener">Customer Terms and Conditions</a></li>
+            <li><a href="https://www.asapsemi.com/supplier-terms-and-conditions/" target="_blank" rel="noopener">Supplier Terms and Conditions</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="https://www.asapsemi.com/far-and-dfar-flow-downs.pdf" target="_blank" rel="noopener">FAR &amp; DFARS Flow Downs</a></li>
+            <li><a href="https://www.asapsemi.com/consignment-options/" target="_blank" rel="noopener">Consignment Options</a></li>
+          </ul>
+
+          <h3>We Accept</h3>
+          <ul class="pay-icons">
+            <li class="ph-img" data-label="Visa"></li>
+            <li class="ph-img" data-label="Mastercard"></li>
+            <li class="ph-img" data-label="Discover"></li>
+            <li class="ph-img" data-label="Amex"></li>
+          </ul>
+
+          <h3>Follow Us</h3>
+          <ul class="social-icons">
+            <li><a href="https://www.instagram.com/asap_aerospace/" target="_blank" rel="noopener" class="ico ico--instagram" aria-label="Instagram"></a></li>
+            <li><a href="https://twitter.com/JustNSNParts" target="_blank" rel="noopener" class="ico ico--twitter" aria-label="Twitter"></a></li>
+            <li><a href="/blog/" class="ico ico--rss" aria-label="Blog"></a></li>
+          </ul>
+
+          <h3>Download Browser Extension</h3>
+          <ul class="ext-icons">
+            <li><a href="https://chromewebstore.google.com/detail/asap-semiconductor/concgmfclhggfpmnjgmmckhdgkhjhhka" target="_blank" rel="noopener" class="ico ico--chrome" aria-label="Chrome extension"></a></li>
+            <li><a href="https://addons.mozilla.org/en-US/firefox/addon/asap-semiconductor/" target="_blank" rel="noopener" class="ico ico--firefox" aria-label="Firefox add-on"></a></li>
+            <li><a href="https://microsoftedge.microsoft.com/addons/detail/asap-semiconductor/bfgaogkjmgemjmbekhjkhakkoknebofo" target="_blank" rel="noopener" class="ico ico--edge" aria-label="Edge add-on"></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Legal -->
+    <div class="footer-legal">
+      <div class="container">
+        <p class="footer-legal__disclaimer">"As an Independent Distributor, ASAP Semiconductor LLC, is not affiliated with the manufacturers of the products it sells except as expressly noted otherwise. Any and all trademark rights associated with the manufacturers names and products are owned by the respective manufacturers. LINKING, FRAMING, MIRRORING, SCRAPING OR DATA-MINING STRICTLY PROHIBITED"</p>
+        <p class="footer-legal__copy">Copyright &copy; 2026, All rights reserved to ASAP Semiconductor LLC.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie consent banner -->
+  <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Cookie consent">
+    <div class="container cookie-banner__inner">
+      <p>We use cookies to ensure that we give you the best experience on our website. If you continue to use this site we will assume that you are happy with it.</p>
+      <button class="btn btn--primary btn--sm" type="button" data-cookie-accept>Yes, I Accept Cookies.</button>
+      <button class="cookie-banner__close" type="button" data-cookie-close aria-label="Close">&times;</button>
+    </div>
+  </div>
+
+  <!-- Floating chat launcher -->
+  <button class="chat-launcher" type="button" aria-label="Open chat">
+    <span class="ico ico--chat" aria-hidden="true"></span>
+  </button>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

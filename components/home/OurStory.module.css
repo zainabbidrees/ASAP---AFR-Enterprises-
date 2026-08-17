@@ -1,0 +1,75 @@
+/* Our story — big editorial statement (nor.ma "statement" moment).
+   Center-aligned: the eyebrow, statement, body and CTA all sit on the page's
+   centre axis inside the standard .container gutter. */
+.section {
+  padding: var(--section-pad-y) 0;
+  background: var(--paper);
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: var(--eyebrow-size); font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-tracking); text-transform: uppercase;
+  color: var(--muted); margin: 0 0 28px;
+}
+
+.title {
+  font-size: clamp(30px, 4.2vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin: 0 auto 28px;
+  color: var(--ink);
+  max-width: 22ch;
+}
+
+.body {
+  font-size: clamp(17px, 1.5vw, 21px);
+  line-height: 1.65;
+  color: var(--muted);
+  /* Comfortable reading measure, centred under the title. */
+  max-width: 68ch;
+  margin: 0 auto 40px;
+}
+
+/* Character-by-character darkening reveal.
+   Default (SSR / no-JS): normal colors, fully readable.
+   .armed (JS + motion): every character starts light gray.
+   .armed.lit (section landed): each character transitions to ink, staggered by
+   its inline transition-delay, so the whole statement darkens left-to-right. */
+.word { display: inline; }
+/* .armed sets every character to light gray with the transition in place, so the
+   .lit change (below) animates gray -> ink. transition-delay is set inline per
+   character (index * CHAR_DELAY) → the darkening sweeps left-to-right. */
+.armed .title .ch,
+.armed .body .ch {
+  color: #dcdcdc;
+  transition: color 0.6s ease;
+}
+.armed.lit .title .ch,
+.armed.lit .body .ch { color: var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .armed .title .ch,
+  .armed .body .ch { transition: none; }
+}
+
+/* Meta row — accreditation + CTA on a hairline */
+.meta,
+.section :global(.metaRow) { }
+.accred {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 14px; color: var(--muted); margin: 0;
+}
+.foot {
+  display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; gap: 16px 32px;
+  padding-top: 28px; border-top: 1px solid var(--line);
+}
+.cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 15px; font-weight: 500; color: var(--ink);
+}
+.cta span { transition: transform 0.2s var(--ease); }
+.cta:hover { text-decoration: none; }
+.cta:hover span { transform: translateX(4px); }

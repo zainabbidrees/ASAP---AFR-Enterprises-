@@ -1,0 +1,93 @@
+/* Testimonials — editorial two-column review wall. Asymmetric header beside two
+   columns of cards that drift in opposite directions (pause on hover). */
+.section { background: var(--surface); padding: var(--section-pad-y) 0; }
+
+.inner {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+
+/* ---- Header (left, vertically centered beside the marquee) ---- */
+.head { align-self: center; }
+.eyebrow {
+  display: inline-block;
+  font-size: var(--eyebrow-size); font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-tracking); text-transform: uppercase;
+  color: var(--muted); margin: 0 0 16px;
+}
+.title { font-size: var(--text-3xl); margin: 0 0 28px; letter-spacing: -0.028em; }
+
+.rating {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 0 22px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  margin-bottom: 24px;
+}
+.score { font-size: 48px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--ink); }
+.ratingBody { display: flex; flex-direction: column; gap: 6px; }
+.ratingNote { font-size: 13px; color: var(--muted); }
+
+.stars { color: var(--ink); font-size: 15px; letter-spacing: 3px; }
+
+.lead { margin: 0; color: var(--muted); font-size: var(--text-base); line-height: 1.6; max-width: 34ch; }
+
+/* ---- Marquee (right) ---- */
+.marquee {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  height: clamp(520px, 66vh, 720px);
+  overflow: hidden;
+  -webkit-mask: linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent);
+  mask: linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent);
+}
+.col { display: flex; flex-direction: column; gap: 16px; will-change: transform; }
+.up { animation: tUp 44s linear infinite; }
+.down { animation: tDown 52s linear infinite; }
+.marquee:hover .col { animation-play-state: paused; }
+@keyframes tUp { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+@keyframes tDown { from { transform: translateY(-50%); } to { transform: translateY(0); } }
+
+/* ---- Card ---- */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px 22px 20px;
+  box-shadow: var(--shadow-sm);
+  margin: 0;
+}
+.quote {
+  margin: 12px 0 18px;
+  color: var(--ink);
+  font-size: 15px; line-height: 1.55;
+  letter-spacing: -0.005em;
+}
+.attr { display: flex; align-items: center; gap: 11px; }
+.avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--ink); color: #fff;
+  display: grid; place-items: center; flex-shrink: 0;
+  font-size: 15px; font-weight: 600;
+}
+.who { display: flex; flex-direction: column; min-width: 0; }
+.who strong { font-size: 14px; font-weight: 600; color: var(--ink); }
+.who small { font-size: 12px; color: var(--faint); }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee { height: auto; overflow: visible; -webkit-mask: none; mask: none; }
+  .col { animation: none; }
+  /* drop the duplicated set so reviews aren't shown twice when static */
+  .col > *:nth-child(n + 6) { display: none; }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .inner { grid-template-columns: 1fr; gap: 32px; }
+  .head { position: static; }
+  .marquee { height: clamp(460px, 80vh, 620px); }
+}
+@media (max-width: 540px) {
+  .marquee { grid-template-columns: 1fr; }
+  /* single column: keep column A only, hide B to avoid overlap */
+  .down { display: none; }
+}

@@ -1,0 +1,53 @@
+.layout { display: grid; grid-template-columns: 1fr 320px; gap: 40px; align-items: start; }
+.main { min-width: 0; }
+
+.intro { color: #444; }
+.intro a { color: var(--navy); font-weight: 600; }
+
+.blockTitle { font-size: 18px; font-weight: var(--heading-weight); color: var(--navy); margin: 24px 0 10px; }
+.bullets { padding-left: 20px; list-style: disc; display: flex; flex-direction: column; gap: 8px; }
+.bullets li { color: #444; }
+
+/* Digit index */
+.digitIndex { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 24px 0; }
+.digit {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 36px; border: 1px solid var(--navy); color: var(--navy);
+  border-radius: var(--radius); font-size: 14px; font-weight: 700;
+}
+.digit:hover { background: var(--navy); color: #fff; text-decoration: none; }
+.digitDisabled { opacity: .35; pointer-events: none; }
+.digitViewAll {
+  display: inline-flex; align-items: center; padding: 0 16px; height: 36px;
+  background: var(--red); color: #fff; border-radius: var(--radius); font-size: 13px; font-weight: 700;
+}
+.digitViewAll:hover { background: var(--red-dark); text-decoration: none; }
+
+/* Digit sections — 2-up on desktop */
+.sections { display: grid; grid-template-columns: 1fr; gap: 18px; }
+.digitSection { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; scroll-margin-top: 20px; }
+.sectionHead { background: var(--navy); color: #fff; padding: 10px 16px; }
+.sectionTitle { font-size: 15px; font-weight: var(--heading-weight); }
+
+.entryGrid { display: grid; gap: 0; padding: 8px 0; }
+.cols2 { grid-template-columns: repeat(2, 1fr); }
+.cols3 { grid-template-columns: repeat(3, 1fr); }
+.entryGrid li { border-bottom: 1px solid #eef0f3; }
+.entryGrid li a { display: flex; flex-direction: column; padding: 8px 16px; }
+.entryGrid li a:hover { background: var(--bg-alt); text-decoration: none; }
+.entryPrimary { font-size: 14px; font-weight: 600; color: var(--navy); }
+.entrySecondary { font-size: 12px; color: var(--muted); }
+
+.sectionFoot { display: flex; justify-content: center; padding: 12px; }
+.viewAllBtn { background: var(--red); color: #fff; padding: 6px 20px; border-radius: var(--radius); font-size: 13px; font-weight: 700; }
+.viewAllBtn:hover { background: var(--red-dark); text-decoration: none; }
+
+@media (max-width: 992px) {
+  .layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) {
+  .cols3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  .cols2, .cols3 { grid-template-columns: 1fr; }
+}

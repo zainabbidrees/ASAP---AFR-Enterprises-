@@ -1,0 +1,132 @@
+/* How procurement works — icon flow-rail (no numbering). Cells rest airy on the
+   surface and materialize into cards on hover; a threaded hairline links the icons. */
+.section {
+  padding: var(--section-pad-y) 0;
+  background: var(--surface);
+}
+
+.head { max-width: 640px; margin: 0 0 clamp(44px, 5vw, 68px); }
+.eyebrow {
+  display: inline-block;
+  font-size: var(--eyebrow-size); font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-tracking); text-transform: uppercase;
+  color: var(--muted); margin: 0 0 16px;
+}
+.title { font-size: var(--text-3xl); margin: 0 0 12px; letter-spacing: -0.028em; }
+.lead { margin: 0; color: var(--muted); font-size: var(--text-lg); }
+
+/* Rail */
+.rail {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+}
+/* Threaded connector line through the icon centers (shows in the gaps between
+   the solid icon chips → reads as a path). Ends fade so it never sticks out. */
+.rail::before {
+  content: "";
+  position: absolute; left: 0; right: 0; top: 56px; height: 1px;
+  background: var(--line-2);
+  -webkit-mask: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+  mask: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+  z-index: 0;
+}
+
+.step {
+  position: relative; z-index: 1;
+  padding: 28px 24px 30px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  transition: background 0.25s var(--ease), border-color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.step:hover {
+  background: var(--paper);
+  border-color: var(--line);
+  box-shadow: var(--shadow);
+  transform: translateY(-4px);
+}
+
+.icon {
+  position: relative;
+  display: grid; place-items: center;
+  width: 56px; height: 56px;
+  margin-bottom: 24px;
+  border-radius: var(--radius);
+  background: var(--paper);
+  border: 1px solid var(--line-2);
+  color: var(--ink);
+  transition: background 0.25s var(--ease), color 0.25s var(--ease),
+    border-color 0.25s var(--ease), transform 0.25s var(--ease),
+    opacity 0.5s var(--ease);
+}
+.icon svg { width: 26px; height: 26px; }
+.step:hover .icon {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+  transform: scale(1.06);
+}
+
+.stepTitle { font-size: var(--text-xl); margin: 0 0 10px; letter-spacing: -0.02em; }
+.stepSub { margin: 0; color: var(--muted); font-size: var(--text-base); line-height: 1.55; }
+
+/* ---- Reveal: the pipeline forms & powers on when the section lands ----
+   JS sets .prep on mount (armed, hidden — the rail is below the fold, so no
+   flash) then swaps it for .in when the RAIL lands in view; runs once.
+
+   Split by consequence: anything that controls VISIBILITY is a transition toward
+   the resting state, so a throttled or never-scheduled transition just leaves the
+   stage already visible. The ink-flash flourish is a keyframe with no fill mode —
+   if it never runs, the chip simply sits in its resting style. Motion can decorate
+   this section but it can never blank it. */
+.rail::before { transform-origin: left center; transition: transform 1.9s var(--ease); }
+.step { transition: opacity 0.85s var(--ease), transform 0.85s var(--ease); }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Armed: snap hidden with no transition, so arming is never itself animated. */
+  .prep .step { opacity: 0; transform: translateY(26px); transition: none; }
+  .prep .icon { opacity: 0; transition: none; }
+  .prep .rail::before { transform: scaleX(0); transition: none; }
+
+  /* Released: the connector draws left → right while the stages land in step with
+     it. Paced so the whole sequence runs ~2.4s — slow enough to read as a pipeline
+     forming rather than a flicker. */
+  .in .rail::before { transition-delay: 0.1s; }
+  .in .step:nth-child(1), .in .step:nth-child(1) .icon { transition-delay: 0.3s; }
+  .in .step:nth-child(2), .in .step:nth-child(2) .icon { transition-delay: 0.72s; }
+  .in .step:nth-child(3), .in .step:nth-child(3) .icon { transition-delay: 1.14s; }
+  .in .step:nth-child(4), .in .step:nth-child(4) .icon { transition-delay: 1.56s; }
+
+  /* Flourish: the chip arrives ink-lit, holds long enough to register, then cools
+     to its resting state. Colour and scale only — safe to lose. */
+  .in .icon { animation: iconInk 0.9s var(--ease); }
+  .in .step:nth-child(1) .icon { animation-delay: 0.3s; }
+  .in .step:nth-child(2) .icon { animation-delay: 0.72s; }
+  .in .step:nth-child(3) .icon { animation-delay: 1.14s; }
+  .in .step:nth-child(4) .icon { animation-delay: 1.56s; }
+
+  /* Once revealed, drop the entrance delays so hover responds immediately. */
+  .in .step:hover, .in .step:hover .icon,
+  .in .step:focus-within, .in .step:focus-within .icon { transition-delay: 0s; }
+
+  @keyframes iconInk {
+    0%   { transform: scale(0.8);
+           background: var(--ink); border-color: var(--ink); color: #fff; }
+    40%  { transform: scale(1.08);
+           background: var(--ink); border-color: var(--ink); color: #fff; }
+    68%  { transform: scale(1.08);
+           background: var(--ink); border-color: var(--ink); color: #fff; }
+    100% { transform: scale(1);
+           background: var(--paper); border-color: var(--line-2); color: var(--ink); }
+  }
+}
+
+@media (max-width: 860px) {
+  .rail { grid-template-columns: repeat(2, 1fr); }
+  .rail::before { display: none; }
+}
+@media (max-width: 480px) {
+  .rail { grid-template-columns: 1fr; }
+}

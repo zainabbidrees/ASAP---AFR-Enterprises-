@@ -1,0 +1,77 @@
+/* Approved manufacturers — logo wall (nor.ma's client-logos treatment), scaled
+   up so our aerospace brand marks stay clearly legible. Head is flush left on
+   the page's standard .container gutter, matching every other section; the wall
+   spans the full content width so the logos aren't boxed into a narrow strip. */
+.section {
+  /* Roomier than the global rhythm — the logo wall needs air around it or the
+     head, marks and CTA read as one crowded block. */
+  padding: calc(var(--section-pad-y) * 1.3) 0;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-eyebrow);
+  font-size: var(--eyebrow-size); font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-tracking); text-transform: uppercase;
+  color: var(--muted); margin: 0 0 32px;
+}
+.title {
+  font-size: clamp(28px, 3.6vw, 44px);
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  max-width: 22ch;
+  margin: 0 0 clamp(80px, 9vw, 136px);
+}
+
+/* Logo wall — a fixed row of equal slots that fade-swap through the pool.
+   Full content width so the row breathes edge to edge like the other grids. */
+.wall {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: center;
+  gap: clamp(40px, 4.5vw, 80px);
+}
+.slot {
+  min-width: 0;
+  height: 60px;
+  display: flex; align-items: center; justify-content: center;
+  /* fade controlled by inline opacity toggled in JS */
+  transition: opacity 0.5s var(--ease);
+}
+.slot img {
+  /* Much bigger than nor.ma's ~24px so our less-familiar marks read clearly. */
+  max-height: 56px;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.68;
+}
+
+/* Step the row down rather than letting the marks shrink into illegibility. */
+@media (max-width: 1100px) {
+  .wall { grid-template-columns: repeat(4, 1fr); }
+  .slot:nth-child(n + 5) { display: none; }
+}
+@media (max-width: 700px) {
+  .wall { grid-template-columns: repeat(3, 1fr); }
+  .slot:nth-child(n + 4) { display: none; }
+}
+@media (max-width: 480px) {
+  .wall { grid-template-columns: repeat(2, 1fr); }
+  .slot { height: 44px; }
+  .slot img { max-height: 40px; }
+  .slot:nth-child(n + 3) { display: none; }
+}
+
+.foot { margin-top: clamp(80px, 8.5vw, 128px); }
+.viewAll {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 15px; font-weight: 500; color: var(--ink);
+}
+.viewAll span { transition: transform 0.2s var(--ease); }
+.viewAll:hover { text-decoration: none; }
+.viewAll:hover span { transform: translateX(4px); }
+

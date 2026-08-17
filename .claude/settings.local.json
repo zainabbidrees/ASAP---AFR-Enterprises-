@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/zainab.idrees/Downloads/**)",
+      "Bash(rm -rf \"/private/tmp/claude-1399932521/-Users-zainab-idrees-Documents-AFR-Enterprises/f3e4860f-bf13-4d22-aac7-a6cf05931d03/scratchpad/aero2\")",
+      "Bash(mkdir -p \"/private/tmp/claude-1399932521/-Users-zainab-idrees-Documents-AFR-Enterprises/f3e4860f-bf13-4d22-aac7-a6cf05931d03/scratchpad/aero2\")",
+      "Bash(unzip -o \"AeroCompress 2.zip\" -d \"/private/tmp/claude-1399932521/-Users-zainab-idrees-Documents-AFR-Enterprises/f3e4860f-bf13-4d22-aac7-a6cf05931d03/scratchpad/aero2\")",
+      "Bash(npx playwright *)",
+      "Bash(npx extract-design-system *)"
+    ]
+  }
+}

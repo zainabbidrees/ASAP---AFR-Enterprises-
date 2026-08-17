@@ -1,0 +1,71 @@
+/* Certifications & memberships — reference-style card grid that rolls upward.
+   Badges keep their ORIGINAL colors (no grayscale). */
+.section { background: var(--paper); padding: var(--section-pad-y) 0; }
+
+.head { max-width: 640px; margin: 0 0 clamp(32px, 4vw, 48px); }
+.title { font-size: var(--text-3xl); margin: 0 0 12px; letter-spacing: -0.028em; }
+.lead { margin: 0; color: var(--muted); font-size: var(--text-lg); line-height: 1.55; }
+
+/* Roll window — shows 3 rows; the track steps upward to reveal the next row. */
+.viewport {
+  --card-h: 132px;
+  --gap: 16px;
+  --pitch: calc(var(--card-h) + var(--gap)); /* one row's vertical stride */
+  --rows-visible: 3;
+  height: calc(var(--rows-visible) * var(--card-h) + (var(--rows-visible) - 1) * var(--gap));
+  overflow: hidden;
+}
+.track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  will-change: transform;
+  /* 12s = ~2.4s reading hold per row + a 0.6s roll. 18s read as sluggish. */
+  animation: certRoll 12s infinite;
+}
+.viewport:hover .track { animation-play-state: paused; }
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+}
+.cell {
+  height: var(--card-h);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px 28px;
+  background: var(--surface);
+  border-radius: 16px;
+}
+.cell img {
+  max-height: 64px;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+  /* original colors — deliberately no grayscale filter */
+}
+
+/* Step up one row at a time (hold, then roll), looping seamlessly at -4 rows
+   (= the start of the duplicated set). */
+@keyframes certRoll {
+  0%, 20%   { transform: translateY(0); }
+  25%, 45%  { transform: translateY(calc(-1 * var(--pitch))); }
+  50%, 70%  { transform: translateY(calc(-2 * var(--pitch))); }
+  75%, 95%  { transform: translateY(calc(-3 * var(--pitch))); }
+  100%      { transform: translateY(calc(-4 * var(--pitch))); }
+}
+
+/* Static fallbacks — no roll: show all unique rows, drop the duplicates. */
+@media (prefers-reduced-motion: reduce) {
+  .viewport { height: auto; overflow: visible; }
+  .track { animation: none; }
+  .row[aria-hidden="true"] { display: none; }
+}
+@media (max-width: 720px) {
+  .viewport { height: auto; overflow: visible; }
+  .track { animation: none; }
+  .row { grid-template-columns: repeat(2, 1fr); }
+  .row[aria-hidden="true"] { display: none; }
+  .cell { height: 108px; padding: 16px 20px; }
+  .cell img { max-height: 52px; }
+}

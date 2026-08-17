@@ -1,0 +1,75 @@
+/* Shared catalog-page chrome. Table styling deliberately matches
+   ToolingListing.module.css so every parts table on the site reads the same. */
+.layout { display: grid; grid-template-columns: 1fr 320px; gap: 40px; align-items: start; }
+.main { min-width: 0; }
+
+.intro { color: #444; }
+.blockTitle { font-size: 18px; font-weight: var(--heading-weight); color: var(--navy); margin: 28px 0 12px; }
+
+/* Inline link block (manufacturers, part types, related items) */
+.linkList {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 8px 10px;
+}
+.linkList li { }
+.linkList a {
+  display: inline-block; font-size: 13px; color: var(--navy);
+  border: 1px solid var(--line); border-radius: var(--radius-pill, 999px); padding: 6px 13px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.linkList a:hover { background: var(--bg-alt); border-color: var(--line-2); text-decoration: none; }
+
+/* Pagination */
+.pager { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin: 20px 0 16px; }
+.pagerBottom { justify-content: flex-end; margin: 16px 0 0; }
+.displaying { font-size: 13px; font-weight: 700; color: var(--muted); }
+.pages { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.page, .pageArrow {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 32px;
+  border: 1px solid var(--line); color: var(--navy); border-radius: var(--radius); font-size: 13px; font-weight: 700; padding: 0 8px;
+}
+.page:hover, .pageArrow:hover { background: var(--bg-alt); text-decoration: none; }
+.pageActive { background: var(--red); color: #fff; border-color: var(--red); }
+.pageArrow { color: var(--muted); }
+
+/* Parts table */
+.tableWrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); font-size: 13px; }
+.table thead th { background: var(--navy); color: #fff; text-align: left; padding: 11px 14px; font-size: 13px; white-space: nowrap; }
+.table tbody td { padding: 9px 14px; border-top: 1px solid #eef0f3; vertical-align: middle; }
+.table tbody tr:hover { background: var(--bg-alt); }
+.partLink { color: var(--navy); font-weight: 700; }
+.cap { color: #444; }
+.mono { font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--ink); }
+
+/* Holds the RFQ button + the cart button. */
+.rfqCol { width: 168px; text-align: center; }
+.rowActions { display: flex; align-items: center; justify-content: center; gap: 6px; }
+.rfqBtn {
+  display: inline-block; background: var(--red); color: #fff; padding: 5px 14px;
+  border-radius: var(--radius); font-size: 12px; font-weight: 700; line-height: 1.5;
+}
+.rfqBtn:hover { background: var(--red-dark); text-decoration: none; }
+
+/* Narrow tables already scroll horizontally (.tableWrap), but stacking the two
+   actions keeps the last column from dominating the row on small screens. */
+@media (max-width: 620px) {
+  .rfqCol { width: 96px; }
+  .rowActions { flex-direction: column; gap: 5px; }
+}
+
+/* FAQ */
+.faq { margin: 0; display: flex; flex-direction: column; }
+.faqItem { border-top: 1px solid var(--line); padding: 16px 0; }
+.faqItem:last-child { border-bottom: 1px solid var(--line); }
+.faq dt { font-size: 15px; font-weight: 600; color: var(--ink); margin: 0 0 6px; letter-spacing: -0.01em; }
+.faq dd { margin: 0; font-size: 14px; line-height: 1.6; color: #444; }
+
+/* Closing CTA */
+.cta { margin-top: 32px; padding: 26px; background: var(--surface); border-radius: var(--radius); }
+.ctaTitle { font-size: 18px; font-weight: var(--heading-weight); color: var(--ink); margin: 0 0 8px; }
+.ctaBody { margin: 0 0 18px; font-size: 14px; line-height: 1.6; color: #444; }
+
+@media (max-width: 992px) {
+  .layout { grid-template-columns: 1fr; }
+}

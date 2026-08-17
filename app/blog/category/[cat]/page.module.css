@@ -1,0 +1,40 @@
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 48px; align-items: start; }
+.main { min-width: 0; }
+
+.eyebrow {
+  font-family: var(--font-eyebrow); font-size: var(--eyebrow-size); font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-tracking); text-transform: uppercase; color: var(--faint); margin: 0 0 14px;
+}
+
+/* Post list */
+.posts { list-style: none; margin: 28px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.post { padding: 26px 0; border-bottom: 1px solid var(--line); }
+.postMeta { margin: 0 0 8px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); }
+.postTitle { font-size: 21px; font-weight: var(--heading-weight); letter-spacing: -0.02em; margin: 0 0 10px; line-height: 1.25; }
+.postTitle a { color: var(--ink); }
+.postTitle a:hover { color: var(--muted); text-decoration: none; }
+.postExcerpt { margin: 0 0 12px; font-size: 14.5px; line-height: 1.65; color: #444; max-width: 68ch; }
+.readMore { font-size: 13px; font-weight: 600; color: var(--navy); }
+
+.empty { margin: 26px 0 0; font-size: 15px; line-height: 1.65; color: #444; }
+
+.blockTitle { font-size: 18px; font-weight: var(--heading-weight); color: var(--navy); margin: 36px 0 14px; }
+.tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.tags a {
+  display: inline-block; font-size: 12.5px; color: var(--navy);
+  border: 1px solid var(--line); border-radius: var(--radius-pill, 999px); padding: 6px 12px;
+}
+.tags a:hover { background: var(--bg-alt); border-color: var(--line-2); text-decoration: none; }
+
+/* Rail */
+.rail { display: flex; flex-direction: column; gap: 24px; }
+.railBox { border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+.railTitle { font-size: 15px; font-weight: var(--heading-weight); color: var(--ink); margin: 0 0 12px; }
+.railList { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.railList li { border-top: 1px solid var(--line); }
+.railList li:first-child { border-top: 0; }
+.railList a { display: block; padding: 10px 0; font-size: 13px; line-height: 1.45; color: var(--navy); }
+
+@media (max-width: 992px) {
+  .layout { grid-template-columns: 1fr; gap: 36px; }
+}

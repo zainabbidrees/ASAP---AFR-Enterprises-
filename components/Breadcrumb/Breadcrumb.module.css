@@ -1,0 +1,6 @@
+.breadcrumb { border-bottom: 1px solid var(--line); padding: 14px 0; font-size: 14px; }
+.list { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.item { display: flex; align-items: center; gap: 8px; }
+.item a { color: var(--navy); font-weight: 600; }
+.item span[aria-current] { color: var(--ink); font-weight: 600; }
+.sep { color: var(--muted); }

@@ -1,0 +1,156 @@
+/* Parts we source — monochrome photo bento (nor.ma feature-showcase). */
+.section {
+  padding: var(--section-pad-y) 0;
+  background: var(--paper);
+}
+
+.head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 24px; margin-bottom: clamp(32px, 4vw, 52px);
+}
+.title { font-size: var(--text-3xl); margin: 0 0 10px; letter-spacing: -0.028em; }
+.lead { margin: 0; color: var(--muted); font-size: var(--text-lg); }
+.viewAll {
+  flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px;
+  font-size: 15px; font-weight: 500; color: var(--ink); white-space: nowrap;
+}
+.viewAll:hover { text-decoration: none; opacity: 0.7; }
+
+/* Bento */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: clamp(150px, 15vw, 200px);
+  gap: 16px;
+}
+.tile {
+  position: relative; overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--surface) center/cover no-repeat;
+  isolation: isolate;
+}
+.tile::after {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to top, rgba(10, 10, 10, 0.78) 0%, rgba(10, 10, 10, 0.28) 42%, rgba(10, 10, 10, 0.05) 100%);
+  transition: background 0.3s var(--ease);
+}
+.tile::before {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background: inherit; background-size: cover; background-position: center;
+  transition: transform 0.5s var(--ease);
+}
+.big { grid-column: span 2; grid-row: span 2; }
+.wide { grid-column: span 2; }
+
+.content {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 20px;
+}
+.tileTitle { margin: 0; font-size: var(--text-lg); letter-spacing: -0.01em; }
+.big .tileTitle { font-size: var(--text-2xl); }
+.tileLink { color: #fff; }
+.tileLink::after { content: ""; position: absolute; inset: 0; z-index: 3; }
+.tileLink:hover { text-decoration: none; }
+
+.reveal {
+  display: grid; grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.4s var(--ease), opacity 0.3s var(--ease), margin-top 0.4s var(--ease);
+  margin-top: 0;
+}
+.reveal > * { overflow: hidden; min-height: 0; }
+.detail { margin: 0 0 12px; color: rgba(255, 255, 255, 0.82); font-size: 14px; line-height: 1.5; max-width: 42ch; }
+.rfq {
+  position: relative; z-index: 4;
+  display: inline-flex; align-items: center; gap: 6px;
+  align-self: flex-start;
+  background: #fff; color: var(--ink);
+  padding: 9px 16px; border-radius: var(--radius-pill);
+  font-size: 13px; font-weight: 500;
+}
+.rfq:hover { text-decoration: none; background: var(--surface); }
+
+.tile:hover::before, .tile:focus-within::before { transform: scale(1.05); }
+.tile:hover::after, .tile:focus-within::after {
+  background: linear-gradient(to top, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.5) 55%, rgba(10, 10, 10, 0.2) 100%);
+}
+.tile:hover .reveal, .tile:focus-within .reveal { grid-template-rows: 1fr; opacity: 1; margin-top: 12px; }
+
+/* Touch devices: keep the detail visible (no hover) */
+@media (hover: none) {
+  .reveal { grid-template-rows: 1fr; opacity: 1; margin-top: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile, .tile::before, .content, .reveal { transition: none; }
+}
+
+/* ---- Focal reveal: the photographs develop into their frames ----
+   Each tile is clipped shut at its own bottom edge, then the frame opens upward
+   while the photo settles out of a slight over-scale and the caption is named.
+   JS sets .prep on mount (armed — the grid is below the fold, so nothing flashes),
+   then swaps it for .in when the GRID lands in view; runs once.
+
+   Built on TRANSITIONS toward the resting state, not keyframes held by a fill
+   mode. That ordering matters: the open, readable state is the plain CSS default,
+   so if the transition is throttled, unsupported or never scheduled, the tiles are
+   simply already open. Motion is additive here and can never strand the content
+   invisible. No JS / reduced motion: neither class is set and nothing is hidden. */
+.tile {
+  clip-path: inset(0 0 0 0 round var(--radius));
+  transition: clip-path 0.72s var(--ease);
+}
+.content { transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Armed: snap shut with no transition, so arming is never itself animated. */
+  .prep .tile {
+    clip-path: inset(100% 0 0 0 round var(--radius));
+    transition: none;
+  }
+  .prep .tile::before { transform: scale(1.09); transition: none; }
+  .prep .content { opacity: 0; transform: translateY(10px); transition: none; }
+
+  /* Released: every property transitions to the resting default above. Spatial,
+     not a queue — the big anchor tile leads, the wide tile follows, and the bottom
+     row arrives tight enough to land as one band. Frames settle by ~1.34s. */
+  .in .tile:nth-child(1), .in .tile:nth-child(1)::before { transition-delay: 0.05s; }
+  .in .tile:nth-child(2), .in .tile:nth-child(2)::before { transition-delay: 0.16s; }
+  .in .tile:nth-child(3), .in .tile:nth-child(3)::before { transition-delay: 0.24s; }
+  .in .tile:nth-child(4), .in .tile:nth-child(4)::before { transition-delay: 0.34s; }
+  .in .tile:nth-child(5), .in .tile:nth-child(5)::before { transition-delay: 0.44s; }
+  .in .tile:nth-child(6), .in .tile:nth-child(6)::before { transition-delay: 0.5s; }
+  .in .tile:nth-child(7), .in .tile:nth-child(7)::before { transition-delay: 0.56s; }
+  .in .tile:nth-child(8), .in .tile:nth-child(8)::before { transition-delay: 0.62s; }
+
+  /* Captions trail their own frame — the window opens, then it is named. */
+  .in .tile:nth-child(1) .content { transition-delay: 0.3s; }
+  .in .tile:nth-child(2) .content { transition-delay: 0.41s; }
+  .in .tile:nth-child(3) .content { transition-delay: 0.49s; }
+  .in .tile:nth-child(4) .content { transition-delay: 0.59s; }
+  .in .tile:nth-child(5) .content { transition-delay: 0.69s; }
+  .in .tile:nth-child(6) .content { transition-delay: 0.75s; }
+  .in .tile:nth-child(7) .content { transition-delay: 0.81s; }
+  .in .tile:nth-child(8) .content { transition-delay: 0.87s; }
+
+  /* Once open, drop the entrance delays so hover responds immediately. */
+  .in .tile:hover, .in .tile:focus-within,
+  .in .tile:hover::before, .in .tile:focus-within::before,
+  .in .tile:hover .content, .in .tile:focus-within .content { transition-delay: 0s; }
+}
+
+@media (max-width: 860px) {
+  .bento { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 190px; }
+  .big { grid-column: span 2; grid-row: span 1; }
+  .wide { grid-column: span 2; }
+  /* Cheaper on mobile: keep the frame opening, drop the photo over-scale. */
+  @media (prefers-reduced-motion: no-preference) {
+    .prep .tile::before { transform: none; }
+  }
+}
+@media (max-width: 560px) {
+  .head { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .bento { grid-template-columns: 1fr; }
+  .big, .wide { grid-column: span 1; }
+}

@@ -1,0 +1,38 @@
+.layout { display: grid; grid-template-columns: 1fr 320px; gap: 40px; align-items: start; }
+.main { min-width: 0; }
+
+.intro { color: #444; }
+.blockTitle { font-size: 18px; font-weight: var(--heading-weight); color: var(--navy); margin: 24px 0 10px; }
+.bullets { padding-left: 20px; list-style: disc; display: flex; flex-direction: column; gap: 8px; }
+.bullets li { color: #444; }
+
+/* Pagination */
+.pager { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 24px 0; }
+.page {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 34px;
+  border: 1px solid var(--navy); color: var(--navy); border-radius: var(--radius); font-size: 14px; font-weight: 700; padding: 0 8px;
+}
+.page:hover { background: var(--navy); color: #fff; text-decoration: none; }
+.pageViewAll { display: inline-flex; align-items: center; padding: 0 16px; height: 34px; background: var(--red); color: #fff; border-radius: var(--radius); font-size: 13px; font-weight: 700; }
+.pageViewAll:hover { background: var(--red-dark); text-decoration: none; }
+
+/* FSG cards — newspaper/masonry columns like the live site */
+.groups { columns: 2; column-gap: 20px; }
+.fsgCard { break-inside: avoid; margin-bottom: 20px; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: inline-block; width: 100%; }
+.fsgHead { display: flex; justify-content: space-between; align-items: center; gap: 10px; background: var(--navy); color: #fff; padding: 10px 14px; }
+.fsgName { font-size: 14px; font-weight: var(--heading-weight); }
+.fsgCountLabel { font-size: 11px; font-weight: 700; opacity: .85; white-space: nowrap; }
+
+.fscList { display: flex; flex-direction: column; }
+.fscRow { display: flex; align-items: baseline; gap: 10px; padding: 8px 14px; border-bottom: 1px solid #eef0f3; }
+.fscRow:last-child { border-bottom: 0; }
+.fscCode { font-size: 12px; font-weight: 700; color: var(--ink); flex-shrink: 0; width: 62px; }
+.fscDesc { flex: 1; font-size: 13px; color: var(--navy); }
+.fscCount { font-size: 12px; color: var(--muted); flex-shrink: 0; text-align: right; min-width: 52px; }
+
+@media (max-width: 992px) {
+  .layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .groups { columns: 1; }
+}
