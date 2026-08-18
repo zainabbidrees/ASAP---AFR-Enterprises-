@@ -36,14 +36,14 @@ const VALUES = [
   {
     n: "02", name: "One person owns your order",
     line: "The representative who quotes your part is the one who sees it shipped. No ticket queue, no call centre, nobody to re-explain the requirement to.",
-    img: "/photos/value-reliability.jpg", pos: "50% 50%",
-    alt: "An outbound order being loaded onto the truck at the Anaheim warehouse",
+    img: "/photos/value-ownership.jpg", pos: "58% 40%",
+    alt: "An AFR Enterprises specialist working a single order and its paperwork at the pick face",
   },
   {
     n: "03", name: "Everything ships documented",
     line: "Certifications and traceability back to an approved source, in the box. We are AS9120B and ISO 9001:2015 certified and audited against both.",
-    img: "/photos/value-traceability.jpg", pos: "50% 38%",
-    alt: "The wall of accreditation certificates and quality approvals at the Anaheim facility",
+    img: "/photos/value-documented.jpg", pos: "52% 46%",
+    alt: "Specialists pulling stock and its record folders from the bin-located racking in Anaheim",
   },
   {
     n: "04", name: "The desk is always staffed",
