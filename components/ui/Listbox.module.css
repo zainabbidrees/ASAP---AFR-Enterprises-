@@ -1,0 +1,64 @@
+/* =========================================================
+   Listbox — the site's dropdown. Trigger matches the other
+   fields exactly (one explicit height, hairline, 12px radius);
+   the menu is portalled to <body> and positioned fixed.
+   ========================================================= */
+
+.trigger {
+  --lb-h: 44px;
+
+  display: inline-flex; align-items: center; justify-content: space-between; gap: 8px;
+  width: 100%; height: var(--lb-h);
+  /* Explicit height with zeroed vertical padding — a min-height here would let
+     the font metrics decide, and this has to sit level with the fields beside it. */
+  padding: 0 12px;
+  background: var(--paper);
+  border: 1px solid var(--line-2); border-radius: var(--radius);
+  font-family: inherit; font-size: 14px; font-weight: 500; line-height: 1;
+  color: var(--ink); text-align: left; cursor: pointer;
+  transition: border-color 0.18s ease;
+}
+.trigger[data-size="sm"] { --lb-h: 36px; font-size: 13px; }
+.trigger[data-size="md"] { --lb-h: 44px; }
+.trigger:hover { border-color: var(--ink); }
+.trigger:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.trigger[data-placeholder="true"] .label { color: var(--faint); font-weight: 400; }
+.trigger[aria-expanded="true"] { border-color: var(--ink); }
+
+.label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.chevron {
+  flex: 0 0 auto; width: 15px; height: 15px; color: var(--muted);
+  transition: transform 0.2s var(--ease);
+}
+.trigger[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+
+/* ---- portalled menu ---- */
+.menu {
+  position: fixed; z-index: 120;
+  margin: 0; padding: 6px;
+  list-style: none; overflow-y: auto; overscroll-behavior: contain;
+  background: var(--paper);
+  border: 1px solid var(--line-2); border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+
+.option {
+  padding: 9px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 14px; line-height: 1.35; color: var(--ink);
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.option[data-active="true"] { background: var(--surface); }
+.option[aria-selected="true"] { font-weight: 600; }
+.option[aria-selected="true"]::after {
+  content: "";
+  float: right;
+  width: 6px; height: 6px; margin: 6px 2px 0 8px;
+  border-radius: 50%; background: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger, .chevron { transition: none; }
+}

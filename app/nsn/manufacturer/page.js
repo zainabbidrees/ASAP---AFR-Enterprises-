@@ -1,5 +1,6 @@
 import Link from "next/link";
 import InnerSidebar from "@/components/Sidebar/InnerSidebar";
+import PageProse from "@/components/PageProse/PageProse";
 import { MFR_POOL, slugify } from "@/lib/catalog";
 import styles from "@/components/NsnIndexPage/NsnIndexPage.module.css";
 
@@ -18,12 +19,6 @@ export default function NsnManufacturerIndex() {
         <div className={`container ${styles.layout}`}>
           <div className={styles.main}>
             <h1 className="section-title section-title--left">NSN Approved Manufacturers</h1>
-            <p className={styles.intro}>
-              The manufacturers behind the National Stock Numbers we supply. Open any name for the
-              part numbers, stock numbers and CAGE registration we hold against it. Every line is
-              traceable to an approved source — we are AS9120B certified and AS6081 certified for
-              counterfeit avoidance.
-            </p>
 
             <ul className={styles.numGrid}>
               {sorted.map((m) => (
@@ -33,14 +28,19 @@ export default function NsnManufacturerIndex() {
               ))}
             </ul>
 
-            <div className={styles.cta}>
-              <h2 className={styles.ctaTitle}>Looking for a manufacturer not listed?</h2>
-              <p className={styles.ctaBody}>
-                This is a working directory, not the whole supply network. Send the part number and
-                we&apos;ll tell you honestly whether we can source it — and by when.
-              </p>
-              <Link className="btn" href="/straightrfq/">Request a Quote</Link>
-            </div>
+            <PageProse
+              eyebrow="About these approved sources"
+              lead={[
+                "The manufacturers behind the National Stock Numbers we supply. Open any name above for the part numbers, stock numbers and CAGE registration we hold against it.",
+                "Every line is traceable to an approved source. We are AS9120B and ISO 9001:2015 certified, FAA AC 00-56B accredited and AS6081 certified for counterfeit avoidance, and we supply NSN-catalogued hardware under CAGE code 6RE77.",
+              ]}
+              cta={{
+                title: "Looking for a manufacturer not listed?",
+                body: "This is a working directory, not the whole supply network. Send the part number and we'll tell you honestly whether we can source it, and by when.",
+                href: "/straightrfq/",
+                label: "Request a Quote",
+              }}
+            />
           </div>
 
           <InnerSidebar />

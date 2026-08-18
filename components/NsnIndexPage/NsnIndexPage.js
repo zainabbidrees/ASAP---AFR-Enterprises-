@@ -1,5 +1,6 @@
 import Link from "next/link";
 import InnerSidebar from "@/components/Sidebar/InnerSidebar";
+import PageProse from "@/components/PageProse/PageProse";
 import { SECTIONS as NSN_SECTIONS } from "@/data/nsn-numbers";
 import { SECTIONS as NIIN_SECTIONS } from "@/data/niin-numbers";
 import styles from "./NsnIndexPage.module.css";
@@ -37,15 +38,8 @@ export default function NsnIndexPage({ kind, group }) {
         <div className={`container ${styles.layout}`}>
           <div className={styles.main}>
             <h1 className="section-title section-title--left">
-              {cfg.label} Group {group} — Complete Listing
+              {cfg.label} Group {group}: Complete Listing
             </h1>
-            <p className={styles.intro}>
-              Every {cfg.long} we catalog in group {group}. Open any number for the part numbers,
-              approved manufacturers{kind === "nsn" ? " and MIL-STD characteristic data" : ""} recorded
-              against it. AFR Enterprises supplies NSN-catalogued hardware under CAGE code 6RE77 with
-              full traceability on every shipment.
-            </p>
-
             {entries.length > 0 ? (
               <ul className={styles.numGrid}>
                 {entries.map(([label, href]) => (
@@ -73,15 +67,19 @@ export default function NsnIndexPage({ kind, group }) {
               ))}
             </div>
 
-            <div className={styles.cta}>
-              <h2 className={styles.ctaTitle}>Have the stock number already?</h2>
-              <p className={styles.ctaBody}>
-                Skip the browse. Send the {cfg.label} with your quantity and required date and a
-                specialist returns pricing, availability and condition in writing — normally inside 15
-                minutes.
-              </p>
-              <Link className="btn" href="/straightrfq/">Request a Quote</Link>
-            </div>
+            <PageProse
+              eyebrow={`${cfg.label} group ${group}`}
+              lead={[
+                `Every ${cfg.long} we catalog in group ${group}. Open any number above for the part numbers, approved manufacturers${kind === "nsn" ? " and MIL-STD characteristic data" : ""} recorded against it.`,
+                `AFR Enterprises supplies NSN-catalogued hardware under CAGE code 6RE77 with full traceability on every shipment. Every line is quoted in Factory New, New Surplus or Overhauled condition, stated explicitly.`,
+              ]}
+              cta={{
+                title: "Have the stock number already?",
+                body: `Skip the browse. Send the ${cfg.label} with your quantity and required date and a specialist returns pricing, availability and condition in writing, normally inside 15 minutes.`,
+                href: "/straightrfq/",
+                label: "Request a Quote",
+              }}
+            />
           </div>
 
           <InnerSidebar />

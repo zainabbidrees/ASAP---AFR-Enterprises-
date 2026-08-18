@@ -1,18 +1,25 @@
 import Link from "next/link";
 import InnerSidebar from "@/components/Sidebar/InnerSidebar";
+import PageProse from "@/components/PageProse/PageProse";
 import AddToCartButton from "@/components/cart/AddToCartButton";
 import styles from "./CatalogListing.module.css";
 
 // The catalog page shape shared by every table-driven template: category
-// listings, manufacturer detail, NSN leaves, FSC classes, CAGE codes. All of them
-// are H1 → intro → link list → parts table → (optional attribute table) → FAQ →
-// sidebar; only the columns and the link list change.
+// listings, manufacturer detail, NSN leaves, FSC classes, CAGE codes.
+//
+// The order is deliberate and the same on every inner page: the listing people
+// came for leads (heading → pager → parts table → any characteristics grid), then
+// the supporting copy in PageProse, then the ways onward (link blocks, FAQ, CTA).
+// Only the columns and the link lists change between templates.
 //
 // Props:
 //   breadcrumb   – IGNORED. The breadcrumb bar was removed sitewide (a full-width
 //                  band for one crumb); callers still pass the trail so it can be
 //                  reinstated in one place if it is ever wanted back.
-//   h1, intro    – heading + lead paragraph
+//   h1           – page heading
+//   intro        – lead copy, rendered BELOW the listing (string, node, or array)
+//   sections     – [{ title, intro?, bullets }] extra copy topics, also below
+//   proseEyebrow – kicker on the copy block (default "About this listing")
 //   linkList     – { title, items: [[label, href], …], note? } inline link block
 //   columns      – [{ key, header, kind?: "part" | "link" | "text" | "rfq", width? }]
 //   rows         – row objects; `kind: "part"`/"link" cells use row.href
@@ -26,6 +33,10 @@ export default function CatalogListing({
   breadcrumb = [],
   h1,
   intro,
+  sections = [],
+  proseEyebrow = "About this listing",
+  proseTitle,
+  closing,
   linkList,
   columns = [],
   rows = [],
@@ -42,23 +53,9 @@ export default function CatalogListing({
         <div className={`container ${styles.layout}`}>
           <div className={styles.main}>
             <h1 className="section-title section-title--left">{h1}</h1>
-            {intro && <p className={styles.intro}>{intro}</p>}
 
-            {/* Inline link block — manufacturers on a category page, part types on
-                a manufacturer page, related NSNs on an NSN leaf. */}
-            {linkList?.items?.length > 0 && (
-              <>
-                <h2 className={styles.blockTitle}>{linkList.title}</h2>
-                {linkList.note && <p className={styles.intro}>{linkList.note}</p>}
-                <ul className={styles.linkList}>
-                  {linkList.items.map(([label, href]) => (
-                    <li key={href}><Link href={href}>{label}</Link></li>
-                  ))}
-                </ul>
-              </>
-            )}
-
-            {tableTitle && <h2 className={styles.blockTitle}>{tableTitle}</h2>}
+            {/* ---- The listing, first ---- */}
+            {tableTitle && <h2 className={styles.listingTitle}>{tableTitle}</h2>}
 
             {pager && <Pager {...pager} />}
 
@@ -89,11 +86,12 @@ export default function CatalogListing({
 
             {pager && <Pager {...pager} bottom />}
 
-            {/* MIL-STD characteristics / details grid */}
+            {/* MIL-STD characteristics / registration grid — data, so it stays with
+                the table rather than travelling down with the prose. */}
             {attrTable?.rows?.length > 0 && (
-              <>
+              <div className={styles.block}>
                 <h2 className={styles.blockTitle}>{attrTable.title}</h2>
-                {attrTable.intro && <p className={styles.intro}>{attrTable.intro}</p>}
+                {attrTable.intro && <p className={styles.blockIntro}>{attrTable.intro}</p>}
                 <div className={styles.tableWrap}>
                   <table className={styles.table}>
                     <thead>
@@ -110,22 +108,44 @@ export default function CatalogListing({
                     </tbody>
                   </table>
                 </div>
-              </>
+              </div>
+            )}
+
+            {/* ---- Then the copy ---- */}
+            <PageProse
+              eyebrow={proseEyebrow}
+              title={proseTitle}
+              lead={intro}
+              blocks={sections}
+              closing={closing}
+            />
+
+            {/* ---- Then the ways onward ---- */}
+            {linkList?.items?.length > 0 && (
+              <div className={styles.block}>
+                <h2 className={styles.blockTitle}>{linkList.title}</h2>
+                {linkList.note && <p className={styles.blockIntro}>{linkList.note}</p>}
+                <ul className={styles.linkList}>
+                  {linkList.items.map(([label, href]) => (
+                    <li key={href}><Link href={href}>{label}</Link></li>
+                  ))}
+                </ul>
+              </div>
             )}
 
             {related?.items?.length > 0 && (
-              <>
+              <div className={styles.block}>
                 <h2 className={styles.blockTitle}>{related.title}</h2>
                 <ul className={styles.linkList}>
                   {related.items.map(([label, href]) => (
                     <li key={href}><Link href={href}>{label}</Link></li>
                   ))}
                 </ul>
-              </>
+              </div>
             )}
 
             {faq?.items?.length > 0 && (
-              <>
+              <div className={styles.block}>
                 <h2 className={styles.blockTitle}>{faq.title}</h2>
                 <dl className={styles.faq}>
                   {faq.items.map((item) => (
@@ -135,7 +155,7 @@ export default function CatalogListing({
                     </div>
                   ))}
                 </dl>
-              </>
+              </div>
             )}
 
             {cta && (

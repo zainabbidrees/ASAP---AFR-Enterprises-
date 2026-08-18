@@ -61,12 +61,15 @@
   display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
   gap: clamp(32px, 6vw, 96px); align-items: center;
 }
+/* One frame: the wide operations shot, tall enough to sit level with the copy
+   column beside it. */
 .storyFigure {
   position: relative; margin: 0; aspect-ratio: 4 / 5;
   border-radius: var(--radius); overflow: hidden; background: var(--surface);
   border: 1px solid var(--line); box-shadow: var(--shadow);
 }
-.storyImg { object-fit: cover; object-position: 50% 45%; }
+/* Grayscale like every other photograph on this page — the section is ink-on-paper. */
+.storyImg { object-fit: cover; object-position: 50% 45%; filter: grayscale(1) contrast(1.04); }
 .storyBody { min-width: 0; }
 .storyBody .eyebrow { margin: 0 0 16px; }
 /* ONE body size for this whole column. It previously ran eyebrow 12 → heading 44 →
@@ -93,9 +96,26 @@
   padding: clamp(96px, 11vw, 168px) 0;
   border-top: 1px solid var(--line-inv); border-bottom: 1px solid var(--line-inv);
 }
+/* Photographic backdrop. Pushed right down — brightness and opacity both — because
+   the word-ignition starts each word at 20% white and would be unreadable over an
+   open photograph. What survives is the texture of bin-located racking, which is
+   what the statement above it is actually about. */
+.missionPhoto {
+  object-fit: cover;
+  object-position: 50% 55%;
+  z-index: 0;
+  filter: grayscale(1) contrast(1.1) brightness(0.6);
+  opacity: 0.4;
+}
+.missionScrim {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(8, 10, 13, 0.55) 0%, rgba(8, 10, 13, 0.8) 100%),
+    radial-gradient(100% 120% at 20% 40%, rgba(8, 10, 13, 0.42) 0%, rgba(8, 10, 13, 0.76) 100%);
+}
 /* Soft charcoal depth field — lifts the flat black without a neon glow. */
 .missionField {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
   background:
     radial-gradient(120% 80% at 15% 0%, rgba(255, 255, 255, 0.06), transparent 60%),
     radial-gradient(90% 70% at 100% 100%, rgba(255, 255, 255, 0.035), transparent 55%);
@@ -103,7 +123,7 @@
 /* Tighter side gutters than the global container — the statement should fill,
    not float in whitespace. */
 .mission .missionInner {
-  position: relative; z-index: 1; max-width: 1320px;
+  position: relative; z-index: 3; max-width: 1320px;
   padding-inline: clamp(24px, 4vw, 72px);
 }
 .missionInner .eyebrow { margin: 0 0 clamp(26px, 3vw, 38px); }
@@ -258,26 +278,30 @@
   padding-bottom: 6px;
 }
 
-/* Capped: the container runs to 1800px, so an uncapped row left the note column
-   stranded at the far right, reading as an unrelated column instead of a caption. */
-.edgeRows { list-style: none; margin: 0; padding: 0; max-width: 1240px; }
+/* No width cap and no number gutter: the rows now share the header's exact two-column
+   template, so the claim starts on the same left edge as the section title and the
+   strip starts on the same left edge as the section lede. The old
+   `46px | 1fr | 260px` broke both — it pushed every claim ~80px right of the
+   heading above it, and its third column landed well right of the lede. */
+.edgeRows { list-style: none; margin: 0; padding: 0; }
 
-/* Every row starts on the same left edge — flush, no diagonal. The rhythm comes
-   from the hairlines, the display type and the staggered reveal. */
 .edgeRow {
   position: relative;
   display: grid;
-  grid-template-columns: 46px minmax(0, 1fr) minmax(0, 260px);
-  gap: 0 clamp(16px, 2.2vw, 34px);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: 0 clamp(16px, 3vw, 64px);
   align-items: center;
   padding: clamp(26px, 3vw, 40px) 0;
   border-top: 1px solid var(--line);
 }
 .edgeRow:last-child { border-bottom: 1px solid var(--line); }
 
+/* Left column: index above the claim, the way the values band sets its numerals,
+   which is what lets the claim itself sit flush. */
+.edgeBody { min-width: 0; }
 .edgeNum {
-  align-self: start;
-  padding-top: 0.7em;
+  display: block;
+  margin: 0 0 12px;
   font-family: ui-monospace, Menlo, monospace; font-size: 12.5px;
   color: var(--faint); letter-spacing: 0.06em;
   transition: color 0.4s var(--ease);
@@ -298,6 +322,11 @@
   background-size: 0% 1px;
   transition: background-size 0.55s var(--ease);
 }
+
+/* Right column: strip with its caption directly under it, so the note reads as a
+   caption on the photograph rather than as a stranded third column. Capped, because
+   the container runs to 1800px and an uncapped strip becomes a letterbox. */
+.edgeAside { min-width: 0; display: grid; gap: 14px; max-width: 440px; }
 
 /* The photographic strip. Clipped shut at rest and opened with clip-path so the
    reveal never animates layout. */
@@ -326,8 +355,7 @@
 }
 
 .edgeNote {
-  grid-column: 3;
-  margin: 10px 0 0;
+  margin: 0;
   font-size: 13px; line-height: 1.5; color: var(--muted);
   transition: color 0.4s var(--ease);
 }
@@ -363,8 +391,26 @@
 /* =========================================================
    06 · BY THE NUMBERS — dark stats band (count-up)
    ========================================================= */
-.stats { background: var(--dark); color: var(--on-dark); padding: clamp(56px, 6vw, 88px) 0; }
-.statsGrid { display: grid; grid-template-columns: repeat(4, 1fr); }
+.stats {
+  position: relative; isolation: isolate; overflow: hidden;
+  background: var(--dark); color: var(--on-dark); padding: clamp(56px, 6vw, 88px) 0;
+}
+/* Held back less hard than the commitment band — nothing here starts at 20% white,
+   so the team and the racking can actually be seen behind the figures. */
+.statsPhoto {
+  object-fit: cover;
+  object-position: 50% 40%;
+  z-index: 0;
+  filter: grayscale(1) contrast(1.06) brightness(0.62);
+  opacity: 0.46;
+}
+.statsScrim {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(8, 10, 13, 0.52) 0%, rgba(8, 10, 13, 0.74) 100%),
+    radial-gradient(110% 130% at 25% 45%, rgba(8, 10, 13, 0.36) 0%, rgba(8, 10, 13, 0.7) 100%);
+}
+.statsGrid { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(4, 1fr); }
 .statCell { padding: 8px 28px; border-left: 1px solid var(--line-inv); }
 .statCell:first-child { border-left: 0; padding-left: 0; }
 .statFigure { display: flex; align-items: baseline; gap: 4px; }
@@ -391,6 +437,10 @@
    showcase lives in ./LeadershipShowcase.module.css
    ========================================================= */
 .leaders { padding: var(--section-pad-y) 0; background: var(--surface); }
+/* Centred here only — the portrait showcase below it is a centred composition,
+   and a left-ranged header over it read as a misalignment. */
+.leaders .secHead { text-align: center; margin-left: auto; margin-right: auto; }
+.leaders .blockLede { margin-left: auto; margin-right: auto; }
 
 /* 08 · CLOSE — the page ends on the shared <FinalCta /> (components/FinalCta). */
 
@@ -410,8 +460,10 @@
   /* Header stops being two offset weights. */
   .edgeHead { grid-template-columns: 1fr; gap: 20px; align-items: start; }
   .edgeLede { padding-bottom: 0; max-width: 52ch; }
-  /* Strip narrows but stays; the staircase step shrinks. */
-  .edgeRow { grid-template-columns: 40px minmax(0, 1fr) minmax(0, 180px); }
+  /* Head goes single-column, so the rows tighten rather than follow it — two
+     columns still fit here and the strip is worth keeping. */
+  .edgeRow { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 0 24px; }
+  /* One column: the portrait frame would be a tower at full width, so it lies down. */
   .storyFigure { aspect-ratio: 3 / 2; }
   .statsGrid { grid-template-columns: 1fr 1fr; gap: 40px 0; }
   .statCell:nth-child(odd) { border-left: 0; padding-left: 0; }
@@ -419,17 +471,11 @@
 @media (max-width: 620px) {
   /* The side strip can't survive one column: the photograph becomes a full-width
      band under its claim. */
-  .edgeRow {
-    grid-template-columns: 34px minmax(0, 1fr);
-    row-gap: 16px;
-  }
-  .edgeMedia { grid-column: 2; height: 132px; }
+  .edgeRow { grid-template-columns: 1fr; row-gap: 18px; }
+  .edgeAside { max-width: none; }
+  .edgeMedia { height: 132px; }
   .edgeMediaClip { clip-path: none; }
   .edgeImg { transform: none; }
-  .edgeNote { grid-column: 2; margin: 0; }
-  /* Note drops under the claim and aligns left — no room for a right rail. */
-  .edgeRow { grid-template-columns: 40px minmax(0, 1fr); row-gap: 10px; }
-  .edgeNote { grid-column: 2; text-align: left; }
 
   .indRow { grid-template-columns: 1fr 1fr; }
   .indCell:nth-child(odd) { border-left: 0; padding-left: 0; }

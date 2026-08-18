@@ -6,7 +6,7 @@ import styles from "./page.module.css";
 export const metadata = {
   title: "Request a Quote | 15-Minute RFQ on Aerospace & Industrial Parts | AFR Enterprises",
   description:
-    "Send the part numbers and get pricing, availability, condition and lead time in writing within 15 minutes — from a named specialist. No account, no sales call. AOG requests routed to a 24/7 desk. AFR Enterprises, Anaheim, California.",
+    "Send the part numbers and get pricing, availability, condition and lead time in writing within 15 minutes, from a named specialist. No account, no sales call. AOG requests routed to a 24/7 desk. AFR Enterprises, Anaheim, California.",
 };
 
 // The three beats after submit — a numbered rail, not a card row.
@@ -32,7 +32,7 @@ export default function StraightRfqPage({ searchParams }) {
             We&apos;ll do <em>the hard part.</em>
           </h1>
           <p className={styles.heroSub}>
-            Pricing, availability, condition and lead time in writing within 15 minutes — from a
+            Pricing, availability, condition and lead time in writing within 15 minutes, from a
             named specialist. No account, no sign-up, no sales call first.
           </p>
           <ul className={styles.heroMeta} aria-label="What to expect">
@@ -75,7 +75,7 @@ export default function StraightRfqPage({ searchParams }) {
                 Grounded aircraft?
               </p>
               <p className={styles.urgentText}>
-                Don&apos;t wait on a form. The desk is staffed continuously — an AOG request is worked
+                Don&apos;t wait on a form. The desk is staffed continuously. An AOG request is worked
                 the minute it lands.
               </p>
               <a className={styles.urgentCall} href="tel:1-714-705-4780">

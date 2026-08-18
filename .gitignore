@@ -3,6 +3,7 @@
 
 # next.js
 /.next/
+/.next-cartcheck/
 /out/
 
 # production
@@ -29,3 +30,5 @@ yarn-error.log*
 # live in /public/photos and /public/logos. Keep the originals in cloud storage,
 # or add them with Git LFS if they ever need to be tracked.
 /_photos-source/
+.vercel
+.env*

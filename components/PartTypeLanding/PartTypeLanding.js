@@ -1,5 +1,6 @@
 import Link from "next/link";
 import InnerSidebar from "@/components/Sidebar/InnerSidebar";
+import PageProse from "@/components/PageProse/PageProse";
 import styles from "./PartTypeLanding.module.css";
 
 // Reusable part-type landing template (Electronics / Aviation / Hardware).
@@ -46,42 +47,6 @@ export default function PartTypeLanding({
           <div className={styles.main}>
             <h1 className="section-title section-title--left">{h1}</h1>
 
-            <p className={styles.intro}>
-              {intro.before}
-              {intro.linkText && (
-                <>
-                  {" "}
-                  <Link href={intro.linkHref}>{intro.linkText}</Link>
-                  {" "}
-                </>
-              )}
-              {intro.after}
-            </p>
-
-            {/* Why partner */}
-            <h2 className={styles.blockTitle}>{whyTitle}</h2>
-            <ul className={styles.whyList}>
-              {why.map((item) => (
-                <li key={item.title}>
-                  <strong>{item.title}:</strong> {item.body}
-                </li>
-              ))}
-            </ul>
-
-            {/* How to source */}
-            <h2 className={styles.blockTitle}>{howTitle}</h2>
-            <ol className={styles.stepsList}>
-              {how.map((item) => (
-                <li key={item.title}>
-                  <strong>{item.title}</strong> – {item.body}
-                </li>
-              ))}
-            </ol>
-
-            {/* Request a quote */}
-            <h2 className={styles.blockTitle}>{requestTitle}</h2>
-            <p className={styles.request}>{requestBody}</p>
-
             {/* Letter quick-jump */}
             <ul className={styles.ranges}>
               {rangeTargets.map((r) => (
@@ -110,6 +75,36 @@ export default function PartTypeLanding({
                 </section>
               ))}
             </div>
+
+            {/* The catalog above is what people came for; the copy explaining it
+                follows underneath, designed in one shared block. */}
+            <PageProse
+              eyebrow={breadcrumbLabel}
+              lead={
+                <>
+                  {intro.before}
+                  {intro.linkText && (
+                    <>
+                      {" "}
+                      <Link href={intro.linkHref}>{intro.linkText}</Link>
+                    </>
+                  )}
+                  {/* `after` usually opens with punctuation (". Browse by …"), so a
+                      space here would leave the link floating away from it. */}
+                  {intro.after && (/^[.,;:!?)]/.test(intro.after) ? intro.after : ` ${intro.after}`)}
+                </>
+              }
+              blocks={[
+                { title: whyTitle, items: why },
+                { title: howTitle, items: how, numbered: true },
+              ]}
+              cta={{
+                title: requestTitle,
+                body: requestBody,
+                href: "/straightrfq/",
+                label: "Request a Quote",
+              }}
+            />
           </div>
 
           <InnerSidebar />

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import InnerSidebar from "@/components/Sidebar/InnerSidebar";
+import PageProse from "@/components/PageProse/PageProse";
 import styles from "./page.module.css";
 
 export const metadata = {
@@ -72,29 +73,6 @@ export default function CageCodesPage() {
         <div className={`container ${styles.layout}`}>
           <div className={styles.main}>
             <h1 className="section-title section-title--left">CAGE Code Search Directory</h1>
-            <p className={styles.intro}>Search and verify Commercial and Government Entity CAGE codes to identify certified aerospace, defense, and military equipment manufacturers.</p>
-
-            <h2 className={styles.blockTitle}>What is a CAGE Code?</h2>
-            <p className={styles.intro}>A Commercial and Government Entity CAGE Code is a unique five character alphanumeric identifier assigned by the Defense Logistics Agency DLA. It is used across the Department of Defense DoD, NASA, and NATO to standardize facility and manufacturer identification in government procurement.</p>
-
-            <h2 className={styles.blockTitle}>How to Search and Cross Reference CAGE Codes</h2>
-            <p className={styles.intro}>AFR Enterprises provides multi level cross referencing across aerospace and defense hardware databases. Search our catalog to link:</p>
-            <ul className={styles.bullets}>
-              <li>CAGE Codes (5 character entity identifier)</li>
-              <li>National Stock Numbers / NSNs (13 digit supply classification)</li>
-              <li>National Item Identification Numbers / NIINs (9 digit item code)</li>
-              <li>Manufacturer Part Numbers / MPNs (Original OEM designation)</li>
-            </ul>
-
-            <h2 className={styles.blockTitle}>Why Choose AFR Enterprises?</h2>
-            <p className={styles.intro}>As a purchasing platform owned and operated by ASAP Semiconductor, <Link href="/">AFR Enterprises</Link> simplifies component sourcing for AOG emergency maintenance, defense contracts, and commercial aviation procurement.</p>
-            <ul className={styles.bullets}>
-              <li>Certified Quality Management: Operations comply with strict AS9120B, ISO 9001:2015, and FAA AC 00-56B standards.</li>
-              <li>Supply Chain Integrity: We source exclusively through vetted OEMs and authorized distributors.</li>
-              <li>Full Traceability: Every shipped order includes complete documentation, including Certificates of Conformance CoC and manufacturer traceability.</li>
-              <li>Fast Response: Our 24/7 procurement team provides custom quotes within 15 minutes of receiving an RFQ.</li>
-            </ul>
-
             {/* Pagination */}
             <div className={styles.pager}>
               <span className={styles.displaying}>Displaying Page: 1 of 280</span>
@@ -113,6 +91,43 @@ export default function CageCodesPage() {
               <CageTable rows={LEFT} />
               <CageTable rows={RIGHT} />
             </div>
+
+            {/* Directory first, then what a CAGE code is and how we cross-reference it. */}
+            <PageProse
+              eyebrow="About CAGE codes"
+              lead={[
+                "Search and verify Commercial and Government Entity CAGE codes to identify certified aerospace, defense, and military equipment manufacturers.",
+                "A CAGE code is a unique five-character alphanumeric identifier assigned by the Defense Logistics Agency (DLA). It is used across the Department of Defense, NASA, and NATO to standardize facility and manufacturer identification in government procurement. Ours is 6RE77.",
+              ]}
+              blocks={[
+                {
+                  title: "How to search and cross-reference",
+                  intro: "AFR Enterprises provides multi-level cross-referencing across aerospace and defense hardware databases. Search our catalog to link any of these identifiers to the rest:",
+                  items: [
+                    "CAGE codes — the 5-character entity identifier.",
+                    "National Stock Numbers (NSNs) — the 13-digit supply classification.",
+                    "National Item Identification Numbers (NIINs) — the 9-digit item code.",
+                    "Manufacturer Part Numbers (MPNs) — the original OEM designation.",
+                  ],
+                },
+                {
+                  title: "Why choose AFR Enterprises?",
+                  intro: (
+                    <>
+                      As a purchasing platform owned and operated by ASAP Semiconductor,{" "}
+                      <Link href="/">AFR Enterprises</Link> simplifies component sourcing for AOG
+                      emergency maintenance, defense contracts, and commercial aviation procurement.
+                    </>
+                  ),
+                  items: [
+                    "Certified Quality Management: Operations comply with AS9120B, ISO 9001:2015, and FAA AC 00-56B standards.",
+                    "Supply Chain Integrity: We source exclusively through vetted OEMs and authorized distributors.",
+                    "Full Traceability: Every shipped order includes complete documentation, including Certificates of Conformance and manufacturer traceability.",
+                    "Fast Response: Our 24/7 procurement team returns custom quotes within 15 minutes of receiving an RFQ.",
+                  ],
+                },
+              ]}
+            />
           </div>
 
           <InnerSidebar />

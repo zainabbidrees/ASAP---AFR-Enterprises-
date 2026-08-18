@@ -13,7 +13,7 @@ const TITLE = "Sourcing the parts that keep you running.";
 const BODY =
   "AFR Enterprises supplies parts to companies that can’t afford downtime. " +
   "When a component is discontinued, back-ordered, or simply hard to track down, " +
-  "our team keeps digging until we find it — warrantied, fully traceable, and " +
+  "our team keeps digging until we find it: warrantied, fully traceable, and " +
   "priced to win the bid, backed by a network built over decades in aerospace & defense.";
 
 const CHAR_DELAY = 11; // ms between characters in the darkening sweep

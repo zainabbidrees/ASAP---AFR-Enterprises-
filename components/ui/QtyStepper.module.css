@@ -1,0 +1,73 @@
+/* =========================================================
+   QtyStepper — editorial-monochrome quantity control.
+   One bordered box; the input and both step buttons inside it
+   are borderless and transparent so it reads as a single field.
+   ========================================================= */
+
+/* Sizes are an explicit map, not derived from padding: every entry is one fixed
+   box height with the step buttons 2px smaller so they sit inside the hairline. */
+.group {
+  --qty-h: 44px;
+  --qty-step: 42px;
+  --qty-font: 14px;
+
+  display: inline-flex;
+  align-items: center;
+  height: var(--qty-h);
+  background: var(--paper);
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.group[data-size="sm"] { --qty-h: 36px; --qty-step: 34px; --qty-font: 13px; }
+.group[data-size="md"] { --qty-h: 44px; --qty-step: 42px; --qty-font: 14px; }
+
+.group[data-full="true"] { display: flex; width: 100%; }
+.group[data-bare="true"] { border-color: transparent; background: transparent; }
+
+/* The ring is on the group, not the inner input. */
+.group:focus-within { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.step {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: var(--qty-step); height: var(--qty-step);
+  padding: 0; margin: 0;
+  background: transparent; border: 0;
+  color: var(--muted); cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease;
+}
+.step:hover:not(:disabled) { color: var(--ink); background: var(--surface); }
+.step:disabled { color: var(--line-2); cursor: default; }
+/* The group already draws the ring; a second outline inside it just reads as
+   noise. A filled cell still says which of the two buttons is focused. */
+.step:focus-visible { outline: none; background: var(--surface-2); color: var(--ink); }
+.step svg { width: 14px; height: 14px; }
+
+.input {
+  flex: 0 0 auto;
+  width: 46px; min-width: 0; height: 100%;
+  padding: 0; margin: 0;
+  background: transparent; border: 0; outline: none;
+  font-family: inherit; font-size: var(--qty-font); font-weight: 500;
+  color: var(--ink); text-align: center;
+
+  /* Kill the OS spinners — the two buttons above replace them. */
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.input::placeholder { color: var(--faint); font-weight: 400; }
+
+.group[data-full="true"] .input { flex: 1 1 auto; width: auto; }
+/* Tighter number well at `sm`: this size sits in listing table rows, where the
+   actions column is already competing for width. */
+.group[data-size="sm"] .input { width: 36px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .step { transition: none; }
+}

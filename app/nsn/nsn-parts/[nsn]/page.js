@@ -7,7 +7,7 @@ export async function generateMetadata({ params }) {
   const m = PAGE_RE.exec(params.nsn);
   if (m) {
     return {
-      title: `NSN Parts Catalog — Group ${m[1]} | AFR Enterprises`,
+      title: `NSN Parts Catalog: Group ${m[1]} | AFR Enterprises`,
       description: `National Stock Numbers beginning with ${m[1]}, with item names and approved manufacturers. Instant RFQ on every line.`,
     };
   }

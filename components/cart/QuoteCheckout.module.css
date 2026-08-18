@@ -1,0 +1,164 @@
+/* =========================================================
+   Cart checkout — manifest left, submit panel right.
+   Editorial-monochrome: hairline cards, tinted table band,
+   one black primary action. --urgent only on the AOG check.
+   ========================================================= */
+
+.form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 390px;
+  gap: clamp(24px, 3vw, 44px);
+  align-items: start;
+}
+
+/* ---------------------------------------------------------- lines (left) */
+.lines { min-width: 0; display: flex; flex-direction: column; }
+
+.bom { margin: 0 0 clamp(20px, 2.4vw, 30px); }
+
+.linesHead {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap; margin: 0 0 12px;
+}
+.linesCount { margin: 0; font-size: 13.5px; color: var(--muted); }
+
+.clearBtn {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 38px; padding: 0 16px;
+  background: var(--paper); border: 1px solid var(--line-2);
+  border-radius: var(--radius-pill); cursor: pointer;
+  font-family: inherit; font-size: 13px; font-weight: 500; color: var(--muted);
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+.clearBtn svg { width: 13px; height: 13px; }
+.clearBtn:hover { border-color: var(--ink); color: var(--ink); }
+.clearBtn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.tableCard {
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden;
+}
+
+/* ---------------------------------------------------------- submit (right) */
+.submitCol { min-width: 0; }
+
+.submitCard {
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
+}
+
+/* Tinted header strip, same band as the table's column labels — the two
+   columns read as one system. */
+.submitHead {
+  padding: 18px 22px 20px;
+  background: var(--surface-2); border-bottom: 1px solid var(--line);
+}
+.submitKicker {
+  margin: 0 0 8px;
+  font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--muted);
+}
+.submitTitle {
+  margin: 0; font-family: var(--font-heading);
+  font-size: var(--text-xl); font-weight: 500; letter-spacing: -0.022em; color: var(--ink);
+}
+
+.fields { display: flex; flex-direction: column; gap: 16px; padding: 22px 22px 4px; }
+
+.field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+.label {
+  display: inline-flex; align-items: baseline; gap: 5px;
+  font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--muted);
+}
+.req { color: var(--urgent); }
+
+/* Same explicit 44px box as the cart line controls. */
+.input {
+  width: 100%; height: 44px; padding: 0 12px;
+  background: var(--paper); color: var(--ink);
+  border: 1px solid var(--line-2); border-radius: var(--radius);
+  font-family: inherit; font-size: 14px;
+  transition: border-color 0.18s ease;
+}
+.input::placeholder { color: var(--faint); }
+.input:hover { border-color: var(--ink); }
+.input:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-color: var(--ink); }
+.input[data-invalid="true"] { border-color: var(--urgent); }
+
+/* ---- checkboxes ---- */
+.checks { display: flex; flex-direction: column; gap: 12px; padding: 20px 22px 4px; }
+.check {
+  display: flex; align-items: flex-start; gap: 11px;
+  font-size: 13.5px; line-height: 1.5; color: var(--ink); cursor: pointer;
+}
+.check input {
+  flex: 0 0 auto; width: 17px; height: 17px; margin: 1px 0 0;
+  accent-color: var(--ink); cursor: pointer;
+}
+.check input[data-invalid="true"] { outline: 1px solid var(--urgent); outline-offset: 2px; }
+.check a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+.checkAog input { accent-color: var(--urgent); }
+
+/* ---- send ---- */
+.submit {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  width: calc(100% - 44px); min-height: 52px; margin: 20px 22px 0; padding: 14px 26px;
+  background: var(--ink); color: #fff;
+  border: 1px solid var(--ink); border-radius: var(--radius-pill);
+  font-family: inherit; font-size: 13px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.2;
+  cursor: pointer;
+  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.submit svg { flex: 0 0 auto; width: 17px; height: 17px; transition: transform 0.25s var(--ease); }
+.submit:hover:not(:disabled) { background: var(--ink-soft); transform: translateY(-1px); }
+.submit:hover:not(:disabled) svg { transform: translateX(3px); }
+.submit:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.submit:disabled {
+  background: var(--surface-2); color: var(--faint); border-color: var(--line-2);
+  cursor: default; transform: none;
+}
+
+.spinner {
+  width: 15px; height: 15px; border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35); border-top-color: #fff;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.submitFoot {
+  display: flex; align-items: center; gap: 9px;
+  margin: 0; padding: 16px 22px 22px;
+  font-size: 12.5px; color: var(--muted);
+}
+.submitFoot svg { flex: 0 0 auto; width: 15px; height: 15px; color: var(--faint); }
+
+/* ---- errors ---- */
+.error {
+  display: flex; align-items: flex-start; gap: 6px; margin: 0;
+  font-size: 12px; color: var(--urgent); line-height: 1.45;
+}
+.error svg { flex: 0 0 auto; width: 14px; height: 14px; margin-top: 1px; }
+.lines > .error { margin-top: 12px; }
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+/* Wide enough for a sticky panel to be useful rather than jumpy. */
+@media (min-width: 1120px) {
+  .submitCard { position: sticky; top: 96px; }
+}
+@media (max-width: 1000px) {
+  .form { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 620px) {
+  .submit { width: calc(100% - 32px); margin: 18px 16px 0; }
+  .fields, .checks, .submitHead { padding-left: 16px; padding-right: 16px; }
+  .submitFoot { padding-left: 16px; padding-right: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .input, .submit, .submit svg, .clearBtn { transition: none; }
+  .spinner { animation: none; }
+}

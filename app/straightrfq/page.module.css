@@ -26,15 +26,24 @@
 .heroInner > *:nth-child(2) { animation-delay: 0.05s; }
 .heroInner > *:nth-child(3) { animation-delay: 0.1s; }
 .heroInner > *:nth-child(4) { animation-delay: 0.15s; }
+/* Centred, like the interior-page heroes — the eyebrow, title, sub and meta row
+   all share one axis. */
+.heroInner { text-align: center; }
 .heroInner .eyebrow { margin: 0 0 18px; }
+/* The title is authored to break in exactly two lines with a <br />. The old
+   16ch measure was narrower than either of those lines, so "Send the part
+   numbers." wrapped and the heading ran to three. Wide enough for the longer
+   line (23 characters) with room to spare, and no text-wrap: balance — the
+   breaks are authored, so nothing should be re-balancing them. */
 .heroTitle {
   font-size: clamp(38px, 5.4vw, 72px); line-height: 1.0; letter-spacing: -0.04em;
-  font-weight: 600; margin: 0; max-width: 16ch; text-wrap: balance;
+  font-weight: 600; margin: 0 auto; max-width: 26ch;
 }
 .heroTitle em { font-style: normal; color: var(--faint); }
-.heroSub { font-size: var(--text-lg); color: var(--muted); line-height: 1.6; margin: 24px 0 0; max-width: 60ch; }
+.heroSub { font-size: var(--text-lg); color: var(--muted); line-height: 1.6; margin: 24px auto 0; max-width: 60ch; }
 .heroMeta {
-  list-style: none; display: flex; flex-wrap: wrap; gap: 12px 26px; margin: 26px 0 0; padding: 0;
+  list-style: none; display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 12px 26px; margin: 26px 0 0; padding: 0;
   font-size: 13.5px; color: var(--muted);
 }
 .heroMeta li { display: inline-flex; align-items: center; gap: 9px; }
@@ -104,13 +113,11 @@
 /* ---- part-line repeater ---- */
 .parts { display: flex; flex-direction: column; gap: 10px; }
 .partsHead, .partLine {
-  display: grid; grid-template-columns: 26px minmax(0, 1fr) 108px minmax(0, 200px) 36px;
+  display: grid; grid-template-columns: minmax(0, 1fr) 108px minmax(0, 200px) 36px;
   gap: 10px; align-items: center;
 }
-.partsHead { padding: 0 2px; }
 .partsHead span { font-size: 12px; font-weight: 600; color: var(--muted); }
 .partLine { animation: lineIn 0.3s var(--ease) both; }
-.partNo { font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--faint); text-align: center; }
 .qty { text-align: center; padding-left: 6px; padding-right: 6px; }
 
 /* ---- qty stepper (minus / value / plus) ---- */
@@ -156,6 +163,9 @@
 .addPart svg { width: 16px; height: 16px; }
 .addPart:hover { border-color: var(--ink); background: var(--surface); }
 .addPart:active { transform: scale(0.98); }
+
+/* BOM intake sits under the repeater as the bulk alternative to typing lines. */
+.bom { margin-top: 8px; }
 
 /* ---- AOG toggle (the one --urgent accent) ---- */
 .aog {
@@ -261,14 +271,14 @@
   .rail { flex-direction: column; }
   .formRow { grid-template-columns: 1fr; gap: 18px; }
   .partsHead { display: none; }
-  /* Each line becomes a small stacked card with its index as a header. */
+  /* Each line becomes a small stacked card: part number and the remove
+     control share the first row, qty and condition stack beneath. */
   .partLine {
-    grid-template-columns: 1fr auto; gap: 10px;
+    grid-template-columns: minmax(0, 1fr) auto; gap: 10px;
     border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; background: var(--surface);
   }
-  .partNo { text-align: left; grid-column: 1; }
   .lineRemove { grid-column: 2; grid-row: 1; justify-self: end; }
-  .partLine .control:nth-of-type(1) { grid-column: 1 / -1; }
+  .partLine .control:nth-of-type(1) { grid-column: 1; grid-row: 1; }
   .partLine .control:nth-of-type(2) { grid-column: 1 / -1; }
   .partLine .control:nth-of-type(3) { grid-column: 1 / -1; }
   .qty { text-align: left; }

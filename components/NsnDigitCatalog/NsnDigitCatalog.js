@@ -1,9 +1,12 @@
 import Link from "next/link";
 import InnerSidebar from "@/components/Sidebar/InnerSidebar";
+import PageProse from "@/components/PageProse/PageProse";
 import styles from "./NsnDigitCatalog.module.css";
 
 // Reusable NSN "browse by leading digit" catalog template.
 // Serves Parts By NIIN and Parts By NSN (both group entries under digit headers).
+// The digit index and its sections lead the page; intro, blocks and the quick-quote
+// note all render below it through PageProse.
 // Props:
 //   breadcrumb   – IGNORED (breadcrumb bar removed sitewide; trail still passed
 //                  so it can be reinstated in one place if wanted back)
@@ -35,32 +38,6 @@ export default function NsnDigitCatalog({
         <div className={`container ${styles.layout}`}>
           <div className={styles.main}>
             <h1 className="section-title section-title--left">{h1}</h1>
-
-            <p className={styles.intro}>
-              {intro.map((part, i) =>
-                typeof part === "string" ? (
-                  <span key={i}>{part}</span>
-                ) : (
-                  <Link key={i} href={part.href}>{part.text}</Link>
-                )
-              )}
-            </p>
-
-            {blocks.map((b) => (
-              <div key={b.title}>
-                <h2 className={styles.blockTitle}>{b.title}</h2>
-                <ul className={styles.bullets}>
-                  {b.items.map((it, i) => <li key={i}>{it}</li>)}
-                </ul>
-              </div>
-            ))}
-
-            {quickTitle && (
-              <>
-                <h2 className={styles.blockTitle}>{quickTitle}</h2>
-                <p className={styles.intro}>{quickBody}</p>
-              </>
-            )}
 
             {/* Digit index */}
             <div className={styles.digitIndex}>
@@ -100,6 +77,28 @@ export default function NsnDigitCatalog({
                 </section>
               ))}
             </div>
+
+            {/* Every word of copy sits below the catalog it describes. */}
+            <PageProse
+              eyebrow={`About ${entryLabel.toLowerCase() === "niin" ? "NIIN" : entryLabel} sourcing`}
+              lead={
+                intro.length > 0 ? (
+                  <>
+                    {intro.map((part, i) =>
+                      typeof part === "string" ? (
+                        <span key={i}>{part}</span>
+                      ) : (
+                        <Link key={i} href={part.href}>{part.text}</Link>
+                      )
+                    )}
+                  </>
+                ) : null
+              }
+              blocks={[
+                ...blocks,
+                ...(quickTitle ? [{ title: quickTitle, intro: quickBody }] : []),
+              ]}
+            />
           </div>
 
           <InnerSidebar />

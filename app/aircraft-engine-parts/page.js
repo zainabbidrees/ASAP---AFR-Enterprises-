@@ -3,7 +3,7 @@ import ToolingListing from "@/components/ToolingListing/ToolingListing";
 export const metadata = {
   title: "Aircraft Engine Parts Catalog and Hardware | AFR Enterprises",
   description:
-    "A reliable source for aircraft engine parts — hardware, engine system electronics, fluid system parts, and assemblies. Submit an RFQ for a fast quote.",
+    "A reliable source for aircraft engine parts: hardware, engine system electronics, fluid system parts, and assemblies. Submit an RFQ for a fast quote.",
 };
 
 const R = (part, col2, desc, href) => ({ part, col2, desc, href });

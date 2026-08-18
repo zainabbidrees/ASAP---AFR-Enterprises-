@@ -1,5 +1,6 @@
 import Link from "next/link";
 import InnerSidebar from "@/components/Sidebar/InnerSidebar";
+import PageProse from "@/components/PageProse/PageProse";
 import styles from "./SectionHub.module.css";
 
 // Section landing page for a URL that exists in the taxonomy but had no page of
@@ -17,7 +18,6 @@ export default function SectionHub({ breadcrumb = [], eyebrow, h1, lead, cards =
           <div className={styles.main}>
             {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
             <h1 className="section-title section-title--left">{h1}</h1>
-            <p className={styles.lead}>{lead}</p>
 
             <ul className={styles.cards}>
               {cards.map((c) => (
@@ -33,7 +33,8 @@ export default function SectionHub({ breadcrumb = [], eyebrow, h1, lead, cards =
               ))}
             </ul>
 
-            {note && <p className={styles.note}>{note}</p>}
+            {/* The index above is the page; the framing copy reads underneath it. */}
+            <PageProse eyebrow="Overview" lead={lead} closing={note} />
           </div>
 
           <InnerSidebar />

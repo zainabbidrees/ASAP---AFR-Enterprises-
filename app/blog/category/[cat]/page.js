@@ -19,7 +19,7 @@ export async function generateMetadata({ params }) {
   const name = found ? found[0] : params.cat.replace(/-/g, " ");
   return {
     title: `${name} Articles | AFR Enterprises Blog`,
-    description: `Articles on ${name.toLowerCase()} from AFR Enterprises — parts sourcing, traceability, certification and procurement for aerospace, defense and industrial buyers.`,
+    description: `Articles on ${name.toLowerCase()} from AFR Enterprises: parts sourcing, traceability, certification and procurement for aerospace, defense and industrial buyers.`,
   };
 }
 

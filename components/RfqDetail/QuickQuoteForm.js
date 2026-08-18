@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import BomUpload from "@/components/BomUpload/BomUpload";
 import styles from "./RfqDetail.module.css";
 
 // Part-scoped quote form. The part number and manufacturer arrive pre-filled and
@@ -15,7 +16,7 @@ const NEED_BY = [
   "Within 8 weeks",
   "Bid only",
   "End-of-life buy",
-  "AOG — aircraft on ground",
+  "AOG (aircraft on ground)",
 ];
 
 const COMPANY_TYPES = [
@@ -45,11 +46,55 @@ export default function QuickQuoteForm({ part, manufacturer }) {
   const [status, setStatus] = useState("idle"); // idle | sending | sent
   const [errors, setErrors] = useState({});
   const [ref, setRef] = useState("");
+  // Everything an uploaded BOM contained beyond the part this page is scoped to.
+  const [extra, setExtra] = useState([]);
+  const extraId = useRef(1);
 
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
+  // This page is already scoped to one part, so a BOM row matching it fills the
+  // quantity above rather than duplicating itself into the list below.
+  function addBomRows(rows) {
+    const key = (s) => String(s || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+    const current = key(form.part);
+    const rest = [];
+    let matchedQty = "";
+
+    rows.forEach((r) => {
+      if (current && key(r.pn) === current) {
+        if (!matchedQty && r.qty) matchedQty = r.qty;
+        return;
+      }
+      rest.push(r);
+    });
+
+    // Resolved before any setState so nothing here depends on an updater
+    // running exactly once.
+    let promoted = null;
+    let overflow = rest;
+    if (!current && rest.length) {
+      promoted = rest[0];
+      overflow = rest.slice(1);
+    }
+
+    if (promoted) {
+      setForm((f) => ({ ...f, part: promoted.pn, qty: String(f.qty).trim() || promoted.qty }));
+    } else if (matchedQty) {
+      setForm((f) => (String(f.qty).trim() ? f : { ...f, qty: matchedQty }));
+    }
+
+    if (overflow.length) {
+      const tagged = overflow.map((r) => ({ ...r, id: extraId.current++ }));
+      setExtra((cur) => [...cur, ...tagged]);
+    }
+    setErrors((e) => ({ ...e, part: undefined, qty: undefined }));
+  }
+
   function validate() {
     const e = {};
+    // Arrives pre-filled from the route, but it stays editable — so an emptied
+    // field has to be caught rather than sending a quote request with no part.
+    if (!String(form.part).trim()) e.part = "Required";
     if (!String(form.qty).trim()) e.qty = "Required";
     if (!form.name.trim()) e.name = "Required";
     if (!form.company.trim()) e.company = "Required";
@@ -76,9 +121,11 @@ export default function QuickQuoteForm({ part, manufacturer }) {
   if (status === "sent") {
     return (
       <div className={styles.sent} role="status">
-        <p className={styles.sentHead}>Request received — reference {ref}</p>
+        <p className={styles.sentHead}>Request received. Reference {ref}</p>
         <p className={styles.sentBody}>
-          A specialist is on {form.part} now. You&apos;ll have pricing, availability and lead time by
+          A specialist is on {form.part}
+          {extra.length > 0 && ` and the ${extra.length} other part${extra.length > 1 ? "s" : ""} on your list`} now.
+          You&apos;ll have pricing, availability and lead time by
           email within 15 minutes during business hours. For an AOG, call{" "}
           <a href="tel:1-714-705-4780">+1 (714) 705-4780</a> and quote the reference above.
         </p>
@@ -92,8 +139,8 @@ export default function QuickQuoteForm({ part, manufacturer }) {
   return (
     <form className={styles.form} onSubmit={onSubmit} noValidate>
       <div className={styles.grid}>
-        <Field label="Part number" error={errors.part}>
-          <input type="text" value={form.part} onChange={set("part")} />
+        <Field label="Part number" required error={errors.part}>
+          <input type="text" value={form.part} onChange={set("part")} required aria-required="true" />
         </Field>
         <Field label="Manufacturer">
           <input type="text" value={form.manufacturer} onChange={set("manufacturer")} />
@@ -128,6 +175,35 @@ export default function QuickQuoteForm({ part, manufacturer }) {
           <input type="email" value={form.email} onChange={set("email")} />
         </Field>
       </div>
+
+      <BomUpload onRows={addBomRows} label="Quoting more parts than this one?" className={styles.bom} />
+
+      {extra.length > 0 && (
+        <div className={styles.bomList}>
+          <p className={styles.bomHead}>
+            Also on this request — {extra.length} part{extra.length > 1 ? "s" : ""} from your list
+          </p>
+          <ul className={styles.bomRows}>
+            {extra.map((r) => (
+              <li key={r.id} className={styles.bomRow}>
+                <span className={styles.bomPn}>{r.pn}</span>
+                <span className={styles.bomMeta}>
+                  {r.qty ? `Qty ${r.qty}` : "Qty not given"}
+                  {r.condition ? ` · ${r.condition}` : ""}
+                </span>
+                <button
+                  type="button"
+                  className={styles.bomDrop}
+                  onClick={() => setExtra((cur) => cur.filter((x) => x.id !== r.id))}
+                  aria-label={`Remove ${r.pn} from this request`}
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <Field label="Comments">
         <textarea rows={3} value={form.comments} onChange={set("comments")} placeholder="Condition, certification or delivery notes" />

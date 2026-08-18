@@ -3,14 +3,14 @@ import styles from "./Testimonials.module.css";
 // Real ASAP Semiconductor 5★ Google reviews (verbatim from the customer's Google Business page).
 const REVIEWS = [
   { text: "Nate Pratt was extremely professional and helpful in assisting me with a part I was looking for. He didn't have the part in stock, but he went above and beyond to help me locate suppliers that did. His assistance was invaluable and very professional.", name: "Tammie Echols", tag: "Google review · 9 months ago" },
-  { text: "Parts Rep (Mitchell) went beyond the call of duty to help ULC Party Bus company with an AC motherboard problem — taking the time to listen intently, following up with questions, and ending with thorough guidance to resolve my problem.", name: "Jose Cruz", tag: "Google review · 5 months ago" },
+  { text: "Parts Rep (Mitchell) went beyond the call of duty to help ULC Party Bus company with an AC motherboard problem, taking the time to listen intently, following up with questions, and ending with thorough guidance to resolve my problem.", name: "Jose Cruz", tag: "Google review · 5 months ago" },
   { text: "My order was below their minimum quantity, but Mitchell Hinojosa still took the time to find an alternate vendor and pointed me in the right direction without expecting anything in return. Exceptional service like this is rare, and I'm very grateful.", name: "R A", tag: "Google review · a year ago" },
   { text: "Called in looking to source a part and Nate Pratt helped me out. I don't usually bother to leave reviews for something like this, but Nate was just too helpful not to. Highly recommend working with this company and Nate especially.", name: "Nicholas Dillenburg", tag: "Google review · a year ago" },
   { text: "I enjoy working with ASAP Semiconductor. Nate Pratt is very professional and a great business partner. He provides great feedback and likes to buy.", name: "paul dockus", tag: "Google review · 11 months ago" },
-  { text: "Nate has been very helpful with my parts requests whether he has them in stock or not — even telling me where to buy a part when he didn't have it. He's clearly the best contact at his company and I would buy from him anytime.", name: "Glenn Deckman", tag: "Google review · 2 years ago" },
+  { text: "Nate has been very helpful with my parts requests whether he has them in stock or not, even telling me where to buy a part when he didn't have it. He's clearly the best contact at his company and I would buy from him anytime.", name: "Glenn Deckman", tag: "Google review · 2 years ago" },
   { text: "Each and every time, Nate goes above and beyond to make sure everything goes well with each order. We've purchased a certain part multiple times and the parts are 100% good. Great quality and delivery, and he'll hold a quote valid for up to 6 months.", name: "John Gomes", tag: "Google review · 4 years ago" },
   { text: "I had to order a part that needed real urgency and Nathan Pratt jumped into action. I was able to order it and ship across the country from California to Maine in less than 24 hours. Now that's service!!! Highly recommend dealing with him.", name: "Brian Storace", tag: "Local Guide · Google review" },
-  { text: "I've been using ASAP, rep Steven Pratt, when I need obscure parts. He's professional in all respects — staying in contact with updates on searches and alternate parts. Their ability to find all types of parts is great.", name: "Charles Largay", tag: "Google review · 5 years ago" },
+  { text: "I've been using ASAP, rep Steven Pratt, when I need obscure parts. He's professional in all respects, staying in contact with updates on searches and alternate parts. Their ability to find all types of parts is great.", name: "Charles Largay", tag: "Google review · 5 years ago" },
 ];
 
 const COL_A = REVIEWS.filter((_, idx) => idx % 2 === 0);
@@ -59,7 +59,7 @@ export default function Testimonials() {
             </span>
           </div>
           <p className={styles.lead}>
-            Real, verbatim reviews from the buyers and MROs we source for — the same people
+            Real, verbatim reviews from the buyers and MROs we source for, the same people
             who come back when the next part gets hard to find.
           </p>
         </div>

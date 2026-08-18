@@ -64,7 +64,7 @@ export default function ArticlePage({ params }) {
               <p>
                 Traceability is the one that tends to get deferred, and it is the one that costs most
                 when it is missing. A part that performs correctly but cannot be traced to an approved
-                source is a finding waiting to happen at the next audit — and on a flight-critical
+                source is a finding waiting to happen at the next audit, and on a flight-critical
                 assembly, a finding means the part comes back out.
               </p>
 
@@ -73,7 +73,7 @@ export default function ArticlePage({ params }) {
                 Every line we ship is traceable to an approved source. We are AS9120B and ISO
                 9001:2015 certified, FAA AC 00-56B accredited, AS6081 certified for counterfeit
                 avoidance and ITAR registered, and we handle electronics to ANSI/ESD S20.20. Incoming
-                inspection, document verification and — where the part calls for it — electronic test
+                inspection, document verification and, where the part calls for it, electronic test
                 happen before anything leaves the building.
               </p>
               <p>
@@ -85,7 +85,7 @@ export default function ArticlePage({ params }) {
               <h2>Getting a quote</h2>
               <p>
                 Send the part number, the quantity and the date you need it by. No account, no minimum
-                order, no obligation to proceed — and the specialist who quotes the part is the one who
+                order, no obligation to proceed, and the specialist who quotes the part is the one who
                 sees it shipped.
               </p>
             </div>
@@ -93,7 +93,7 @@ export default function ArticlePage({ params }) {
             <div className={styles.cta}>
               <h2 className={styles.ctaTitle}>Need a quote on the parts in this article?</h2>
               <p className={styles.ctaBody}>
-                Pricing, availability, condition and lead time in writing — normally inside 15 minutes.
+                Pricing, availability, condition and lead time in writing, normally inside 15 minutes.
               </p>
               <Link className="btn" href="/straightrfq/">Request a Quote</Link>
             </div>

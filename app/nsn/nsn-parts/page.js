@@ -23,7 +23,7 @@ export default function NsnPartsPage() {
       ]}
       blocks={[
         { title: "Browse Our NSN Inventory Directory", items: [
-          "Browse by NSN First Digit (1–9): Click any primary numerical group (1560, 2910, 5935, etc.) to view real-time stock availability.",
+          "Browse by NSN First Digit (1-9): Click any primary numerical group (1560, 2910, 5935, etc.) to view real-time stock availability.",
           "Cross-Reference Sourcing: Search directly by 9-digit NIIN, 5-digit CAGE Code, or 4-digit Federal Supply Classification (FSC) to find OEM equivalents and MIL-SPEC parts.",
         ] },
         { title: "Why Procurement Teams Trust AFR Enterprises", items: [

@@ -8,7 +8,7 @@ import styles from "./page.module.css";
 export const metadata = {
   title: "About Us | Aerospace & Industrial Parts Supply | AFR Enterprises",
   description:
-    "AFR Enterprises sources aerospace, defense and industrial parts held to a standard you can audit — AS9120B, ISO 9001:2015, FAA AC 0056B and ITAR registered. A named specialist on every order, an AOG desk staffed 24/7, and full traceability on every shipment. An ASAP Semiconductor company in Anaheim, California.",
+    "AFR Enterprises sources aerospace, defense and industrial parts held to a standard you can audit: AS9120B, ISO 9001:2015, FAA AC 0056B and ITAR registered. A named specialist on every order, an AOG desk staffed 24/7, and full traceability on every shipment. An ASAP Semiconductor company in Anaheim, California.",
 };
 
 // Industries — folded into the hero so a visitor sees who we serve immediately.
@@ -21,39 +21,41 @@ const INDUSTRIES = [
   { name: "OEMs & MROs", icon: "tools" },
 ];
 
-// What we stand for — four values, each a concrete promise a buyer can hold us to,
-// each carrying a real photograph of the moment that promise is actually kept.
-// `pos` tunes the square crop so the subject survives it.
+// What we stand for — four values. Each line has to name something a buyer could
+// actually hold us to (a document, a certificate, a phone that gets answered);
+// anything that couldn't be checked was cut. Each carries a real photograph of
+// the moment that promise is kept. `pos` tunes the square crop so the subject
+// survives it.
 const VALUES = [
   {
-    n: "01", name: "Integrity",
-    line: "We quote only what we can deliver, and we surface the risk before it reaches your line.",
+    n: "01", name: "We quote what we can get",
+    line: "If a line is going to be difficult, or the lead time is an estimate rather than a commitment, that goes in the quote. You should never find out on the promised date.",
     img: "/photos/value-integrity.jpg", pos: "52% 42%",
     alt: "Two AFR Enterprises specialists reviewing a parts document together before committing to a quote",
   },
   {
-    n: "02", name: "Reliability",
-    line: "The date we confirm is the date it ships. If something slips, you hear it from us first.",
+    n: "02", name: "One person owns your order",
+    line: "The representative who quotes your part is the one who sees it shipped. No ticket queue, no call centre, nobody to re-explain the requirement to.",
     img: "/photos/value-reliability.jpg", pos: "50% 50%",
     alt: "An outbound order being loaded onto the truck at the Anaheim warehouse",
   },
   {
-    n: "03", name: "Traceability",
-    line: "Every part ships with documentation back to source — records, certs, the full trail. Audit us anytime.",
+    n: "03", name: "Everything ships documented",
+    line: "Certifications and traceability back to an approved source, in the box. We are AS9120B and ISO 9001:2015 certified and audited against both.",
     img: "/photos/value-traceability.jpg", pos: "50% 38%",
     alt: "The wall of accreditation certificates and quality approvals at the Anaheim facility",
   },
   {
-    n: "04", name: "Responsiveness",
-    line: "A named specialist answers, 24/7. AOG requests are worked the minute they land.",
+    n: "04", name: "The desk is always staffed",
+    line: "Quotes come back inside 15 minutes, day or night. The AOG line is answered by a person 24 hours a day, every day of the year.",
     img: "/photos/value-responsiveness.jpg", pos: "56% 45%",
     alt: "Two specialists working a live parts request at the inspection bench",
   },
 ];
 
 // Commitment statement — split to tokens so each word can ignite in sequence on scroll.
-const COMMITMENT_LEAD = "Every order carries the same promise — the right part, in the right condition, with the paperwork to prove it,".split(" ");
-const COMMITMENT_TAIL = "delivered before it becomes a problem.".split(" ");
+const COMMITMENT_LEAD = "Every quote we send is a part we can actually get, at a lead time we can actually hold,".split(" ");
+const COMMITMENT_TAIL = "with the paperwork to prove where it came from.".split(" ");
 
 // The reasons buyers stay. Deliberately about CAPABILITY — what we can actually
 // get and how it ships — because the values band above already covers conduct
@@ -62,26 +64,26 @@ const COMMITMENT_TAIL = "delivered before it becomes a problem.".split(" ");
 // section reads in one pass instead of six paragraphs.
 const EDGE = [
   {
-    n: "01", claim: "The parts others turn away",
-    note: "Obsolete, end-of-life and long-lead lines",
+    n: "01", claim: "The lines nobody else quotes",
+    note: "Obsolete, end-of-life and long-lead part numbers",
     img: "/photos/edge-inventory.jpg",
     alt: "An operator moving stock through the racking at the Anaheim warehouse",
   },
   {
-    n: "02", claim: "5,000+ vetted manufacturers",
-    note: "One purchase order instead of six suppliers",
+    n: "02", claim: "5,000+ vetted sources",
+    note: "Franchised distributors and approved manufacturers only",
     img: "/photos/edge-vetted.jpg",
     alt: "Two specialists checking supplier paperwork at the inspection bench",
   },
   {
-    n: "03", claim: "Every condition, stated plainly",
-    note: "Factory new · New surplus · Overhauled",
+    n: "03", claim: "Screened for counterfeits",
+    note: "AS6081 certified · ANSI/ESD S20.20 handling",
     img: "/photos/edge-condition.jpg",
     alt: "Parts being inspected and recorded before packing",
   },
   {
-    n: "04", claim: "Cleared for export",
-    note: "ITAR registered, shipping worldwide",
+    n: "04", claim: "Cleared to ship worldwide",
+    note: "ITAR registered · export screened · CAGE code 6RE77",
     img: "/photos/edge-export.jpg",
     alt: "An outbound carton being sealed for shipment",
   },
@@ -97,14 +99,14 @@ const LEADERSHIP = [
     name: "Joe Faruqui",
     role: "Founder & CEO",
     photo: "/photos/leadership/joe-faruqui.jpg",
-    bio: "Sets the long-term direction and keeps the company accountable to every promise it makes a customer.",
+    bio: "Founded the company and sets the sourcing and quality standards every order is held to.",
   },
   {
     slug: "ryan",
     name: "Ryan Aggergaard",
     role: "Chief Legal Officer",
     photo: "/photos/leadership/ryan-aggergaard.jpg",
-    bio: "Owns contracts, export control and compliance — the reason an ITAR-controlled order moves without a surprise at the border.",
+    bio: "Owns contracts, export control and ITAR compliance, so a controlled order clears without a surprise at the border.",
   },
 ];
 
@@ -151,17 +153,19 @@ function Icon({ name }) {
 export default function AboutUsPage() {
   return (
     <>
-      {/* ============ 01 · HERO — shared <PageHero /> (type-led, no imagery) ============ */}
+      {/* ============ 01 · HERO — shared <PageHero />, rounded photographic panel ============ */}
       <PageHero
-        eyebrow="About AFR Enterprises"
+        image="/photos/about-hero-facility.jpg"
+        imageAlt="The ASAP Semiconductor facility at 1341 S. Sunkist Street, Anaheim, California, with the shipping bays open"
+        imagePos="50% 64%"
         title={
           <>
-            Parts held to a standard
+            Two decades of finding
             <br />
-            you can <em>audit.</em>
+            the parts <em>nobody stocks.</em>
           </>
         }
-        lede="We source the aerospace and industrial components that keep aircraft flying and lines running — every quote from a named specialist, every shipment documented to prove it."
+        lede="AFR Enterprises distributes electronic components, aviation parts and IT hardware from Anaheim, California, owned and operated by ASAP Semiconductor. AS9120B and ISO 9001:2015 certified, FAA AC 00-56B accredited, quoting inside 15 minutes around the clock."
         actions={[
           { label: "Request a quote", href: "/straightrfq/", variant: "primary" },
           { label: "Talk to the team", href: "/contact/", variant: "ghost" },
@@ -183,7 +187,11 @@ export default function AboutUsPage() {
         </div>
       </section>
 
-      {/* ============ 02 · OUR STORY — narrative + operations figure ============ */}
+      {/* ============ 02 · OUR STORY — narrative + operations figure ============
+          One frame: the wide operations shot establishes the place. Copy is
+          literal here — a buyer reading an About page wants to know who we are,
+          where we are, who owns us and what we're certified to, not how we feel
+          about parts. */}
       <section className={styles.story} aria-labelledby="story-title">
         <div className={`container ${styles.storyGrid}`}>
           <figure className={`${styles.storyFigure} ${styles.reveal}`}>
@@ -196,24 +204,33 @@ export default function AboutUsPage() {
             />
           </figure>
           <div className={`${styles.storyBody} ${styles.reveal}`}>
-            <p className="eyebrow">Our story</p>
+            <p className="eyebrow">Who we are</p>
             <h2 className={styles.blockTitle} id="story-title">
-              Built for the orders
+              A distributor for the
               <br />
-              others pass on.
+              part that&apos;s hard to close.
             </h2>
             <p className={styles.storyLede}>
-              AFR Enterprises exists for the requirement that isn&apos;t simple — the obsolete line
-              item, the AOG deadline, the certificate that has to be exactly right.
+              We distribute electronic components, aviation parts and IT hardware out of Anaheim,
+              California. ASAP Semiconductor owns and runs us.
             </p>
             <p className={styles.storyText}>
-              We&apos;re part of the ASAP Semiconductor family, sourcing across a vetted global
-              network with a named specialist on every account. The person who quotes your part is
-              the person who sees it shipped — no call centers, no ticket queues.
+              Buyers come to us for the lines that are hard to close. Semiconductors that went
+              end-of-life years ago. Long-lead avionics. Connectors nobody makes anymore. NSN
+              hardware under CAGE code 6RE77. We stock what we can and source the rest through
+              franchised distributors and manufacturers we have vetted ourselves. We don&apos;t buy
+              from China.
             </p>
             <p className={styles.storyText}>
-              Two decades of that has made us the desk buyers call first across aerospace, defense,
-              industrial and commercial programs — and millions of part numbers.
+              Send a part number and a quantity, and you get a real quote with a real lead time
+              inside 15 minutes. One representative owns it from quote to shipment, so you never
+              explain yourself twice.
+            </p>
+            <p className={styles.storyText}>
+              We&apos;re AS9120B and ISO 9001:2015 certified, FAA AC 00-56B accredited, AS6081
+              certified for counterfeit avoidance, ANSI/ESD S20.20 certified, NIST 800-171 compliant
+              and ITAR registered. Every order ships with paperwork that traces it back to an
+              approved source. Ask and we&apos;ll send the certificates before you buy.
             </p>
           </div>
         </div>
@@ -221,6 +238,17 @@ export default function AboutUsPage() {
 
       {/* ============ 03 · COMMITMENT — dark statement beat, word-ignition on scroll ============ */}
       <section className={styles.mission} aria-labelledby="mission-title">
+        {/* The band was flat black. It now carries the bin-located racking behind
+            it — held right down so the statement stays the subject and the
+            charcoal ghost words still read against it. */}
+        <Image
+          src="/photos/commitment-bg.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          className={styles.missionPhoto}
+        />
+        <span className={styles.missionScrim} aria-hidden="true" />
         <span className={styles.missionField} aria-hidden="true" />
         <div className={`container ${styles.missionInner}`}>
           <p className={`eyebrow ${styles.reveal}`} style={{ color: "rgba(255,255,255,0.6)" }}>
@@ -245,10 +273,10 @@ export default function AboutUsPage() {
           </h2>
 
           <div className={`${styles.missionFoot} ${styles.reveal}`}>
-            <span className={styles.missionFootLabel}>The standard, applied</span>
+            <span className={styles.missionFootLabel}>And when it slips</span>
             <p className={styles.missionSub}>
-              It holds whether you&apos;re buying a single obsolete connector or releasing
-              a full production bill of materials.
+              If a confirmed date is going to move, your representative calls you before it passes,
+              not after. You should never learn it from a tracking page.
             </p>
           </div>
         </div>
@@ -258,8 +286,8 @@ export default function AboutUsPage() {
       <section className={styles.values} aria-labelledby="values-title">
         <div className="container">
           <div className={`${styles.secHead} ${styles.reveal}`}>
-            <p className="eyebrow">What we stand for</p>
-            <h2 className={styles.blockTitle} id="values-title">Four values you can hold us to.</h2>
+            <p className="eyebrow">How we work</p>
+            <h2 className={styles.blockTitle} id="values-title">Four things we commit to in writing.</h2>
           </div>
           {/* .reveal moves from the row onto each cell so the values are ruled in
               one at a time, left to right (see the "ruled in" block in the CSS). */}
@@ -297,45 +325,51 @@ export default function AboutUsPage() {
             <div className={styles.reveal}>
               <p className="eyebrow">Why buyers stay</p>
               <h2 className={styles.blockTitle} id="edge-title">
-                The difference is
+                What we can get
                 <br />
-                in the hard requests.
+                that others can&apos;t.
               </h2>
             </div>
             {/* Offset and dropped — the header reads as two related weights, not a
                 centred stack. */}
             <p className={`${styles.edgeLede} ${styles.reveal}`}>
-              Anyone can list a part in stock. Repeat orders come from how the difficult one gets
-              handled.
+              Any distributor can fill a line that&apos;s in stock. The repeat business comes from
+              the part number that went out of production eleven years ago.
             </p>
           </div>
 
           <ol className={styles.edgeRows}>
             {EDGE.map((e) => (
               <li key={e.n} className={`${styles.edgeRow} ${styles.reveal}`}>
-                <span className={styles.edgeNum}>{e.n}</span>
+                {/* Index and claim in one column so the claim sits flush with the
+                    section heading instead of being indented by a number gutter. */}
+                <div className={styles.edgeBody}>
+                  <span className={styles.edgeNum}>{e.n}</span>
+                  <h3 className={styles.edgeClaim}>
+                    <span className={styles.edgeClaimText}>{e.claim}</span>
+                  </h3>
+                </div>
 
-                <h3 className={styles.edgeClaim}>
-                  <span className={styles.edgeClaimText}>{e.claim}</span>
-                </h3>
-
-                {/* The rounding lives on the figure (border-radius + overflow) and the
+                {/* Strip and its caption, stacked, in the column that lines up with
+                    the section lede above.
+                    The rounding lives on the figure (border-radius + overflow) and the
                     wipe on an inner layer, so the clip-path stays a plain inset() with
                     no var() in it — a single undefined token inside inset() would
                     invalidate the whole clip and leave the strip permanently open. */}
-                <figure className={styles.edgeMedia} aria-hidden="true">
-                  <span className={styles.edgeMediaClip}>
-                    <Image
-                      src={e.img}
-                      alt=""
-                      fill
-                      sizes="320px"
-                      className={styles.edgeImg}
-                    />
-                  </span>
-                </figure>
-
-                <p className={styles.edgeNote}>{e.note}</p>
+                <div className={styles.edgeAside}>
+                  <figure className={styles.edgeMedia} aria-hidden="true">
+                    <span className={styles.edgeMediaClip}>
+                      <Image
+                        src={e.img}
+                        alt=""
+                        fill
+                        sizes="440px"
+                        className={styles.edgeImg}
+                      />
+                    </span>
+                  </figure>
+                  <p className={styles.edgeNote}>{e.note}</p>
+                </div>
               </li>
             ))}
           </ol>
@@ -345,6 +379,16 @@ export default function AboutUsPage() {
       {/* ============ 06 · BY THE NUMBERS — dark stats band (count-up) ============ */}
       <section className={styles.stats} aria-labelledby="stats-title">
         <h2 className="visually-hidden" id="stats-title">AFR Enterprises by the numbers</h2>
+        {/* The figures now sit over the people and the racking they describe,
+            held back far enough that the numerals stay the brightest thing here. */}
+        <Image
+          src="/photos/stats-bg.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          className={styles.statsPhoto}
+        />
+        <span className={styles.statsScrim} aria-hidden="true" />
         <StatsCounter stats={STATS} />
       </section>
 
@@ -353,10 +397,10 @@ export default function AboutUsPage() {
         <div className="container">
           <div className={`${styles.secHead} ${styles.reveal}`}>
             <p className="eyebrow">Leadership</p>
-            <h2 className={styles.blockTitle} id="leaders-title">The people behind every order.</h2>
+            <h2 className={styles.blockTitle} id="leaders-title">Who is accountable here.</h2>
             <p className={styles.blockLede}>
-              Accountability starts with names. These are the people who set the standard every
-              part is held to — and stand behind it, order after order.
+              If something goes wrong on your order, these are the people the standard comes back
+              to. Both are named, and so is the representative who handles your account.
             </p>
           </div>
           <LeadershipShowcase people={LEADERSHIP} />

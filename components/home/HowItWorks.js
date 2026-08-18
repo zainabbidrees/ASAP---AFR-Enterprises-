@@ -18,7 +18,7 @@ import styles from "./HowItWorks.module.css";
 const STEPS = [
   {
     title: "Submit an RFQ",
-    sub: "Send a part number, quantity, and target price — that's all we need to start.",
+    sub: "Send a part number, quantity, and target price. That's all we need to start.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M8 4h8a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z" />
@@ -28,7 +28,7 @@ const STEPS = [
   },
   {
     title: "15-minute quote",
-    sub: "Real pricing and an honest lead time land in your inbox — never a placeholder.",
+    sub: "Real pricing and an honest lead time land in your inbox, never a placeholder.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="8.5" />
@@ -48,7 +48,7 @@ const STEPS = [
   },
   {
     title: "Expedited shipping",
-    sub: "Domestic and international, AOG-ready — packed to spec when the clock matters.",
+    sub: "Domestic and international, AOG-ready and packed to spec when the clock matters.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 6.5h9.5v9H3z" />
@@ -127,7 +127,7 @@ export default function HowItWorks() {
           <p className={styles.eyebrow}>The process</p>
           <h2 className={styles.title} id="how-title">How procurement works</h2>
           <p className={styles.lead}>
-            From your part number to your dock — no black boxes, no runaround.
+            From your part number to your dock. No black boxes, no runaround.
           </p>
         </header>
 

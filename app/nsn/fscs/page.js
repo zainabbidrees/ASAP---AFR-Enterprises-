@@ -1,5 +1,6 @@
 import Link from "next/link";
 import InnerSidebar from "@/components/Sidebar/InnerSidebar";
+import PageProse from "@/components/PageProse/PageProse";
 import styles from "./page.module.css";
 
 export const metadata = {
@@ -301,33 +302,6 @@ export default function FscsPage() {
           <div className={styles.main}>
             <h1 className="section-title section-title--left">Explore Parts by Federal Supply Group (FSG) Codes (FSCs) Data</h1>
 
-            <p className={styles.intro}>A Federal Supply Group (FSG) is a standard 2-digit commodity code used by NATO and the U.S. Department of Defense to manage defense logistics. Each FSG is subdivided into 4-digit Federal Supply Classes (FSCs), which make up the first four digits of a 13-digit National Stock Number (NSN).</p>
-
-            <h2 className={styles.blockTitle}>Understanding FSG and FSC Codes</h2>
-            <ul className={styles.bullets}>
-              <li>FSG Example: 59 (Electrical and Electronic Equipment Components)</li>
-              <li>FSC Example: 5961 (Semiconductor Devices and Associated Hardware)</li>
-              <li>NIIN Example: Last 9 digits (01-123-4567)</li>
-              <li>NSN Example: Full 13-digit code (5961-01-123-4567)</li>
-            </ul>
-
-            <h2 className={styles.blockTitle}>Key Sourcing Applications</h2>
-            <ul className={styles.bullets}>
-              <li>Board-Level &amp; IT Hardware: Rapid procurement for integrated circuits, microcontrollers, passive components, connectors, and computer networking equipment.</li>
-              <li>Defense &amp; Aviation Logistics: Direct sourcing for MIL-SPEC hardware, defense electronics, and airframe assemblies meeting ITAR and DFARS requirements.</li>
-              <li>Emergency AOG Support: 24/7/365 rapid cross-referencing and expedited shipping options to minimize Aircraft On Ground and mission-critical operational downtime.</li>
-            </ul>
-
-            <h2 className={styles.blockTitle}>Why Choose AFR Enterprises?</h2>
-            <ul className={styles.bullets}>
-              <li>Compliant Sourcing Options: Adherence to TAA, DFARS, and customer-specified sourcing guidelines.</li>
-              <li>Instant 15-Minute RFQ: Submit an online quote request to receive custom pricing, condition details, and realistic delivery schedules within 15 minutes.</li>
-              <li>Full Inspection &amp; Traceability: Every order ships with complete manufacturer Certificates of Conformance (CoC), test reports, and ATA 106 paperwork.</li>
-            </ul>
-
-            <h2 className={styles.blockTitle}>Request an Instant Quote</h2>
-            <p className={styles.intro}>Submit your required part number, quantity, part condition (Factory New, Surplus, Overhauled), and delivery timeline online, or contact our sales specialists for dedicated NSN cross-referencing support.</p>
-
             {/* Pagination */}
             <div className={styles.pager}>
               {PAGES.map((p) => (
@@ -356,6 +330,45 @@ export default function FscsPage() {
                 </div>
               ))}
             </div>
+
+            {/* The class index leads; the explanation of it follows. */}
+            <PageProse
+              eyebrow="About FSG and FSC codes"
+              lead="A Federal Supply Group (FSG) is a standard 2-digit commodity code used by NATO and the U.S. Department of Defense to manage defense logistics. Each FSG is subdivided into 4-digit Federal Supply Classes (FSCs), which make up the first four digits of a 13-digit National Stock Number (NSN)."
+              blocks={[
+                {
+                  title: "How the codes nest",
+                  items: [
+                    "FSG example: 59 — Electrical and Electronic Equipment Components.",
+                    "FSC example: 5961 — Semiconductor Devices and Associated Hardware.",
+                    "NIIN example: the last 9 digits — 01-123-4567.",
+                    "NSN example: the full 13-digit code — 5961-01-123-4567.",
+                  ],
+                },
+                {
+                  title: "Key sourcing applications",
+                  items: [
+                    "Board-Level and IT Hardware: Rapid procurement for integrated circuits, microcontrollers, passive components, connectors, and computer networking equipment.",
+                    "Defense and Aviation Logistics: Direct sourcing for MIL-SPEC hardware, defense electronics, and airframe assemblies meeting ITAR and DFARS requirements.",
+                    "Emergency AOG Support: 24/7/365 rapid cross-referencing and expedited shipping options to minimize Aircraft On Ground and mission-critical downtime.",
+                  ],
+                },
+                {
+                  title: "Why choose AFR Enterprises?",
+                  items: [
+                    "Compliant Sourcing Options: Adherence to TAA, DFARS, and customer-specified sourcing guidelines.",
+                    "Instant 15-Minute RFQ: Submit an online quote request to receive custom pricing, condition details, and realistic delivery schedules within 15 minutes.",
+                    "Full Inspection and Traceability: Every order ships with complete manufacturer Certificates of Conformance (CoC), test reports, and ATA 106 paperwork.",
+                  ],
+                },
+              ]}
+              cta={{
+                title: "Request an instant quote",
+                body: "Submit your required part number, quantity, part condition (Factory New, Surplus, Overhauled), and delivery timeline online, or contact our sales specialists for dedicated NSN cross-referencing support.",
+                href: "/straightrfq/",
+                label: "Request a Quote",
+              }}
+            />
           </div>
 
           <InnerSidebar />

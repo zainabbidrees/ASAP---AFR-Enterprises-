@@ -8,7 +8,7 @@ export async function generateMetadata({ params }) {
   if (!Number.isInteger(n) || n < 1) return {};
   return {
     ...blogMetadata,
-    title: `${blogMetadata.title} — Page ${n}`,
+    title: `${blogMetadata.title} | Page ${n}`,
     alternates: { canonical: "/blog/" },
     robots: { index: false, follow: true },
   };

@@ -8,7 +8,7 @@ export async function generateMetadata({ params }) {
   }
   const code = params.code.toUpperCase();
   return {
-    title: `CAGE Code ${code} — Manufacturer & Parts | AFR Enterprises`,
+    title: `CAGE Code ${code}: Manufacturer & Parts | AFR Enterprises`,
     description: `Registration details and available part numbers for Commercial and Government Entity code ${code}. AS9120B certified, CAGE 6RE77. Instant RFQ.`,
   };
 }

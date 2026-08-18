@@ -30,10 +30,10 @@ ToolingRfq.metadata = function metadata({ section, mfr, mid, part }) {
   const partNo = String(part).toUpperCase();
   const mfrName = titleize(mfr);
   const midName = mid ? titleize(mid).toUpperCase() : null;
-  const scope = midName ? `${midName} — ` : "";
+  const scope = midName ? `${midName}, ` : "";
 
   return {
-    title: `${partNo} — ${scope}${mfrName} | ${section} RFQ | AFR Enterprises`,
+    title: `${partNo}, ${scope}${mfrName} | ${section} RFQ | AFR Enterprises`,
     description: `${partNo} from ${mfrName}${midName ? ` for ${midName}` : ""}, available through AFR Enterprises. Pricing, availability and lead time in writing within 15 minutes. AS9120B certified, AOG desk staffed 24/7.`,
   };
 };

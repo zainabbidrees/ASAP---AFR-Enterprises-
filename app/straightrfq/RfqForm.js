@@ -1,18 +1,14 @@
 "use client";
 
 import { useRef, useState } from "react";
+import BomUpload from "@/components/BomUpload/BomUpload";
+import { CONDITIONS } from "@/lib/bom";
 import styles from "./page.module.css";
 
-// Straight RFQ form — a dynamic part-line repeater, an AOG priority toggle (the
-// one control allowed the reserved --urgent accent), contact block and a
-// three-phase submit (idle -> sending -> sent). Isolated leaf client component.
-const CONDITIONS = [
-  "New / Factory Sealed",
-  "New Surplus",
-  "Overhauled · 8130-3",
-  "Serviceable · Traceable",
-  "Repaired / Modified",
-];
+// Straight RFQ form — a dynamic part-line repeater fed either by hand or from an
+// uploaded bill of materials, an AOG priority toggle (the one control allowed the
+// reserved --urgent accent), contact block and a three-phase submit
+// (idle -> sending -> sent). Isolated leaf client component.
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -39,6 +35,22 @@ export default function RfqForm({ initialPart = "" }) {
   function updateLine(id, key, val) {
     setLines((l) => l.map((x) => (x.id === id ? { ...x, [key]: val } : x)));
   }
+  // A parsed BOM keeps any line the visitor already filled in and appends the
+  // rest, so an uploaded list never silently wipes typed work.
+  function addBomRows(rows) {
+    setLines((cur) => {
+      const kept = cur.filter((l) => l.pn.trim() || String(l.qty).trim() || l.condition);
+      const added = rows.map((r) => ({
+        id: idRef.current++,
+        pn: r.pn,
+        qty: r.qty,
+        condition: CONDITIONS.includes(r.condition) ? r.condition : "",
+      }));
+      return [...kept, ...added];
+    });
+    setErrors({});
+  }
+
   function stepQty(id, delta) {
     setLines((l) =>
       l.map((x) => {
@@ -55,9 +67,14 @@ export default function RfqForm({ initialPart = "" }) {
     const first = lines[0];
     if (!first.pn.trim()) { next[`pn-${first.id}`] = true; partsBad = true; }
     if (!String(first.qty).trim()) { next[`qty-${first.id}`] = true; partsBad = true; }
+    // A line counts as in use the moment any of its three controls is touched, so
+    // a part number is required on it — including a line where only a condition
+    // was picked, which would otherwise be dropped silently.
     lines.forEach((ln) => {
-      if (ln.pn.trim() && !String(ln.qty).trim()) { next[`qty-${ln.id}`] = true; partsBad = true; }
-      if (!ln.pn.trim() && String(ln.qty).trim()) { next[`pn-${ln.id}`] = true; partsBad = true; }
+      const touched = ln.pn.trim() || String(ln.qty).trim() || ln.condition;
+      if (!touched) return;
+      if (!ln.pn.trim()) { next[`pn-${ln.id}`] = true; partsBad = true; }
+      if (!String(ln.qty).trim()) { next[`qty-${ln.id}`] = true; partsBad = true; }
     });
     if (partsBad) next.parts = "Give every line a part number and a quantity.";
     if (!contact.name.trim()) next.name = "Tell us who to reply to.";
@@ -104,7 +121,7 @@ export default function RfqForm({ initialPart = "" }) {
         </h3>
         <p className={styles.sentText}>
           {aog
-            ? "Flagged AOG — a responder is already on it. Expect pricing and availability within 15 minutes, any hour."
+            ? "Flagged AOG. A responder is already on it. Expect pricing and availability within 15 minutes, any hour."
             : "A named specialist is pricing it now. Expect availability, condition and lead time in writing within 15 minutes."}{" "}
           Grounded aircraft? Call <a href="tel:1-714-705-4780">+1&nbsp;(714)&nbsp;705-4780</a>.
         </p>
@@ -128,16 +145,14 @@ export default function RfqForm({ initialPart = "" }) {
 
         <div className={styles.parts}>
           <div className={styles.partsHead} aria-hidden="true">
-            <span />
-            <span>Part number / NSN</span>
-            <span>Qty</span>
+            <span>Part number / NSN<span className={styles.req}>*</span></span>
+            <span>Qty<span className={styles.req}>*</span></span>
             <span>Condition</span>
             <span />
           </div>
 
           {lines.map((ln, i) => (
             <div className={styles.partLine} key={ln.id}>
-              <span className={styles.partNo} aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
               <div className={styles.control}>
                 <input
                   aria-label={`Part number, line ${i + 1}`}
@@ -145,6 +160,7 @@ export default function RfqForm({ initialPart = "" }) {
                   value={ln.pn}
                   onChange={(e) => updateLine(ln.id, "pn", e.target.value)}
                   placeholder="e.g. MS21042L3"
+                  aria-required={i === 0 ? "true" : undefined}
                   data-invalid={errors[`pn-${ln.id}`] ? "true" : undefined}
                 />
               </div>
@@ -214,6 +230,8 @@ export default function RfqForm({ initialPart = "" }) {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
             Add another part
           </button>
+
+          <BomUpload onRows={addBomRows} label="Quoting a whole bill of materials?" className={styles.bom} />
         </div>
 
         {/* AOG toggle — the single sanctioned use of the --urgent accent */}
@@ -232,7 +250,7 @@ export default function RfqForm({ initialPart = "" }) {
               Aircraft on ground (AOG)
             </span>
             <span className={styles.aogNote}>
-              Jumps the queue straight to the 24/7 desk — worked the minute it lands.
+              Jumps the queue straight to the 24/7 desk, worked the minute it lands.
             </span>
           </span>
         </button>
@@ -288,14 +306,14 @@ export default function RfqForm({ initialPart = "" }) {
               </>
             ) : (
               <>
-                Send request — quote back in 15 min
+                Send request, quote back in 15 min
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </>
             )}
           </span>
         </button>
         <p className={styles.formAlt}>
-          No account, no sales call — a named specialist replies. Or email{" "}
+          No account, no sales call. A named specialist replies. Or email{" "}
           <a href="mailto:sales@afrenterprises.com">sales@afrenterprises.com</a>
         </p>
       </div>

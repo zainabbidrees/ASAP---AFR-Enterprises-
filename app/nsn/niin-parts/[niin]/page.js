@@ -7,7 +7,7 @@ export async function generateMetadata({ params }) {
   const m = PAGE_RE.exec(params.niin);
   if (m) {
     return {
-      title: `NIIN Parts Catalog — Group ${m[1]} | AFR Enterprises`,
+      title: `NIIN Parts Catalog: Group ${m[1]} | AFR Enterprises`,
       description: `National Item Identification Numbers in group ${m[1]}. Factory New, New Surplus and Overhauled conditions quoted explicitly.`,
     };
   }

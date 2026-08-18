@@ -1,159 +1,101 @@
 /* =========================================================
-   Quote Cart (empty state) — editorial-monochrome.
-   Ink-on-paper; the ONLY colour is --urgent, reserved for the
-   always-on desk dot. CSS-only motion, reduced-motion guarded.
+   Quote Cart — checkout layout, editorial-monochrome.
+   Page shell only: the header, the measured column and the
+   sent confirmation. The form itself (steps 01/02 and the
+   send) lives in components/cart/QuoteCheckout.module.css.
    ========================================================= */
 
 @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-@keyframes pulseRing {
-  0% { box-shadow: 0 0 0 0 rgba(207, 67, 39, 0.5); }
-  70% { box-shadow: 0 0 0 7px rgba(207, 67, 39, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(207, 67, 39, 0); }
+
+.page { padding: clamp(32px, 4vw, 56px) 0 clamp(64px, 8vw, 104px); }
+
+/* A measured shell — the manifest and the submit panel sit side by side, but the
+   site's 1800px container would stretch the table into open space. */
+.column { max-width: 1480px; margin: 0 auto; }
+
+/* ---- page header ---- */
+/* Deliberately restrained: on a checkout the parts and the send button are the
+   page, so the headline stays a heading rather than a hero. */
+.head { max-width: 60ch; margin: 0 0 clamp(26px, 3vw, 40px); animation: rise 0.5s var(--ease) both; }
+.head .eyebrow { margin: 0 0 14px; }
+.title {
+  margin: 0; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.04;
+  letter-spacing: -0.035em; font-weight: 600;
 }
+.lede { margin: 14px 0 0; font-size: var(--text-base); color: var(--muted); line-height: 1.6; }
 
 /* =========================================================
-   01 · EMPTY CART
+   SENT confirmation
    ========================================================= */
-.cart { padding: clamp(40px, 6vw, 88px) 0 var(--section-pad-y); }
-.cartGrid {
-  display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
-  gap: clamp(36px, 6vw, 92px); align-items: center;
-}
-.cartGrid > * { animation: rise 0.6s var(--ease) both; }
-.cartGrid > *:nth-child(2) { animation-delay: 0.08s; }
-
-.copy { min-width: 0; }
-.copy .eyebrow { margin: 0 0 18px; }
-.title {
-  font-size: clamp(38px, 5.2vw, 74px); line-height: 0.98; letter-spacing: -0.04em;
-  font-weight: 600; margin: 0; text-wrap: balance;
-}
-.title em { font-style: normal; color: var(--faint); }
-.sub { font-size: var(--text-lg); color: var(--muted); line-height: 1.6; margin: 26px 0 0; max-width: 54ch; }
-
-.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
-.ctaPrimary, .ctaGhost {
-  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
-  padding: 15px 26px; border-radius: var(--radius-pill); font-size: 15px; font-weight: 500; line-height: 1;
-  border: 1px solid transparent;
-  transition: background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.2s var(--ease);
-}
-.ctaPrimary { background: var(--ink); color: #fff; border-color: var(--ink); }
-.ctaPrimary svg { width: 18px; height: 18px; transition: transform 0.25s var(--ease); }
-.ctaPrimary:hover { background: var(--ink-soft); transform: translateY(-2px); }
-.ctaPrimary:hover svg { transform: translateX(3px); }
-.ctaGhost { background: transparent; color: var(--ink); border-color: var(--line-2); }
-.ctaGhost:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
-
-.meta {
-  display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin: 30px 0 0;
-  font-family: ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: 0.04em;
-  text-transform: uppercase; color: var(--faint);
-}
-.metaDiv { width: 1px; height: 12px; background: var(--line-2); }
-
-/* ---- empty manifest ---- */
-.manifest {
-  border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper);
-  box-shadow: var(--shadow); overflow: hidden;
-}
-.manifestTop {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 20px; border-bottom: 1px solid var(--line);
-}
-.manifestTag, .manifestCount {
-  font-family: ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: 0.14em; color: var(--faint);
-}
-.manifestCount { color: var(--muted); }
-
-.manifestHead {
-  display: grid; grid-template-columns: 26px minmax(0, 1fr) 54px 116px; gap: 10px;
-  padding: 14px 20px 12px; border-bottom: 1px solid var(--line);
-}
-.manifestHead span { font-size: 12px; font-weight: 600; color: var(--muted); }
-
-.empty {
+.sent {
+  max-width: 620px; margin: clamp(8px, 3vw, 40px) auto;
   display: flex; flex-direction: column; align-items: center; text-align: center;
-  gap: 8px; margin: 18px; padding: clamp(28px, 4vw, 46px) 24px;
-  border: 1px dashed var(--line-2); border-radius: var(--radius); background: var(--surface);
+  padding: clamp(30px, 4vw, 48px) clamp(22px, 3vw, 40px);
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  animation: rise 0.5s var(--ease) both;
 }
-.emptyMark {
-  display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px;
-  border-radius: 50%; background: var(--paper); border: 1px solid var(--line); color: var(--muted); margin-bottom: 6px;
+.sentRef {
+  font-family: ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: 0.14em;
+  color: var(--faint);
 }
-.emptyMark svg { width: 24px; height: 24px; }
-.emptyTitle { font-size: 16px; font-weight: 600; color: var(--ink); margin: 0; letter-spacing: -0.01em; }
-.emptyText { font-size: 14px; color: var(--muted); line-height: 1.55; margin: 0; max-width: 34ch; }
-
-/* ---- staged lines ---- */
-/* Same grid as .manifestHead so the columns line up under their labels. */
-.lines { list-style: none; margin: 0; padding: 0; }
-.line {
-  display: grid; grid-template-columns: 26px minmax(0, 1fr) 54px 116px; gap: 10px;
-  align-items: center;
-  padding: 13px 20px; border-bottom: 1px solid var(--line);
-}
-.line:last-child { border-bottom: 0; }
-.lineNum { font-family: ui-monospace, Menlo, monospace; font-size: 11px; color: var(--faint); }
-.linePart { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
-.linePartLink {
-  font-size: 14px; font-weight: 600; color: var(--ink); letter-spacing: -0.01em;
-  overflow-wrap: anywhere;
-}
-.lineMfr { font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
-
-.qtyInput {
-  width: 100%; min-width: 0; padding: 6px 4px;
-  font-family: inherit; font-size: 13px; font-weight: 500; color: var(--ink); text-align: center;
-  background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--radius);
-}
-.qtyInput:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
-
-.lineEnd { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.lineCond { font-size: 12px; color: var(--muted); white-space: nowrap; }
-.lineRemove {
-  flex-shrink: 0;
+.sentMark {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 26px; height: 26px; border-radius: 50%;
-  background: transparent; color: var(--faint);
-  border: 1px solid var(--line); cursor: pointer;
-  transition: color 0.18s ease, border-color 0.18s ease;
+  width: 52px; height: 52px; margin: 16px 0 18px;
+  border-radius: 50%; background: var(--ink); color: #fff;
 }
-.lineRemove svg { width: 13px; height: 13px; }
-.lineRemove:hover { color: var(--urgent); border-color: var(--urgent); }
-.lineRemove:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.sentMark svg { width: 24px; height: 24px; }
+.sentTitle {
+  margin: 0; font-size: clamp(24px, 2.6vw, 32px); line-height: 1.1;
+  letter-spacing: -0.03em; font-weight: 600;
+}
+.sentText {
+  margin: 14px 0 0; font-size: var(--text-base); color: var(--muted);
+  line-height: 1.6; max-width: 46ch;
+}
+.sentText a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 
-.manifestActions {
-  display: flex; justify-content: flex-end;
-  padding: 12px 20px; border-top: 1px solid var(--line);
+.sentLines {
+  width: 100%; margin: 26px 0 0; padding: 0; list-style: none;
+  border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+  text-align: left;
 }
-.clearBtn {
-  padding: 0; background: none; border: 0; cursor: pointer;
-  font-family: inherit; font-size: 13px; font-weight: 500; color: var(--muted);
-  text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line-2);
+.sentLines li {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 12px; align-items: baseline;
+  padding: 11px 16px; border-bottom: 1px solid var(--line);
 }
-.clearBtn:hover { color: var(--ink); text-decoration-color: var(--ink); }
-.clearBtn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.sentLines li:last-child { border-bottom: 0; }
+.sentPart {
+  font-family: ui-monospace, Menlo, monospace; font-size: 13px; font-weight: 600;
+  color: var(--ink); overflow-wrap: anywhere;
+}
+.sentMfr { font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+.sentQty {
+  font-family: ui-monospace, Menlo, monospace; font-size: 13px; color: var(--muted);
+  white-space: nowrap;
+}
 
-.manifestFoot {
-  display: flex; align-items: center; gap: 9px; padding: 15px 20px; border-top: 1px solid var(--line);
-  font-size: 13px; color: var(--muted);
+.sentMeta {
+  margin: 14px 0 0; font-family: ui-monospace, Menlo, monospace; font-size: 11px;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint);
 }
-.live { width: 7px; height: 7px; border-radius: 50%; background: var(--urgent); animation: pulseRing 2.2s ease-out infinite; }
+
+.sentCta {
+  display: inline-flex; align-items: center; justify-content: center;
+  margin: 26px 0 0; padding: 14px 26px;
+  background: transparent; color: var(--ink);
+  border: 1px solid var(--line-2); border-radius: var(--radius-pill);
+  font-size: 15px; font-weight: 500;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.sentCta:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+.sentCta:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 
 /* =========================================================
    RESPONSIVE
    ========================================================= */
-@media (max-width: 900px) {
-  .cartGrid { grid-template-columns: 1fr; gap: clamp(34px, 6vw, 52px); }
-}
-@media (max-width: 620px) {
-  .actions { flex-direction: column; align-items: stretch; }
-  .ctaPrimary, .ctaGhost { width: 100%; }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .cartGrid > * { animation: none; }
-  .live { animation: none; }
-  .ctaPrimary, .ctaGhost, .ctaPrimary svg { transition: none; }
+  .head, .sent { animation: none; }
+  .sentCta { transition: none; }
 }

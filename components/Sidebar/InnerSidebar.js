@@ -68,7 +68,7 @@ export default function InnerSidebar({ showBrowse = true }) {
         {/* GET, not POST: a page route can't read a POST body, so the part number
             would have been dropped. As a query it prefills the full RFQ form. */}
         <form className={styles.rfqForm} action="/straightrfq/" method="get">
-          <input type="text" name="partNumber" placeholder="Enter Part Number" aria-label="Enter Part Number" />
+          <input type="text" name="partNumber" placeholder="Enter Part Number" aria-label="Enter Part Number" required />
           <input type="text" name="quantity" placeholder="Quantity" aria-label="Quantity" />
           <input type="email" name="email" placeholder="Email Address" aria-label="Email Address" />
           <button className="btn" type="submit">Get A Quote</button>

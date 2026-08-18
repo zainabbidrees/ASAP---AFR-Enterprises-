@@ -1,12 +1,13 @@
 import Link from "next/link";
 import InnerSidebar from "@/components/Sidebar/InnerSidebar";
+import PageProse from "@/components/PageProse/PageProse";
 import styles from "./page.module.css";
 import { SECTIONS } from "@/data/manufacturers";
 
 export const metadata = {
   title: "Aviation & Electronic Parts Manufacturers | Complete List | AFR Enterprises",
   description:
-    "Browse AFR Enterprises' A–Z directory of 5,100+ aviation, electronic, and IT hardware parts manufacturers. Find your manufacturer and submit an instant RFQ.",
+    "Browse AFR Enterprises' A-Z directory of 5,100+ aviation, electronic, and IT hardware parts manufacturers. Find your manufacturer and submit an instant RFQ.",
 };
 
 // Letter-range quick-jump controls (scroll to section anchors below).
@@ -31,13 +32,6 @@ export default function ManufacturersPage() {
             <h1 className="section-title section-title--left">
               Aviation and Electronic <strong>Parts Manufacturers Online List</strong>
             </h1>
-
-            <div className={styles.intro}>
-              <p>At AFR Enterprises, we&apos;ve built strong partnerships with a wide range of electronic parts manufacturers, giving you access to a diverse selection of in-demand aviation and electronic components on a single, streamlined purchasing platform. Our network includes globally recognized names such as Edal Industries Inc, Plessey Semiconductors, Kollsman Instrument Corp, and other reputable brands, so you can source trusted parts without switching between suppliers.</p>
-              <p>We maintain a global supply-chain network that supports fast lead times and rapid shipping, helping you meet tight operational deadlines and project timelines. We only work with dependable, vetted manufacturers so every part you receive meets our high-quality standards whether you need new, used, obsolete, or hard-to-find components.</p>
-              <p>Every <Link href="/part-types/">part-types</Link> are undergoes thorough quality-assurance checks and document verification before shipment, so you can order with confidence. We also use our purchasing power and deep market expertise to offer competitive pricing without forcing you to compromise on quality.</p>
-              <p>Owned and operated by ASAP Semiconductor, we operate under AS9120B, ISO 9001:2015, and FAA AC 00-56B accreditation. When you work with our industry experts, you get personalized, one-on-one support through every stage of the buying process, tailored sourcing solutions for each request, and customized services to fulfill your needs quickly and efficiently. To get a competitive quote for parts today, simply submit an Instant RFQ and expect a response within 15 minutes after we review your completed form.</p>
-            </div>
 
             {/* Letter-range quick jump + name search */}
             <div className={styles.controls}>
@@ -69,6 +63,33 @@ export default function ManufacturersPage() {
                 </section>
               ))}
             </div>
+
+            {/* Directory first, the copy about it second. */}
+            <PageProse
+              eyebrow="About our manufacturer network"
+              lead={[
+                "At AFR Enterprises, we've built strong partnerships with a wide range of electronic parts manufacturers, giving you access to a diverse selection of in-demand aviation and electronic components on a single, streamlined purchasing platform. Our network includes globally recognized names such as Edal Industries Inc, Plessey Semiconductors, and Kollsman Instrument Corp, so you can source trusted parts without switching between suppliers.",
+                "We maintain a global supply-chain network that supports fast lead times and rapid shipping, helping you meet tight operational deadlines and project timelines. We only work with dependable, vetted manufacturers, so every part you receive meets our quality standards whether you need new, used, obsolete, or hard-to-find components.",
+                <>
+                  Every part we ship, across all{" "}
+                  <Link href="/part-types/">part types</Link>, goes through quality-assurance
+                  checks and document verification before it leaves us, so you can order with
+                  confidence. We also use our purchasing power and market expertise to offer
+                  competitive pricing without asking you to compromise on quality.
+                </>,
+              ]}
+              blocks={[
+                {
+                  title: "What working with us gets you",
+                  items: [
+                    "Accreditation you can audit: Owned and operated by ASAP Semiconductor, we operate under AS9120B, ISO 9001:2015, and FAA AC 00-56B accreditation.",
+                    "One named specialist: Personalized, one-on-one support through every stage of the buying process, from first quote to delivered shipment.",
+                    "Sourcing built per request: Tailored solutions and customized services for each requirement, including obsolete and long-lead lines.",
+                    "A quote inside 15 minutes: Submit an Instant RFQ and expect a response within 15 minutes of us reviewing your completed form.",
+                  ],
+                },
+              ]}
+            />
           </div>
 
           {/* SIDEBAR */}

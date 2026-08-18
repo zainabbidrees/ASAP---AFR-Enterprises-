@@ -1,6 +1,7 @@
 import Link from "next/link";
 import InnerSidebar from "@/components/Sidebar/InnerSidebar";
 import CatalogListing from "@/components/CatalogListing/CatalogListing";
+import PageProse from "@/components/PageProse/PageProse";
 import { SECTIONS } from "@/data/manufacturers";
 import { manufacturerParts, pageCount, slugify, titleize } from "@/lib/catalog";
 import { CTA, manufacturerIntro } from "@/lib/copy";
@@ -30,7 +31,7 @@ export function manufacturerMetadata(slug, page) {
     };
   }
   const name = titleize(slug);
-  const suffix = page > 1 ? ` — Page ${page}` : "";
+  const suffix = page > 1 ? ` | Page ${page}` : "";
   return {
     title: `${name} Parts & Part Numbers${suffix} | AFR Enterprises`,
     description: `Browse ${name} part numbers stocked and sourced by AFR Enterprises. AS9120B certified distributor with full traceability. Quotes back in 15 minutes.`,
@@ -58,6 +59,7 @@ export default function ManufacturerRoute({ slug, page = 1 }) {
       ]}
       h1={`${name} Parts Catalog`}
       intro={manufacturerIntro(slug)}
+      proseEyebrow={`About ${name}`}
       linkList={
         types.length > 0
           ? {
@@ -88,7 +90,7 @@ export default function ManufacturerRoute({ slug, page = 1 }) {
 
 function LetterIndex({ slug }) {
   const letter = slug.replace("page-", "");
-  const label = letter === "0-9" ? "0 – 9" : letter.toUpperCase();
+  const label = letter === "0-9" ? "0-9" : letter.toUpperCase();
   const section = SECTIONS.find((s) => s.viewAll.endsWith(`/${slug}/`));
   const items = section?.mfrs || [];
 
@@ -98,10 +100,6 @@ function LetterIndex({ slug }) {
         <div className={`container ${styles.layout}`}>
           <div className={styles.main}>
             <h1 className="section-title section-title--left">Manufacturers Beginning With {label}</h1>
-            <p className={styles.intro}>
-              Every manufacturer in our directory listed under {label}. Open any name for its part
-              numbers, or send your list through for a 15-minute quote.
-            </p>
 
             {items.length > 0 ? (
               <ul className={styles.catGrid}>
@@ -112,7 +110,7 @@ function LetterIndex({ slug }) {
             ) : (
               <p className={styles.intro}>
                 Nothing listed under {label} yet.{" "}
-                <Link href="/manufacturer/">Browse the full A–Z directory</Link> instead.
+                <Link href="/manufacturer/">Browse the full A-Z directory</Link> instead.
               </p>
             )}
 
@@ -127,6 +125,15 @@ function LetterIndex({ slug }) {
                 </Link>
               ))}
             </div>
+
+            <PageProse
+              eyebrow={`Manufacturers · ${label}`}
+              lead={[
+                `Every manufacturer in our directory listed under ${label}. Open any name above for the part numbers we hold against it, with description and quantity on each line.`,
+                `We are AS9120B and ISO 9001:2015 certified, FAA AC 00-56B accredited and AS6081 certified for counterfeit avoidance, so every line is traceable to an approved source.`,
+              ]}
+              cta={CTA}
+            />
           </div>
 
           <InnerSidebar />

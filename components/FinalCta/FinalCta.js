@@ -32,7 +32,7 @@ export default function FinalCta() {
             </h2>
 
             <p className={styles.sub}>
-              Pricing, availability, condition and lead time — in writing, within 15 minutes.
+              Pricing, availability, condition and lead time in writing, within 15 minutes.
             </p>
 
             {/* The one action, sized like a single button so the composition stays
@@ -47,6 +47,7 @@ export default function FinalCta() {
                   placeholder="Enter a part number"
                   autoComplete="off"
                   spellCheck="false"
+                  required
                 />
                 <button className={styles.submit} type="submit">Get a quote</button>
               </label>

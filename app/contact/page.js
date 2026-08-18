@@ -71,9 +71,11 @@ const TICKER = [
 export default function ContactPage() {
   return (
     <>
-      {/* ============ 01 · HERO — shared <PageHero /> (type-led, no imagery) ============ */}
+      {/* ============ 01 · HERO — shared <PageHero />, rounded photographic panel ============ */}
       <PageHero
-        eyebrow="Contact AFR Enterprises"
+        image="/photos/contact-hero.jpg"
+        imageAlt="Two AFR Enterprises specialists going over a customer's parts request together"
+        imagePos="50% 20%"
         title={
           <>
             Talk to a person
@@ -81,7 +83,7 @@ export default function ContactPage() {
             who knows <em>the&nbsp;part.</em>
           </>
         }
-        lede="Aviation, electronic and IT hardware — orders, certificates, vendor set-up, or a jet on the ground. Every message reaches a named representative, never a queue."
+        lede="Aviation, electronic and IT hardware: orders, certificates, vendor set-up, or a jet on the ground. Every message reaches a named representative, never a queue."
         actions={[
           { label: "Request a quote", href: "/straightrfq/", variant: "primary" },
           { label: "Call the AOG desk", href: "tel:1-714-705-4780", variant: "ghost", tel: true },
@@ -103,7 +105,7 @@ export default function ContactPage() {
               </div>
             </div>
             <p className={styles.blockLede}>
-              Orders, invoices, vendor set-up, certificates and careers — answered within one
+              Orders, invoices, vendor set-up, certificates and careers. All answered within one
               business day. For pricing or availability, the{" "}
               <Link href="/straightrfq/">quote form</Link> is far faster.
             </p>
@@ -129,7 +131,7 @@ export default function ContactPage() {
               <li>15-minute response</li>
             </ul>
             <p className={styles.aogFoot}>
-              Guaranteed 15-minute response — a named address, never a no-reply.
+              Guaranteed 15-minute response from a named address, never a no-reply.
             </p>
           </aside>
         </div>
@@ -149,7 +151,7 @@ export default function ContactPage() {
               a real person.
             </h2>
             <p className={styles.blockLede}>
-              Every value is paste-ready — the copy controls write straight to your clipboard, so
+              Every value is paste-ready. The copy controls write straight to your clipboard, so
               nothing reaches your purchase order retyped.
             </p>
           </div>

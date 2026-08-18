@@ -153,7 +153,7 @@ export default function Footer() {
             respective manufacturers. LINKING, FRAMING, MIRRORING, SCRAPING OR DATA-MINING STRICTLY
             PROHIBITED.&quot;
           </p>
-          <p className={styles.copy}>&copy; 2026 AFR Enterprises — all rights reserved to ASAP Semiconductor LLC.</p>
+          <p className={styles.copy}>&copy; 2026 AFR Enterprises. All rights reserved to ASAP Semiconductor LLC.</p>
         </div>
       </div>
 

@@ -1,0 +1,103 @@
+/* =========================================================
+   Quote manifest table — editorial-monochrome.
+   Hairline rows, mono line numbers, one accent (--urgent) used
+   only for the fold flash and the remove hover.
+   ========================================================= */
+
+/* The menu of the manufacturer dropdown is portalled to <body> precisely
+   because of this box. */
+.scroller { overflow-x: auto; }
+
+.table {
+  width: 100%; min-width: 560px;
+  border-collapse: collapse;
+}
+
+/* Column labels sit on a tinted band, so the manifest reads as a table of
+   staged lines rather than a stack of form rows. */
+.table th {
+  padding: 12px 10px;
+  text-align: left; white-space: nowrap;
+  background: var(--surface-2);
+  font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+.table td {
+  padding: 12px 10px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--line);
+}
+.table th:first-child, .table td:first-child { padding-left: 20px; }
+.table th:last-child, .table td:last-child { padding-right: 20px; }
+.table tbody tr:last-child td { border-bottom: 0; }
+
+/* ---- columns ---- */
+.colPart { min-width: 170px; }
+.colMfr { width: 40%; min-width: 190px; }
+.colQty { width: 140px; }
+.colEnd { width: 76px; text-align: right; }
+
+/* ---- draft row ---- */
+.enterHint {
+  font-family: ui-monospace, Menlo, monospace; font-size: 13px; color: var(--faint);
+}
+
+/* One explicit height for every field in the row — 44px, with the vertical
+   padding zeroed. As a min-height this silently drifts: 12px padding at a 1.3
+   line-height computes to 46.8px on the text input and 48.5px on the 15px
+   dropdown trigger, so the three controls would never line up. */
+.field {
+  width: 100%; height: 44px;
+  padding: 0 12px;
+  background: var(--paper);
+  border: 1px solid var(--line-2); border-radius: var(--radius);
+  font-family: inherit; font-size: 14px; font-weight: 500; color: var(--ink);
+  transition: border-color 0.18s ease;
+}
+.field::placeholder { color: var(--faint); font-weight: 400; }
+.field:hover { border-color: var(--ink); }
+.field:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-color: var(--ink); }
+
+.noMfr { font-size: 13px; color: var(--faint); }
+
+/* ---- staged lines ---- */
+.row { transition: background 0.3s ease; }
+/* A fold merges into an existing row, which can be well down the manifest —
+   the flash is what makes it visible. */
+.row[data-flash="true"] td { background: rgba(207, 67, 39, 0.07); }
+
+.part {
+  display: block;
+  font-family: ui-monospace, Menlo, monospace; font-size: 14px; font-weight: 600;
+  color: var(--ink); letter-spacing: -0.01em; overflow-wrap: anywhere;
+}
+a.part { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line-2); }
+a.part:hover { text-decoration-color: var(--ink); }
+a.part:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 3px; }
+
+.desc { display: block; margin-top: 7px; font-size: 12.5px; color: var(--muted); }
+
+.remove {
+  display: inline-flex; align-items: center; justify-content: center;
+  /* 44px touch target like everything else in the row; the visible disc is the
+     inner circle drawn by the border. */
+  width: 44px; height: 44px; padding: 0;
+  background: transparent; border: 0; border-radius: 50%;
+  color: var(--faint); cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease;
+}
+.remove svg { width: 15px; height: 15px; }
+.remove:hover { color: var(--urgent); background: var(--surface); }
+.remove:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+
+/* ---- empty ---- */
+.emptyCell { padding: 22px 20px 26px; }
+.empty {
+  display: block;
+  font-size: 14px; color: var(--muted); line-height: 1.55; max-width: 48ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row, .field, .remove { transition: none; }
+}

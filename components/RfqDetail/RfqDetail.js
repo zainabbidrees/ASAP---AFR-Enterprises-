@@ -23,7 +23,7 @@ export default function RfqDetail({ mfr, part, nsn, breadcrumb, backHref, backLa
     { label: "Manufacturer", value: mfrName },
     ...(extraSpec || []),
     ...(nsn ? [{ label: "NSN", value: formatNsn(nsn), mono: true }] : []),
-    { label: "Availability", value: "Ready to ship — confirm on quote" },
+    { label: "Availability", value: "Ready to ship, confirm on quote" },
     { label: "Condition", value: "Factory New · New Surplus · Overhauled" },
     { label: "Lead time", value: "Quoted in writing within 15 minutes" },
   ];
@@ -39,7 +39,7 @@ export default function RfqDetail({ mfr, part, nsn, breadcrumb, backHref, backLa
             <p className={styles.lead}>
               {partNo} is available through AFR Enterprises. Send the quantity and the date you need
               it by, and a named specialist returns pricing, availability, condition and lead time in
-              writing — normally inside 15 minutes. No account required, no obligation to proceed.
+              writing, normally inside 15 minutes. No account required, no obligation to proceed.
             </p>
 
             {/* Part identity */}
@@ -58,7 +58,7 @@ export default function RfqDetail({ mfr, part, nsn, breadcrumb, backHref, backLa
 
             <p className={styles.disclaimer}>
               Quotations are issued subject to stock and are not an offer of sale. Condition and
-              certification are stated explicitly on every quote — we never leave either ambiguous.
+              certification are stated explicitly on every quote. We never leave either ambiguous.
             </p>
 
             {/* Related parts */}

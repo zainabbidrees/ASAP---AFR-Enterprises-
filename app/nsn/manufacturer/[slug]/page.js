@@ -28,7 +28,7 @@ export default function Page({ params }) {
         { label: "Manufacturers", href: "/nsn/manufacturer/" },
         { label: name },
       ]}
-      h1={`${name} — NSN Parts Catalog`}
+      h1={`${name} NSN Parts Catalog`}
       intro={`National Stock Numbers supplied under ${name}. Each line shows the stock number, item name and part number as catalogued in the federal supply system. AFR Enterprises holds CAGE code 6RE77 and ships every order with full traceability documentation.`}
       linkList={{
         title: "Cross-Reference This Manufacturer",

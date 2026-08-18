@@ -28,7 +28,7 @@ export default function Hero() {
           </h1>
           <p className={styles.subtitle}>
             We track down the aviation, defense, and electronic components others
-            can&apos;t — obsolete, back-ordered, or needed on an AOG deadline. Every part
+            can&apos;t: obsolete, back-ordered, or needed on an AOG deadline. Every part
             ships warrantied and fully traceable.
           </p>
           <div className={styles.actions}>

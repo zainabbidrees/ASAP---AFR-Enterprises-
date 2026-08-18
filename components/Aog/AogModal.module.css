@@ -1,0 +1,249 @@
+/* AOG request modal — the emergency dialog. Dark base like the homepage AOG
+   block, with the reserved --urgent accent on the live dot, the call button and
+   the submit. Everything else stays monochrome. */
+
+.overlay {
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(12px, 3vw, 40px);
+  background: rgba(6, 6, 6, 0.72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  overflow-y: auto;
+  animation: aogFade 0.22s var(--ease) both;
+}
+@keyframes aogFade { from { opacity: 0; } to { opacity: 1; } }
+
+.dialog {
+  position: relative;
+  width: 100%; max-width: 1180px;
+  margin: auto;
+  background: var(--dark);
+  color: var(--on-dark);
+  border: 1px solid var(--line-inv);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: aogRise 0.28s var(--ease) both;
+}
+@keyframes aogRise {
+  from { opacity: 0; transform: translateY(14px) scale(0.99); }
+  to { opacity: 1; transform: none; }
+}
+/* Same radar wash as the homepage AOG block */
+.dialog::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(600px 400px at 82% 20%, rgba(207, 67, 39, 0.16), transparent 70%),
+    radial-gradient(500px 500px at 8% 95%, rgba(207, 67, 39, 0.10), transparent 70%);
+}
+
+.close {
+  position: absolute; top: 14px; right: 14px; z-index: 3;
+  width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, 0.06); color: #fff;
+  border: 1px solid var(--line-inv); border-radius: 50%; cursor: pointer;
+  transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.close:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.28); }
+.close svg { width: 18px; height: 18px; }
+
+.inner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 3.6vw, 56px);
+  padding: clamp(24px, 2.8vw, 44px);
+}
+
+/* ---------- Left: the desk ---------- */
+.copy { display: flex; flex-direction: column; }
+.status {
+  display: inline-flex; align-items: center; gap: 9px; align-self: flex-start;
+  margin: 0 0 22px;
+  font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.86);
+}
+.pulse {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--urgent-soft);
+  box-shadow: 0 0 0 0 rgba(226, 84, 58, 0.6); animation: aogPulse 1.8s ease-out infinite;
+}
+@keyframes aogPulse {
+  0% { box-shadow: 0 0 0 0 rgba(226, 84, 58, 0.6); }
+  70% { box-shadow: 0 0 0 8px rgba(226, 84, 58, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(226, 84, 58, 0); }
+}
+.title { font-size: var(--text-3xl); color: #fff; margin: 0 0 16px; letter-spacing: -0.03em; }
+.text {
+  font-size: var(--text-base); line-height: 1.62; color: var(--on-dark-muted);
+  max-width: 46ch; margin: 0 0 auto;
+}
+.callLabel {
+  margin: 30px 0 10px;
+  font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.5);
+}
+.call {
+  display: inline-flex; align-items: center; gap: 12px; align-self: flex-start;
+  color: #fff; border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  padding-bottom: 6px;
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+.call:hover { color: var(--urgent-soft); border-color: var(--urgent-soft); text-decoration: none; }
+.callIcon { display: inline-flex; color: var(--urgent-soft); }
+.callIcon svg { width: 22px; height: 22px; }
+.callNumber { font-size: clamp(24px, 2.4vw, 30px); font-weight: 500; letter-spacing: -0.02em; }
+
+.stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  margin: clamp(28px, 4vw, 48px) 0 0; padding: 16px 0 0;
+  border-top: 1px solid var(--line-inv);
+}
+.stat { padding-right: 16px; }
+.stat + .stat { padding-left: 18px; border-left: 1px solid var(--line-inv); }
+.stat dt {
+  font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.5); margin-bottom: 6px;
+}
+.stat dd { margin: 0; font-size: 15px; font-weight: 500; color: #fff; }
+
+/* ---------- Right: the form ---------- */
+.panel { min-width: 0; }
+.panelHead {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  padding-bottom: 14px; margin-bottom: 18px;
+  border-bottom: 1px solid var(--line-inv);
+}
+.panelTitle { margin: 0; font-size: var(--text-xl); color: #fff; }
+.reqNote {
+  margin: 0; white-space: nowrap;
+  font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.form { display: flex; flex-direction: column; gap: 12px; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; }
+
+.field { display: flex; flex-direction: column; min-width: 0; }
+.label {
+  display: block; margin-bottom: 7px;
+  font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.13em;
+  color: rgba(255, 255, 255, 0.62);
+}
+.req { color: var(--urgent-soft); margin-left: 3px; }
+
+.input {
+  width: 100%; height: 44px; padding: 0 14px;
+  font-family: inherit; font-size: 15px; color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line-inv); border-radius: var(--radius-sm);
+  transition: border-color 0.18s var(--ease), background 0.18s var(--ease);
+  appearance: none;
+}
+.input::placeholder { color: rgba(255, 255, 255, 0.36); }
+.input:hover { border-color: rgba(255, 255, 255, 0.24); }
+.input:focus {
+  outline: none; border-color: #fff; background: rgba(255, 255, 255, 0.08);
+}
+.input[data-invalid="true"] { border-color: var(--urgent-soft); }
+
+.textarea { height: auto; min-height: 80px; padding: 11px 14px; line-height: 1.5; resize: vertical; }
+
+.selectWrap { position: relative; }
+.select { padding-right: 40px; cursor: pointer; }
+.select option { color: var(--ink); }
+.chevron {
+  position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
+  width: 18px; height: 18px; color: rgba(255, 255, 255, 0.55); pointer-events: none;
+}
+
+.help { margin: 7px 0 0; font-size: 12px; color: rgba(255, 255, 255, 0.45); }
+.error { margin: 7px 0 0; font-size: 12px; color: var(--urgent-soft); }
+
+/* ---- Consent ---- */
+.consent { margin-top: 4px; }
+.check { display: flex; gap: 10px; font-size: 12.5px; line-height: 1.5; color: var(--on-dark-muted); cursor: pointer; }
+.check input {
+  flex: 0 0 auto; width: 16px; height: 16px; margin: 2px 0 0;
+  accent-color: var(--urgent);
+  border-radius: 3px; cursor: pointer;
+}
+.check input[data-invalid="true"] { outline: 1px solid var(--urgent-soft); outline-offset: 2px; }
+.check a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+.check a:hover { color: var(--urgent-soft); }
+
+/* ---- Footer ---- */
+.foot { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 18px; margin-top: 8px; }
+.submit {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 50px; padding: 0 24px;
+  font-family: inherit; font-size: 14px; font-weight: 500;
+  color: #fff; background: var(--urgent);
+  border: none; border-radius: var(--radius-pill); cursor: pointer;
+  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.submit:hover { background: var(--urgent-soft); transform: translateY(-1px); }
+.submit:disabled { cursor: default; transform: none; opacity: 0.8; }
+.submit svg { width: 18px; height: 18px; }
+.spinner {
+  width: 15px; height: 15px; border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35); border-top-color: #fff;
+  animation: aogSpin 0.7s linear infinite;
+}
+@keyframes aogSpin { to { transform: rotate(360deg); } }
+.footNote {
+  display: inline-flex; align-items: center; gap: 8px; margin: 0;
+  font-size: 12.5px; color: var(--on-dark-muted);
+}
+.footNote svg { width: 15px; height: 15px; flex: 0 0 auto; }
+
+/* ---- Sent state ---- */
+.sent { display: flex; flex-direction: column; align-items: flex-start; padding: clamp(8px, 2vw, 24px) 0; }
+.sentIndex {
+  font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.5);
+}
+.sentMark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 46px; height: 46px; margin: 18px 0 18px;
+  border-radius: 50%; background: rgba(207, 67, 39, 0.16);
+  border: 1px solid rgba(207, 67, 39, 0.45); color: var(--urgent-soft);
+}
+.sentMark svg { width: 22px; height: 22px; }
+.sentTitle { margin: 0 0 12px; font-size: var(--text-2xl); color: #fff; }
+.sentText { margin: 0 0 24px; font-size: 15px; line-height: 1.6; color: var(--on-dark-muted); max-width: 44ch; }
+.sentText a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+.sentReset {
+  height: 46px; padding: 0 22px;
+  font-family: inherit; font-size: 14px; font-weight: 500; color: #fff;
+  background: transparent; border: 1px solid var(--line-inv); border-radius: var(--radius-pill);
+  cursor: pointer; transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.sentReset:hover { border-color: #fff; background: rgba(255, 255, 255, 0.06); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1000px) {
+  .inner { grid-template-columns: 1fr; gap: 26px; }
+  .title { font-size: var(--text-2xl); }
+  /* One column: lead with the desk line and the form (the two things a grounded
+     caller needs), then the supporting copy. display:contents lets the copy
+     block's children reorder against the form panel. */
+  .copy { display: contents; }
+  .status { order: 1; margin: 0; }
+  .title { order: 2; margin: 0; }
+  .callLabel { order: 3; margin: 0; }
+  .call { order: 4; margin: -8px 0 0; }
+  .panel { order: 5; }
+  .text { order: 6; margin: 0; }
+  .stats { order: 7; margin: 0; }
+}
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr; gap: 14px; }
+  .stat + .stat { padding-left: 0; border-left: none; }
+  .foot { gap: 12px; }
+  .submit { width: 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .overlay, .dialog { animation: none; }
+  .pulse { animation: none; }
+}

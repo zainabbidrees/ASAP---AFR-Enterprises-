@@ -10,7 +10,7 @@ export async function generateMetadata({ params }) {
   if (!m) return {};
   return {
     ...page1Metadata,
-    title: `${page1Metadata.title} — Page ${m[1]}`,
+    title: `${page1Metadata.title} | Page ${m[1]}`,
     alternates: { canonical: "/avionics-test-equipment/" },
     robots: { index: false, follow: true },
   };

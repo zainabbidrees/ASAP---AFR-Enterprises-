@@ -1,16 +1,20 @@
 import Link from "next/link";
 import InnerSidebar from "@/components/Sidebar/InnerSidebar";
+import PageProse from "@/components/PageProse/PageProse";
 import AddToCartButton from "@/components/cart/AddToCartButton";
 import styles from "./ToolingListing.module.css";
 
 // Reusable Aircraft-Tooling listing template (Engine Parts / Maintenance Tooling /
-// Engine Baffle / Avionics Test Equipment). A paginated parts table whose second
-// column varies (Engine Number vs Manufacturer), plus intro + info sections.
+// Engine Baffle / Avionics Test Equipment). The listing leads the page — heading,
+// pager, parts table — and every word of supporting copy follows underneath in
+// PageProse, so these pages read the same way as the rest of the inner pages.
 // Props:
 //   breadcrumb   – IGNORED (breadcrumb bar removed sitewide; trail still passed
 //                  so it can be reinstated in one place if wanted back)
 //   h1, intro
-//   sections     – [{ title, intro?, bullets: [] }]
+//   sections     – [{ title, intro?, bullets: [] }] → prose topics below the table
+//   proseEyebrow – kicker on the copy block (default "About these parts")
+//   proseTitle   – optional heading on the copy block
 //   col2Header   – header label for the 2nd table column ("Engine Number" | "Manufacturer")
 //   rows         – [{ part, col2, desc, href }]
 //   displaying   – e.g. "Displaying Page: 1 of 247"
@@ -23,59 +27,24 @@ export default function ToolingListing({
   intro,
   sections = [],
   closing,
+  proseEyebrow = "About these parts",
+  proseTitle,
   col2Header = "Manufacturer",
   rows = [],
   displaying,
   pageBase,
   totalPages = 10,
 }) {
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-
   return (
     <>
       <section className="section">
         <div className={`container ${styles.layout}`}>
           <div className={styles.main}>
             <h1 className="section-title section-title--left">{h1}</h1>
-            {intro && <p className={styles.intro}>{intro}</p>}
 
-            {sections.map((s, i) => (
-              <div key={s.title || i}>
-                {s.title && <h2 className={styles.blockTitle}>{s.title}</h2>}
-                {s.intro && <p className={styles.intro}>{s.intro}</p>}
-                {s.bullets?.length > 0 && (
-                  <ul className={styles.bullets}>
-                    {s.bullets.map((b, i) => {
-                      const idx = b.indexOf(":");
-                      return idx > 0 && idx < 45 ? (
-                        <li key={i}><strong>{b.slice(0, idx)}:</strong>{b.slice(idx + 1)}</li>
-                      ) : (
-                        <li key={i}>{b}</li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </div>
-            ))}
+            {/* ---- The listing, first ---- */}
+            {displaying && <Pager displaying={displaying} pageBase={pageBase} totalPages={totalPages} />}
 
-            {closing && <p className={styles.intro}>{closing}</p>}
-
-            {/* Pagination */}
-            {displaying && (
-              <div className={styles.pager}>
-                <span className={styles.displaying}>{displaying}</span>
-                <div className={styles.pages}>
-                  <span className={styles.pageArrow} aria-hidden="true">&laquo;</span>
-                  <span className={`${styles.page} ${styles.pageActive}`} aria-current="page">1</span>
-                  {pages.slice(1).map((p) => (
-                    <Link key={p} href={`${pageBase}${p}/`} className={styles.page}>{p}</Link>
-                  ))}
-                  <Link href={`${pageBase}2/`} className={styles.pageArrow} aria-label="Next">&raquo;</Link>
-                </div>
-              </div>
-            )}
-
-            {/* Parts table */}
             <div className={styles.tableWrap}>
               <table className={styles.table}>
                 <thead>
@@ -103,11 +72,42 @@ export default function ToolingListing({
                 </tbody>
               </table>
             </div>
+
+            {displaying && <Pager pageBase={pageBase} totalPages={totalPages} bottom />}
+
+            {/* ---- Then the copy ---- */}
+            <PageProse
+              eyebrow={proseEyebrow}
+              title={proseTitle}
+              lead={intro}
+              blocks={sections}
+              closing={closing}
+            />
           </div>
 
           <InnerSidebar />
         </div>
       </section>
     </>
+  );
+}
+
+// "Displaying Page: 1 of N" + numbered links, matching the legacy pager. Page 1 is
+// always the live page here — the listing data is a fixed shell.
+function Pager({ displaying, pageBase, totalPages = 10, bottom = false }) {
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+  return (
+    <div className={`${styles.pager} ${bottom ? styles.pagerBottom : ""}`}>
+      {!bottom && <span className={styles.displaying}>{displaying}</span>}
+      <div className={styles.pages}>
+        <span className={styles.pageArrow} aria-hidden="true">&laquo;</span>
+        <span className={`${styles.page} ${styles.pageActive}`} aria-current="page">1</span>
+        {pages.slice(1).map((p) => (
+          <Link key={p} href={`${pageBase}${p}/`} className={styles.page}>{p}</Link>
+        ))}
+        <Link href={`${pageBase}2/`} className={styles.pageArrow} aria-label="Next">&raquo;</Link>
+      </div>
+    </div>
   );
 }

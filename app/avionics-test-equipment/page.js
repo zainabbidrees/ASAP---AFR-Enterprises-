@@ -3,7 +3,7 @@ import ToolingListing from "@/components/ToolingListing/ToolingListing";
 export const metadata = {
   title: "Complete Catalog of Avionic Test Equipment | AFR Enterprises",
   description:
-    "A leading source for avionics test equipment — communication, navigation, radar, flight-control, and component testers. Browse and submit an RFQ.",
+    "A leading source for avionics test equipment: communication, navigation, radar, flight-control, and component testers. Browse and submit an RFQ.",
 };
 
 const R = (part, col2, desc, href) => ({ part, col2, desc, href });

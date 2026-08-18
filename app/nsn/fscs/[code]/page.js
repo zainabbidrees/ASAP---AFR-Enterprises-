@@ -16,7 +16,7 @@ export async function generateMetadata({ params }) {
   const { code, slug } = split(params.code);
   const name = slug ? titleize(slug) : "Federal Supply Class";
   return {
-    title: `FSC ${code} — ${name} | NSN Parts | AFR Enterprises`,
+    title: `FSC ${code}: ${name} | NSN Parts | AFR Enterprises`,
     description: `Parts catalogued under Federal Supply Class ${code} (${name}), with National Stock Numbers, item names and approved manufacturers. Instant RFQ.`,
   };
 }

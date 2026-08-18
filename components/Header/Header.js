@@ -2,8 +2,11 @@
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import styles from "./Header.module.css";
-import { useQuoteCart } from "@/components/cart/quoteCart";
+import { isResolvableSearch, rfqHrefForQuery } from "@/lib/searchIntent";
+import { useCart } from "@/lib/cart-context";
+import AogModal, { openAogRequest } from "@/components/Aog/AogModal";
 import { TOP_MANUFACTURERS, POPULAR_PARTS, PART_TYPES } from "./searchData";
 
 const RECENTS_KEY = "afr_recent_searches";
@@ -43,7 +46,8 @@ const NAV = [
 ];
 
 export default function Header() {
-  const cartLines = useQuoteCart(); // drives the count badge on the cart button
+  const router = useRouter();
+  const { count: cartCount } = useCart(); // drives the count badge on the cart button
   const [navOpen, setNavOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   // Solid header everywhere — it sits as its own bar above the hero image
@@ -135,6 +139,19 @@ export default function Header() {
     setSearchOpen(false);
   }
 
+  // A term we can't place goes straight to the RFQ form with the number carried
+  // over, rather than to a results page with nothing behind it. /partno-search
+  // applies the same rule server-side, so pasted URLs land the same way.
+  function handleSearchSubmit(e) {
+    const term = query.trim();
+    saveRecent(term);
+    closeSearch();
+    if (term && !isResolvableSearch(term)) {
+      e.preventDefault();
+      router.push(rfqHrefForQuery(term));
+    }
+  }
+
   return (
     <header
       className={[
@@ -165,7 +182,7 @@ export default function Header() {
               method="get"
               role="search"
               autoComplete="off"
-              onSubmit={() => saveRecent(query)}
+              onSubmit={handleSearchSubmit}
             >
               <input
                 className={styles.searchField}
@@ -242,9 +259,26 @@ export default function Header() {
                       )}
                     </>
                   ) : (
-                    <p className={styles.searchEmpty}>
-                      No matches yet. Press Enter to search &ldquo;{query.trim()}&rdquo;.
-                    </p>
+                    <div className={styles.searchSection}>
+                      <p className={styles.searchEmpty}>
+                        {isResolvableSearch(query.trim())
+                          ? "No suggestions for that yet. Press Enter to search the catalog."
+                          : "Nothing indexed under that. Press Enter to send it straight to a quote."}
+                      </p>
+                      <a
+                        className={styles.sugItem}
+                        href={rfqHrefForQuery(query.trim())}
+                        onClick={() => {
+                          saveRecent(query);
+                          closeSearch();
+                        }}
+                      >
+                        <span className={styles.sugMain}>
+                          Request a quote for &ldquo;{query.trim()}&rdquo;
+                        </span>
+                        <span className={styles.sugMeta}>15-min response</span>
+                      </a>
+                    </div>
                   )
                 ) : (
                   <>
@@ -303,20 +337,23 @@ export default function Header() {
           </div>
 
           <div className={styles.actions}>
-            <a
+            {/* Opens the AOG intake dialog; the desk number lives inside it. */}
+            <button
+              type="button"
               className={`${styles.hdrBtn} ${styles.aogBtn}`}
-              href="tel:1-714-705-4780"
-              aria-label="AOG hotline, available 24/7"
+              aria-haspopup="dialog"
+              aria-label="Request AOG support, desk staffed 24/7"
+              onClick={openAogRequest}
             >
               <span className={styles.aogDot} aria-hidden="true" />
               AOG 24/7
-            </a>
+            </button>
             <Link
               className={`${styles.hdrBtn} ${styles.cartBtn}`}
               href="/cart/"
               aria-label={
-                cartLines.length
-                  ? `Quote cart, ${cartLines.length} ${cartLines.length === 1 ? "line" : "lines"}`
+                cartCount
+                  ? `Quote cart, ${cartCount} ${cartCount === 1 ? "line" : "lines"}`
                   : "Quote cart, empty"
               }
             >
@@ -325,9 +362,9 @@ export default function Header() {
                 <circle cx="18" cy="20" r="1.4" />
                 <path d="M2.5 3h2.2l2.3 11.2a1.5 1.5 0 0 0 1.5 1.2h8.2a1.5 1.5 0 0 0 1.5-1.2L21 6.5H6" />
               </svg>
-              {cartLines.length > 0 && (
+              {cartCount > 0 && (
                 <span className={styles.cartCount} aria-hidden="true">
-                  {cartLines.length}
+                  {cartCount}
                 </span>
               )}
             </Link>
@@ -391,6 +428,10 @@ export default function Header() {
           </ul>
         </div>
       </nav>
+
+      {/* AOG intake dialog — mounted once, reachable from anywhere via
+          openAogRequest() or a data-aog-open attribute on any element. */}
+      <AogModal />
     </header>
   );
 }

@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import InnerSidebar from "@/components/Sidebar/InnerSidebar";
 import { categoryParts, manufacturersFor, slugify, titleize } from "@/lib/catalog";
+import { isResolvableSearch, rfqHrefForQuery } from "@/lib/searchIntent";
 import styles from "./page.module.css";
 
 // Search results (§4.6). The header form posts here with ?searchby=&searchkey=.
@@ -32,6 +34,12 @@ export default function SearchPage({ searchParams }) {
   const mode = MODES[modeKey];
 
   if (!q) return <EmptyState mode={mode} modeKey={modeKey} />;
+
+  // A free-text query we can't place — gibberish, or a term with no index behind
+  // it — is a sourcing request, not a dead end: hand it to the RFQ form with the
+  // term carried over. Mode-specific searches (the manufacturer/part-type links
+  // inside the site) always keep the results page.
+  if (modeKey === "partno" && !isResolvableSearch(q)) redirect(rfqHrefForQuery(q));
 
   // Partial-match SERP: rows derive from the query, so the same search always
   // returns the same list.
@@ -99,8 +107,8 @@ export default function SearchPage({ searchParams }) {
             </div>
 
             <p className={styles.miss}>
-              Can&apos;t see what you need? Nothing here is the whole inventory —{" "}
-              <Link href="/straightrfq/">send the number straight through</Link> and a specialist will
+              Can&apos;t see what you need? Nothing here is the whole inventory.{" "}
+              <Link href="/straightrfq/">Send the number straight through</Link> and a specialist will
               come back within 15 minutes.
             </p>
           </div>
@@ -121,7 +129,7 @@ function EmptyState({ mode, modeKey }) {
             <h1 className="section-title section-title--left">Search our inventory</h1>
             <p className={styles.lead}>
               Enter a part number, manufacturer, part type, NSN, NIIN or CAGE code in the search bar
-              above. Partial numbers work — we match on fragments.
+              above. Partial numbers work. We match on fragments.
             </p>
 
             <form className={styles.form} action="/partno-search/" method="get">
@@ -136,7 +144,7 @@ function EmptyState({ mode, modeKey }) {
 
             <p className={styles.miss}>
               Would rather not search? <Link href="/straightrfq/">Send your list</Link> and we&apos;ll do
-              the looking — quotes back in 15 minutes.
+              the looking. Quotes back in 15 minutes.
             </p>
           </div>
 

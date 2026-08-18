@@ -33,6 +33,35 @@
 .field textarea { resize: vertical; }
 .error { font-size: 12px; color: var(--urgent); }
 
+/* BOM intake + the lines it adds beyond the part this page is scoped to */
+.bom { margin: 4px 0 16px; background: var(--paper); }
+.bomList {
+  margin: 0 0 18px; padding: 14px 16px;
+  background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.bomHead { margin: 0 0 10px; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.bomRows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.bomRow {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto 28px; align-items: center; gap: 10px;
+  padding: 8px 0; border-top: 1px solid var(--line);
+}
+.bomRow:first-child { border-top: none; padding-top: 0; }
+.bomPn { font-family: ui-monospace, Menlo, monospace; font-size: 13.5px; color: var(--ink); overflow-wrap: anywhere; }
+.bomMeta { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+.bomDrop {
+  display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px;
+  background: none; border: 1px solid var(--line); border-radius: 6px; color: var(--muted);
+  cursor: pointer; transition: color 0.18s ease, border-color 0.18s ease;
+}
+.bomDrop svg { width: 14px; height: 14px; }
+.bomDrop:hover { color: var(--urgent); border-color: var(--urgent); }
+
+@media (max-width: 560px) {
+  .bomRow { grid-template-columns: minmax(0, 1fr) 28px; }
+  .bomMeta { grid-column: 1; grid-row: 2; white-space: normal; }
+  .bomDrop { grid-row: 1; grid-column: 2; }
+}
+
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 8px; }
 .note { margin: 0; font-size: 12px; color: var(--muted); }
 

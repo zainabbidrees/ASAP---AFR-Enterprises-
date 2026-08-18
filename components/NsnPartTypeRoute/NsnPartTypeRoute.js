@@ -1,6 +1,7 @@
 import Link from "next/link";
 import InnerSidebar from "@/components/Sidebar/InnerSidebar";
 import CatalogListing from "@/components/CatalogListing/CatalogListing";
+import PageProse from "@/components/PageProse/PageProse";
 import { SECTIONS } from "@/data/nsn-part-types";
 import { nsnParts, pageCount, slugify, titleize } from "@/lib/catalog";
 import { CTA } from "@/lib/copy";
@@ -53,6 +54,7 @@ export default function NsnPartTypeRoute({ slug }) {
       ]}
       h1={`${name} NSN Parts Catalog`}
       intro={`Every ${name.toLowerCase()} line we hold against a National Stock Number, with the approved manufacturer and item name for each. AFR Enterprises supplies NSN-catalogued hardware to defense primes, government agencies and MRO facilities under CAGE code 6RE77, with full traceability on every shipment.`}
+      proseEyebrow={`About ${name.toLowerCase()} NSN parts`}
       linkList={{
         title: `${name} Manufacturers List`,
         items: mfrs.map((m) => [m, `/nsn/manufacturer/${slugify(m)}/`]),
@@ -83,7 +85,7 @@ export default function NsnPartTypeRoute({ slug }) {
 
 function LetterIndex({ slug }) {
   const letter = slug.replace("page-", "");
-  const label = letter === "0-9" ? "0 – 9" : letter.toUpperCase();
+  const label = letter === "0-9" ? "0-9" : letter.toUpperCase();
   const section = SECTIONS.find((s) => s.viewAll?.endsWith(`/${slug}/`));
   const items = section?.items || section?.types || [];
 
@@ -93,10 +95,6 @@ function LetterIndex({ slug }) {
         <div className={`container ${styles.layout}`}>
           <div className={styles.main}>
             <h1 className="section-title section-title--left">NSN Part Types Beginning With {label}</h1>
-            <p className={styles.intro}>
-              NSN-catalogued part types listed under {label}. Open any type for its National Stock
-              Numbers and approved manufacturers.
-            </p>
 
             {items.length > 0 ? (
               <ul className={styles.catGrid}>
@@ -122,6 +120,15 @@ function LetterIndex({ slug }) {
                 </Link>
               ))}
             </div>
+
+            <PageProse
+              eyebrow={`NSN part types · ${label}`}
+              lead={[
+                `NSN-catalogued part types listed under ${label}. Open any type above for its National Stock Numbers, item names and approved manufacturers.`,
+                `AFR Enterprises supplies NSN-catalogued hardware to defense primes, government agencies and MRO facilities under CAGE code 6RE77, with full traceability on every shipment.`,
+              ]}
+              cta={CTA}
+            />
           </div>
 
           <InnerSidebar />

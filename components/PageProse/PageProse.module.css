@@ -1,0 +1,196 @@
+/* The below-the-listing narrative block. Editorial monochrome: hairline rules do
+   the separating, type scale does the hierarchy, no boxes-inside-boxes. Every
+   inner page routes its supporting copy through here so they all read the same. */
+
+.prose {
+  margin-top: clamp(56px, 6vw, 92px);
+  padding-top: clamp(32px, 3.4vw, 52px);
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- Opening: eyebrow → optional title → lead ---------- */
+.head { max-width: 1120px; }
+.eyebrow {
+  display: block;
+  font-family: var(--font-eyebrow);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-tracking);
+  text-transform: uppercase;
+  color: var(--faint);
+  margin: 0 0 18px;
+}
+.title {
+  font-size: var(--text-2xl);
+  letter-spacing: -0.028em;
+  color: var(--ink);
+  margin: 0 0 20px;
+  max-width: 28ch;
+}
+.lead {
+  font-size: clamp(17px, 1.1vw, 19px);
+  line-height: 1.6;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  max-width: 78ch;
+  margin: 0 0 0.85em;
+}
+.body {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 78ch;
+  margin: 0 0 0.9em;
+}
+.lead:last-child, .body:last-child { margin-bottom: 0; }
+
+.lead a, .body a, .cellBody a, .row a, .closing a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--line-2);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s var(--ease);
+}
+.lead a:hover, .body a:hover, .cellBody a:hover, .row a:hover, .closing a:hover {
+  text-decoration-color: var(--ink);
+}
+
+/* ---------- Topic groups ---------- */
+.blocks {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 3.2vw, 52px);
+  margin-top: clamp(36px, 3.6vw, 56px);
+}
+.blockHead {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin: 0 0 16px;
+}
+.num {
+  flex: none;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+.blockTitle {
+  font-size: var(--text-xl);
+  letter-spacing: -0.022em;
+  color: var(--ink);
+  margin: 0;
+}
+.blockIntro {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 78ch;
+  margin: 0 0 20px;
+}
+
+/* Labelled points — one hairline-ruled object. Each cell draws its own top and
+   left rule and pulls back 1px so the rules collapse into the frame; an odd
+   number of points therefore leaves plain paper rather than a stray filled cell. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+  max-width: 1120px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.cell {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px 26px 26px;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  margin: -1px 0 0 -1px;
+}
+.cellNum {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+.cellLabel {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.cellBody {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Plain points — hairline rows, no bullet discs */
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 1120px;
+  border-top: 1px solid var(--line);
+}
+.row {
+  display: flex;
+  gap: 16px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+.marker {
+  flex: none;
+  min-width: 16px;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Closing panel + action ---------- */
+.closing {
+  max-width: 1120px;
+  margin: clamp(32px, 3vw, 44px) 0 0;
+  padding: 24px 26px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.cta {
+  max-width: 1120px;
+  margin: clamp(32px, 3vw, 44px) 0 0;
+  padding: 30px 30px 32px;
+  background: var(--surface);
+  border-radius: var(--radius);
+}
+.ctaTitle {
+  font-size: var(--text-lg);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.ctaBody {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 0 0 20px;
+  max-width: 74ch;
+}
+
+@media (max-width: 620px) {
+  .cell { padding: 20px 20px 22px; }
+  .closing, .cta { padding: 22px 20px; }
+}

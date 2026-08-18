@@ -6,7 +6,7 @@ export async function generateMetadata({ params }) {
   const part = params.part.toUpperCase();
   const mfr = titleize(params.mfr);
   return {
-    title: `${part} — NSN ${params.nsn} — ${mfr} | RFQ | AFR Enterprises`,
+    title: `${part}, NSN ${params.nsn}, ${mfr} | RFQ | AFR Enterprises`,
     description: `${part} from ${mfr} under National Stock Number ${params.nsn}. AFR Enterprises supplies NSN-catalogued hardware under CAGE code 6RE77 with full traceability. Quote in 15 minutes.`,
   };
 }

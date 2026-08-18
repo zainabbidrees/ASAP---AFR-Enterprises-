@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 export const metadata = {
   title: "Sitemap | AFR Enterprises",
   description:
-    "Full sitemap of AFR Enterprises — browse parts, NSN catalogs, aircraft tooling, company information, policies, and terms.",
+    "Full sitemap of AFR Enterprises. Browse parts, NSN catalogs, aircraft tooling, company information, policies, and terms.",
 };
 
 // A link is external if it starts with http.

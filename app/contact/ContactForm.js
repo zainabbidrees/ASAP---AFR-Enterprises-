@@ -67,7 +67,7 @@ export default function ContactForm() {
         <p className={styles.sentText}>
           A named representative replies within one business day. Grounded aircraft or a stopped line?
           Call{" "}
-          <a href="tel:1-714-705-4780">+1&nbsp;(714)&nbsp;705-4780</a> — the desk never closes.
+          <a href="tel:1-714-705-4780">+1&nbsp;(714)&nbsp;705-4780</a>. The desk never closes.
         </p>
         <button type="button" className={styles.sentReset} onClick={() => setStatus("idle")}>
           Send another

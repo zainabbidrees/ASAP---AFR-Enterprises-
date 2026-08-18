@@ -1,6 +1,7 @@
 import Link from "next/link";
 import InnerSidebar from "@/components/Sidebar/InnerSidebar";
 import CatalogListing from "@/components/CatalogListing/CatalogListing";
+import PageProse from "@/components/PageProse/PageProse";
 import { categoryParts, manufacturersFor, pageCount, slugify, titleize } from "@/lib/catalog";
 import { CTA, FAMILY, categoryFaq, categoryIntro } from "@/lib/copy";
 import styles from "./CategoryRoute.module.css";
@@ -65,6 +66,7 @@ export default function CategoryRoute({ family, slug, sections }) {
       ]}
       h1={`Our Complete List of ${name} Parts`}
       intro={categoryIntro(family, slug)}
+      proseEyebrow={`About ${name.toLowerCase()} parts`}
       linkList={{
         title: `${name} Manufacturers List`,
         items: mfrs.map((m) => [m, `/manufacturer/${slugify(m)}/`]),
@@ -97,7 +99,7 @@ export default function CategoryRoute({ family, slug, sections }) {
 function LetterIndex({ family, slug, sections }) {
   const f = FAMILY[family];
   const letter = slug.replace("page-", "");
-  const label = letter === "0-9" ? "0 – 9" : letter.toUpperCase();
+  const label = letter === "0-9" ? "0-9" : letter.toUpperCase();
   const section = sections.find((s) => s.viewAll.endsWith(`/${slug}/`));
   const items = section?.items || [];
 
@@ -109,10 +111,6 @@ function LetterIndex({ family, slug, sections }) {
             <h1 className="section-title section-title--left">
               {f.label} Beginning With {label}
             </h1>
-            <p className={styles.intro}>
-              Every {f.noun} part category we catalog under {label}. Open any category for its full
-              part-number list, or send your numbers straight through for a 15-minute quote.
-            </p>
 
             {items.length > 0 ? (
               <ul className={styles.catGrid}>
@@ -140,6 +138,15 @@ function LetterIndex({ family, slug, sections }) {
                 </Link>
               ))}
             </div>
+
+            <PageProse
+              eyebrow={`${f.label} · ${label}`}
+              lead={[
+                `Every ${f.noun} part category we catalog under ${label}. Open any category above for its full part-number list, with the manufacturer against every line.`,
+                `Already have the numbers? Send them straight through instead. A named specialist returns pricing, availability, condition and lead time in writing, normally inside 15 minutes.`,
+              ]}
+              cta={CTA}
+            />
           </div>
 
           <InnerSidebar />

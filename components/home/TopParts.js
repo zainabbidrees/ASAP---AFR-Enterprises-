@@ -25,7 +25,7 @@ export default function TopParts() {
           <div>
             <p className={styles.eyebrow}>Most requested</p>
             <h2 className={styles.title} id="top-parts-title">Top-requested part numbers</h2>
-            <p className={styles.lead}>The line items buyers ask us for most — hover any part to start an RFQ.</p>
+            <p className={styles.lead}>The line items buyers ask us for most. Hover any part to start an RFQ.</p>
           </div>
           <Link className={styles.viewAll} href="/manufacturer/">Browse all parts <span aria-hidden="true">&#8594;</span></Link>
         </header>

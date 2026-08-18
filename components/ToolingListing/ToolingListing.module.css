@@ -1,14 +1,9 @@
 .layout { display: grid; grid-template-columns: 1fr 320px; gap: 40px; align-items: start; }
 .main { min-width: 0; }
 
-.intro { color: #444; }
-.blockTitle { font-size: 18px; font-weight: var(--heading-weight); color: var(--navy); margin: 24px 0 10px; }
-.bullets { padding-left: 20px; list-style: disc; display: flex; flex-direction: column; gap: 8px; }
-.bullets li { color: #444; }
-.bullets strong { color: var(--ink); }
-
 /* Pagination */
-.pager { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin: 24px 0 16px; }
+.pager { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin: 8px 0 16px; }
+.pagerBottom { justify-content: flex-end; margin: 16px 0 0; }
 .displaying { font-size: 13px; font-weight: 700; color: var(--muted); }
 .pages { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .page, .pageArrow {
@@ -29,16 +24,21 @@
 .cap { text-transform: capitalize; color: #444; }
 
 /* Holds the RFQ button + the cart button. */
-.rfqCol { width: 168px; text-align: center; }
+/* RFQ + the one cart control (button, or its quantity once staged). */
+.rfqCol { width: 190px; text-align: center; }
 .rowActions { display: flex; align-items: center; justify-content: center; gap: 6px; }
+/* Matches the 36px height of the cart control beside it, so the row's actions
+   read as one aligned group. */
 .rfqBtn {
-  display: inline-block; background: var(--red); color: #fff; padding: 5px 14px;
-  border-radius: var(--radius); font-size: 12px; font-weight: 700; line-height: 1.5;
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 36px; padding: 0 14px;
+  background: var(--red); color: #fff;
+  border-radius: var(--radius); font-size: 12px; font-weight: 700; line-height: 1;
 }
 .rfqBtn:hover { background: var(--red-dark); text-decoration: none; }
 
 @media (max-width: 620px) {
-  .rfqCol { width: 96px; }
+  .rfqCol { width: 112px; }
   .rowActions { flex-direction: column; gap: 5px; }
 }
 

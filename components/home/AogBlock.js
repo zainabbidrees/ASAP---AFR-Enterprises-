@@ -15,7 +15,7 @@ export default function AogBlock() {
           <h2 className={styles.title} id="aog-title">Grounded and need a part now?</h2>
           <p className={styles.text}>
             When a jet&apos;s on the ground or a line&apos;s stopped, you don&apos;t need a ticket
-            number — you need the part. Call the desk and a real responder starts the search the
+            number. You need the part. Call the desk and a real responder starts the search the
             moment you hang up.
           </p>
           <ul className={styles.points}>
