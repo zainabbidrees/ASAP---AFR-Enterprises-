@@ -1,4 +1,11 @@
 // IT hardware category index — see data/categories-electronics.js for the shape.
+// Curated "Most requested" shortcut tiles for the landing (first item renders large).
+export const FEATURED = [
+  { name: "Memory", tag: "Storage", href: "/part-types/hardware/memory/", img: "/ind-it-hardware.jpg" },
+  { name: "Connectors", tag: "Interconnect", href: "/part-types/hardware/connectors/", img: "/cat-obsolete.jpg" },
+  { name: "Microprocessors", tag: "Compute", href: "/part-types/hardware/microprocessors/", img: "/tp-asus.jpg" },
+];
+
 export const SECTIONS = [
   { letter: "0-9", id: "ltr-0-9", viewAll: "/part-types/hardware/page-0", items: [
     ["3d sync transmitters", "/part-types/hardware/3d-sync-transmitters/"] ] },

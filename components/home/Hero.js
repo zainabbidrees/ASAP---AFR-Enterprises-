@@ -55,16 +55,10 @@ export default function Hero() {
               <span>Part number</span>
               <input type="text" name="partNumber" placeholder="e.g. 3291186-6" required />
             </label>
-            <div className={styles.dual}>
-              <label className={styles.field}>
-                <span>Quantity</span>
-                <input type="text" name="quantity" placeholder="10" required />
-              </label>
-              <label className={styles.field}>
-                <span>Target price</span>
-                <input type="text" name="targetPrice" placeholder="Optional" />
-              </label>
-            </div>
+            <label className={styles.field}>
+              <span>Quantity</span>
+              <input type="text" name="quantity" placeholder="10" required />
+            </label>
             <label className={styles.field}>
               <span>Work email</span>
               <input type="email" name="email" placeholder="you@company.com" required />

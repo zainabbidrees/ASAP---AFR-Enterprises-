@@ -1,5 +1,5 @@
 import PartTypeLanding from "@/components/PartTypeLanding/PartTypeLanding";
-import { SECTIONS } from "@/data/categories-hardware";
+import { SECTIONS, FEATURED } from "@/data/categories-hardware";
 
 export const metadata = {
   title: "Hardware Parts Catalog | Industrial & IT Hardware | AFR Enterprises",
@@ -36,6 +36,7 @@ export default function HardwareLandingPage() {
       requestTitle="Request a Quote Today"
       requestBody="Whether you're sourcing replacement hardware components, obsolete inventory, or parts for ongoing maintenance and production, AFR Enterprises provides reliable procurement solutions backed by competitive pricing and worldwide distribution. Submit your RFQ today and let our procurement specialists help you quickly source the hardware parts you need."
       sections={SECTIONS}
+      featured={FEATURED}
     />
   );
 }

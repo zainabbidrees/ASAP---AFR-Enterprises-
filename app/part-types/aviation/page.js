@@ -1,5 +1,5 @@
 import PartTypeLanding from "@/components/PartTypeLanding/PartTypeLanding";
-import { SECTIONS } from "@/data/categories-aviation";
+import { SECTIONS, FEATURED } from "@/data/categories-aviation";
 
 export const metadata = {
   title: "Aviation Parts Supplier | Aircraft Parts Catalog | Fast RFQs | AFR Enterprises",
@@ -36,6 +36,7 @@ export default function AviationLandingPage() {
       requestTitle="Request a Quote Today"
       requestBody="Whether you're sourcing replacement aircraft components, obsolete aviation parts, or inventory for scheduled maintenance, AFR Enterprises provides reliable procurement solutions backed by competitive pricing, fast RFQ responses, and worldwide distribution. Submit your Request for Quote today and let our procurement specialists help you source the aviation parts you need with confidence."
       sections={SECTIONS}
+      featured={FEATURED}
     />
   );
 }

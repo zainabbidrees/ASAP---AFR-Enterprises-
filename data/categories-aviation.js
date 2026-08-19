@@ -1,4 +1,11 @@
 // Aviation category index — see data/categories-electronics.js for the shape.
+// Curated "Most requested" shortcut tiles for the landing (first item renders large).
+export const FEATURED = [
+  { name: "Fuel Pumps", tag: "Propulsion", href: "/part-types/aviation/fuel-pump/", img: "/ind-civil-aviation.jpg" },
+  { name: "Gyros", tag: "Instruments", href: "/part-types/aviation/gyro/", img: "/tp-boeing.jpg" },
+  { name: "Generators", tag: "Electrical", href: "/part-types/aviation/generator/", img: "/cat-nsn.jpg" },
+];
+
 export const SECTIONS = [
   { letter: "0-9", id: "ltr-0-9", viewAll: "/part-types/aviation/page-0", items: [
     ["747 classic cap", "/part-types/aviation/747-classic-cap/"],

@@ -1,5 +1,5 @@
 import PartTypeLanding from "@/components/PartTypeLanding/PartTypeLanding";
-import { SECTIONS } from "@/data/categories-electronics";
+import { SECTIONS, FEATURED } from "@/data/categories-electronics";
 
 export const metadata = {
   title: "Electronic Parts Catalog | 2B+ Components | AFR Enterprises",
@@ -36,6 +36,7 @@ export default function ElectronicsLandingPage() {
       requestTitle="Request a Quote Today"
       requestBody="Whether you're sourcing a single replacement component or managing ongoing procurement for large-scale operations, AFR Enterprises is committed to delivering dependable service, competitive pricing, and access to a comprehensive electronic parts catalog. Submit your RFQ today and let our procurement specialists help you find the components you need."
       sections={SECTIONS}
+      featured={FEATURED}
     />
   );
 }

@@ -1,5 +1,13 @@
 // Electronics category index — letter sections used by the /part-types/electronics/ landing page
 // AND by the [category] dynamic route (generateStaticParams). Single source of truth.
+// Curated "Most requested" shortcut tiles for the landing (first item renders large).
+// Real category slugs + existing /public imagery; no fabricated counts.
+export const FEATURED = [
+  { name: "Connectors", tag: "Interconnect", href: "/part-types/electronics/connector-interconnects/", img: "/cat-connectors.jpg" },
+  { name: "Semiconductors", tag: "Active", href: "/part-types/electronics/automotive-ics-and-semiconductors/", img: "/tp-renesas.jpg" },
+  { name: "Resistor Networks", tag: "Passive", href: "/part-types/electronics/array-network-resistor/", img: "/cat-board.jpg" },
+];
+
 export const SECTIONS = [
   { letter: "A", id: "ltr-a", viewAll: "/part-types/electronics/page-a/", items: [
     ["accessories", "/part-types/electronics/accessories/"],
